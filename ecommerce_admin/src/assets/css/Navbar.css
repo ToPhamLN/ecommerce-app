@@ -78,7 +78,7 @@ header.navbar {
 }
 
 .auth .username__nav {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-wrap: nowrap;
     color: #fff;
     font-weight: 600;
@@ -102,9 +102,47 @@ header.navbar {
 
 .expand__nav {
     position: absolute;
-    width: 23rem;
     border: 0.1rem solid #555;
-    border-radius: 1rem;
     background-color: var(--bgd-color);
-    transform: translate(-80%, 30%);
+    transform: translate(-65%, 5%);
+}
+
+.expand__nav ul {
+    display: flex;
+    flex-flow: column;
+}
+
+.expand__nav ul li {
+    position: relative;
+    padding: 1rem 3rem;
+
+}
+
+.expand__nav .expand__item {
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 1.5rem;
+    gap: 1rem;
+    align-items: center;
+    color: var(--text-color);
+    text-decoration: none;
+    text-wrap: nowrap;
+}
+
+.expand__nav ul li::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 0.1rem;
+    background-color: var(--text-color);
+    transition: all ease-in-out;
+}
+
+.expand__nav ul li:hover::before {
+    width: 100%;
+}
+
+.expand__nav ul li:hover {
+    background-color: var(--btn-blur);
 }

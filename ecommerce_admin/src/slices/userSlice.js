@@ -18,11 +18,11 @@ const userSlice = createSlice({
       );
     },
     logoutUser: (state) => {
-      state.user = null;
+      state.userInfo = null;
       localStorage.removeItem("userInfo");
     },
   },
 });
 
-export const { setUser, logoutUser } = userSlice.actions;
+export const { setCredentials, logoutUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -9,17 +9,8 @@ export default defineConfig({
     open: true,
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: "http://localhost:5000",
         changeOrigin: true,
-        ws: true,
-        secure: false,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods":
-            "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization",
-        },
       },
     },
   },

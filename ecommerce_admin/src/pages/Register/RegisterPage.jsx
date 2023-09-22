@@ -1,13 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import {
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
 import axios from "axios";
 
+import { userRequest } from "../../config/apiRequest";
 import "../../assets/css/Register.css";
 import posterImg from "../../assets/imgs/poster.jpg";
 
 const RegisterPage = () => {
-  const { register, handleSubmit, control } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post(userRequest.register, data);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <React.Fragment>
       <div className="container__auth">
@@ -15,41 +35,95 @@ const RegisterPage = () => {
           <div className="poster">
             <img src={posterImg} alt="" />
           </div>
-          <form action="" className="auth">
+          <form
+            className="auth"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <h1 className="title__auth">Register</h1>
             <span className="desc__auth">
               Welcome to E-commerce
             </span>
-            <input
-              type="text"
-              className="email"
-              placeholder="Email"
-              {...register("email", { required: true })}
-            />
-            <input
-              type="text"
-              className="username"
-              placeholder="User name"
-            />
-            <input
-              type="text"
-              className="address"
-              placeholder="Address"
-            />
-            <input
-              type="text"
-              className="contact"
-              placeholder="Contact"
-            />
-            <input
-              type="password"
-              className="password"
-              placeholder="Password"
-            />
-            <button className="btn__auth">Register</button>
+            <div className="input__box">
+              <input
+                type="text"
+                className="email"
+                placeholder="Email"
+                {...register("email", { required: true })}
+              />
+              {errors.email && (
+                <p className="error-message">
+                  Email is required
+                </p>
+              )}
+            </div>
+            <div className="input__box">
+              <input
+                type="text"
+                className="username"
+                placeholder="User name"
+                {...register("username", { required: true })}
+              />
+              {errors.username && (
+                <p className="error-message">
+                  Username is required
+                </p>
+              )}
+            </div>
+            <div className="input__box">
+              <input
+                type="text"
+                className="address"
+                placeholder="Address"
+                {...register("address", { required: true })}
+              />
+              {errors.address && (
+                <p className="error-message">
+                  Address is required
+                </p>
+              )}
+            </div>
+            <div className="input__box">
+              <input
+                type="text"
+                className="contact"
+                placeholder="Contact"
+                {...register("contact", { required: true })}
+              />
+              {errors.contact && (
+                <p className="error-message">
+                  Contact is required
+                </p>
+              )}
+            </div>
+            <div className="input__box">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="password"
+                placeholder="Password"
+                {...register("password", { required: true })}
+              />
+              <span
+                className="eye"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <AiOutlineEyeInvisible />
+                ) : (
+                  <AiOutlineEye />
+                )}
+              </span>
+              {errors.password && (
+                <p className="error-message">
+                  Password is required
+                </p>
+              )}
+            </div>
+            <button type="submit" className="btn__auth">
+              Register
+            </button>
             <p className="link__auth">
-              Haved account?
-              <Link to="/login" className="link__auth">
+              Already have an account?
+              <Link to="/login" className="link__auth link">
                 Login
               </Link>
             </p>

@@ -70,3 +70,26 @@ button.btn__auth:hover {
     margin: 0 1rem;
     font-size: 1.5rem;
 }
+
+.link__auth.link {
+    color: blue;
+}
+
+.form__auth .input__box {
+    position: relative;
+}
+
+.form__auth .input__box .eye {
+    position: absolute;
+    top: 0.2rem;
+    right: 1rem;
+    font-size: 2.5rem;
+}
+
+p.error-message {
+    position: absolute;
+    top: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;
+}
