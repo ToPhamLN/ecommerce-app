@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import Brand from "../models/brandModel.js";
+import convertSlug from "../utils/convertSlug.js";
 
 // @desc    Create new brand
 // route    POST api/brand/create
@@ -11,11 +12,20 @@ export const createBrand = async (req, res, next) => {
         message: "File not found",
       });
     }
+    const existBrand = await Brand.findOne({
+      slug: convertSlug(req.body.name),
+    });
+    if (existBrand) {
+      return res.status(400).json({
+        message: "Brand already exist",
+      });
+    }
     const newBrand = new Brand({
       name: req.body.name,
       description: req.body.description,
       picturePath: req.file?.path,
       pictureKey: req.file?.filename,
+      slug: convertSlug(req.body.name),
     });
     const brand = await newBrand.save();
     res.status(200).json(brand);
@@ -32,33 +42,42 @@ export const createBrand = async (req, res, next) => {
 // @access  private Auth
 export const updateBrand = async (req, res, next) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({
-        message: "File not found",
+    const brand = await Brand.findById(req.params.brandId);
+    if (!brand) {
+      return res.status(404).json({
+        message: "Brand not found",
       });
     }
-    const brand = await Brand.findById(req.params.brandId);
-    const fileDel = brand?.pictureKey;
-    const newBrand = {
+
+    let newBrand = {
       name: req.body.name || brand.name,
       description: req.body.description || brand.description,
-      picturePath: req.file?.path,
-      pictureKey: req.file?.filename,
+      picturePath: brand.picturePath,
+      pictureKey: brand.pictureKey,
     };
+
+    if (req.file) {
+      const fileDel = brand?.pictureKey;
+      newBrand.picturePath = req.file.path;
+      newBrand.pictureKey = req.file.filename;
+
+      if (fileDel) {
+        await cloudinary.uploader.destroy(fileDel);
+      }
+    }
+
     const result = await Brand.updateOne(
       { _id: req.params.brandId },
       { $set: newBrand },
       { new: true }
     );
+
     if (result.nModified === 0) {
       return res.status(400).json({
         message: "Can't update",
       });
-    } else {
-      if (fileDel) {
-        await cloudinary.uploader.destroy(fileDel);
-      }
     }
+
     res.status(200).json({
       message: "Updated successfully",
     });
@@ -75,9 +94,9 @@ export const updateBrand = async (req, res, next) => {
 // @access  private Auth
 export const deleteBrand = async (req, res, next) => {
   try {
-    const brand = await brand.findById(req.params.brandId);
-    const fileDel = brand?.pictureKey;
-    const result = await Brand.findByIdAndDelete({
+    const brandData = await Brand.findById(req.params.brandId);
+    const fileDel = brandData?.pictureKey;
+    await Brand.findByIdAndDelete({
       _id: req.params.brandId,
     });
     await cloudinary.uploader.destroy(fileDel);
@@ -94,7 +113,20 @@ export const deleteBrand = async (req, res, next) => {
 // @access  private Auth
 export const getAllBrand = async (req, res, next) => {
   try {
-    const brands = await Brand.find();
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    let skip = (page - 1) * limit;
+    query.slug = {
+      $regex: new RegExp(req.query.search, "i"),
+    };
+    sort.text = req.query.text;
+    sort.updatedAt = req.query.update;
+    const brands = await Brand.find(query)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
     res.status(200).json(brands);
   } catch (error) {
     next(error);

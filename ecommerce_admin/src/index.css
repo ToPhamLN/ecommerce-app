@@ -9,15 +9,20 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   --primary-color: #302424;
-  --bgd-color: #e5f4f5;
+  --bgd-color: #e7e2f1;
   --second-color: #b7b8bb;
+  --third-color: #c2d5e7;
+  --fourth-color: #d7dee6;
   --btn-color: #53ccec;
   --btn-hover: #8865ff;
   --btn-blur: #082a8f3a;
   --btn-shadow: rgb(93 24 220) 0px 7px 29px 0px;
   --text-color: #050505;
-  --fifth-color: #409065;
-  --sixth-color: #343434;
+  --text-bar-color: #c9d6d8;
+  --text-bar-hover: #fff;
+  --gradient-navbar: linear-gradient(90deg, #020024 0%, #3f3f85 38%, #2f2c4d 90%);
+  --gradient-sidebar: linear-gradient(180deg, #020024 0%, #3f3f85 38%, #2f2c4d 90%);
+  --gradient-footer: linear-gradient(-120deg, #020024 0%, #3f3f85 38%, #2f2c4d 90%);
 }
 
 * {
@@ -41,6 +46,7 @@ body {
 
 main.mainpage {
   margin-top: 8rem;
+  margin-bottom: 5rem;
 }
 
 input {
@@ -48,4 +54,33 @@ input {
   border: none;
   padding: 1rem;
   border-radius: 0.5rem;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0;
+  background-color: var(--btn-color);
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  transition: all .5s ease;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: var(--btn-hover);
+  color: var(--text-color);
+  box-shadow: var(--btn-shadow);
+}
+
+.Toastify__toast--success {
+  background-color: var(--bgd-color);
+}
+
+.Toastify__toast-body {
+  color: var(--text-color);
+  font-size: 1.5rem;
 }

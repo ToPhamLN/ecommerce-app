@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import Category from "../models/categoryModel.js";
+import convertSlug from "../utils/convertSlug.js";
 
 // @desc    Create new category
 // route    POST api/category/create
@@ -16,6 +17,7 @@ export const createCategory = async (req, res, next) => {
       description: req.body.description,
       picturePath: req.file.path,
       pictureKey: req.file.filename,
+      slug: convertSlug(req.body.name),
     });
     const category = await newCategory.save();
     res.status(200).json(category);
@@ -32,33 +34,44 @@ export const createCategory = async (req, res, next) => {
 // @access  private Auth
 export const updateCategory = async (req, res, next) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({
-        message: "File not found",
+    const category = await Category.findById(
+      req.params.categoryId
+    );
+    if (!category) {
+      return res.status(404).json({
+        message: "Category not found",
       });
     }
-    const category = await Category.findById(req.params.categoryId);
-    const fileDel = category?.pictureKey;
-    const newCategory = {
+
+    let newCategory = {
       name: req.body.name || category.name,
       description: req.body.description || category.description,
-      picturePath: req.file.path || category.picturePath,
-      pictureKey: req.file.filename || category.picture,
+      picturePath: category.picturePath,
+      pictureKey: category.pictureKey,
     };
-    const result = await Category.updateOne(
-      { id: req.params.categoryId },
-      { $set: newCategory },
-      { new: true }
-    );
-    if (result.nModified === 0) {
-      return res.status(404).json({
-        message: "Cannot update",
-      });
-    } else {
+
+    if (req.file) {
+      const fileDel = category?.pictureKey;
+      newCategory.picturePath = req.file.path;
+      newCategory.pictureKey = req.file.filename;
+
       if (fileDel) {
         await cloudinary.uploader.destroy(fileDel);
       }
     }
+
+    const result = await Category.updateOne(
+      { _id: req.params.categoryId },
+      { $set: newCategory },
+      { new: true }
+    );
+
+    if (result.nModified === 0) {
+      return res.status(404).json({
+        message: "Cannot update",
+      });
+    }
+
     res.status(200).json({
       message: "Updated successfully",
     });
@@ -75,7 +88,9 @@ export const updateCategory = async (req, res, next) => {
 // @access  private Auth
 export const deleteCategory = async (req, res, next) => {
   try {
-    const category = await Category.findById(req.params.categoryId);
+    const category = await Category.findById(
+      req.params.categoryId
+    );
     const fileDel = category?.pictureKey;
     const result = await Category.findByIdAndDelete({
       _id: req.params.categoryId,
@@ -94,7 +109,20 @@ export const deleteCategory = async (req, res, next) => {
 // @access  private Auth
 export const getAllCategory = async (req, res, next) => {
   try {
-    const categories = await Category.find();
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    let skip = (page - 1) * limit;
+    query.slug = {
+      $regex: new RegExp(req.query.search, "i"),
+    };
+    sort.text = req.query.text;
+    sort.updatedAt = req.query.update;
+    const categories = await Category.find(query)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
     res.status(200).json(categories);
   } catch (error) {
     next(error);
@@ -106,7 +134,9 @@ export const getAllCategory = async (req, res, next) => {
 // @access  private Auth
 export const getCategory = async (req, res, next) => {
   try {
-    const category = await Category.findById(req.params.categoryId);
+    const category = await Category.findById(
+      req.params.categoryId
+    );
     res.status(200).json(category);
   } catch (error) {
     next(error);

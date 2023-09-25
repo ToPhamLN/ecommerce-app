@@ -1,0 +1,95 @@
+.container__auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section.form__auth {
+    width: 90rem;
+    background-color: var(--second-color);
+    display: flex;
+    gap: 6rem;
+    padding: 1.5rem;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.5rem;
+}
+
+section.form__auth .poster img {
+    width: 50rem;
+    height: 50rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+form.auth {
+    width: 60rem;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+form.auth input {
+    width: 100%;
+}
+
+.title__auth {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.desc__auth {
+    font-size: 1.6rem;
+    font-style: italic;
+    text-align: center;
+}
+
+button.btn__auth {
+    outline: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: var(--btn-color);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all .5s ease;
+}
+
+button.btn__auth:hover {
+    letter-spacing: 3px;
+    background-color: var(--btn-hover);
+    color: hsl(0, 0%, 100%);
+    box-shadow: var(--btn-shadow);
+}
+
+.link__auth {
+    text-align: center;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1.5rem;
+}
+
+.link__auth.link {
+    color: blue;
+}
+
+.form__auth .input__box {
+    position: relative;
+}
+
+.form__auth .input__box .eye {
+    position: absolute;
+    top: 0.2rem;
+    right: 1rem;
+    font-size: 2.5rem;
+}
+
+.form__auth p.error-message {
+    position: absolute;
+    top: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: red;
+}

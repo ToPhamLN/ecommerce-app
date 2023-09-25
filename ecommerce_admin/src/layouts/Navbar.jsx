@@ -19,7 +19,7 @@ const Navbar = (props) => {
           E-commerce
         </Link>
         <div className="pathname">
-          {location.pathname.replace(/\//g, "")}
+          {location.pathname.split("/")[1]}
         </div>
         {user ? (
           <React.Fragment>

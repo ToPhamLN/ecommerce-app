@@ -1,0 +1,141 @@
+.container__create__brand {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(14, 14, 26, 0.747);
+    z-index: 1;
+}
+
+
+
+.exit__create__brand {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 1rem;
+    align-items: center;
+    right: 1rem;
+    font-size: 3rem;
+    padding: 1rem 1rem;
+    border-radius: 50%;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--btn-blur);
+    }
+}
+
+
+
+.form__create__brand {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    width: 60rem;
+    background-color: var(--bgd-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.title__create__brand {
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.form__create__brand .input__box {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.form__create__brand .input__box label {
+    flex: 0 0 auto;
+    width: 9rem;
+}
+
+.form__create__brand .input__box input,
+.form__create__brand .input__box textarea {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    flex: 1;
+}
+
+.form__create__brand .input__box textarea {
+    min-height: 10rem;
+    border-radius: 0.5rem;
+}
+
+.form__create__brand .preview__image {
+    position: relative;
+    width: 100%;
+    height: 30rem;
+    min-height: 20rem;
+    max-height: 30rem;
+    border-radius: 0.5rem;
+    border: 0.2rem solid #555;
+    background: #fff;
+}
+
+.form__create__brand .preview__image::before {
+    content: "Nofiles";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+
+}
+
+.form__create__brand .preview__image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form__create__brand p.error-message {
+    color: red;
+    font-size: 1.4rem;
+}
+
+/* Update Brand */
+.container__update__brand {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form__update__brand {
+    position: relative;
+    box-shadow: 32px -13px 30px -4px #9696963d;
+    background-color: var(--fourth-color);
+}
+
+.form__update__brand::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--third-color);
+    transform: rotate(5deg);
+    border-radius: 0.5rem;
+    z-index: -1;
+}

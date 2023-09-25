@@ -11,12 +11,16 @@ import {
 
 const router = express.Router();
 
-router.post("/create", uploadCloud.single("picture"), createBrand);
+router.post(
+  "/create",
+  uploadCloud.single("picture"),
+  createBrand
+);
 router.get("/all", getAllBrand);
-router.get("/:categoryId", getBrand);
-router.delete("/delete/:categoryId", deleteBrand);
+router.get("/:brandId", getBrand);
+router.delete("/delete/:brandId", deleteBrand);
 router.put(
-  "/update/:categoryId",
+  "/update/:brandId",
   uploadCloud.single("picture"),
   updateBrand
 );

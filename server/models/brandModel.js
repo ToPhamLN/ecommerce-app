@@ -29,6 +29,10 @@ const brandSchema = new Schema(
     pictureKey: {
       type: String,
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
   },
   { timestamps: true }
 );
