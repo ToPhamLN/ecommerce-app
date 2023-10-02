@@ -84,3 +84,50 @@ button:hover {
   color: var(--text-color);
   font-size: 1.5rem;
 }
+
+.ant-table-content {
+  font-size: 1.5rem;
+}
+
+.ant-table-thead th {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.ant-table-tbody tr:nth-child(even) {
+  background-color: #dbdbdb;
+  color: #333;
+}
+
+.quill__editor {
+  height: 300px;
+  max-width: 50rem;
+  max-height: 100%;
+  font-size: 1.5rem;
+}
+
+.ql-toolbar {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.5rem;
+}
+
+.ql-toolbar .ql-picker-label {
+  color: var(--text-color);
+  font-size: 1.5rem;
+}
+
+.ql-toolbar .ql-picker-options {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  font-size: 1.5rem;
+}
+
+.ql-editor {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  height: 15rem;
+  max-height: 26rem;
+}

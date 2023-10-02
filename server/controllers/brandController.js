@@ -123,10 +123,9 @@ export const getAllBrand = async (req, res, next) => {
     };
     sort.text = req.query.text;
     sort.updatedAt = req.query.update;
-    const brands = await Brand.find(query)
-      .sort(sort)
-      .skip(skip)
-      .limit(limit);
+    const brands = await Brand.find(query).sort(sort);
+    // .skip(skip)
+    // .limit(limit);
     res.status(200).json(brands);
   } catch (error) {
     next(error);

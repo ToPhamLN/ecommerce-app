@@ -4,6 +4,7 @@
 
 section.create__brand {
     position: relative;
+    min-height: 3rem;
     margin-left: 3rem;
 }
 
@@ -84,83 +85,11 @@ section.ctn__all__brand {
 
 }
 
-section.ctn__all__brand .title {
-    font-size: 2rem;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -90%);
-    padding: 1rem 5rem;
-    border-radius: 0.5rem;
-    background-color: var(--btn-color);
-}
-
-section.ctn__all__brand .field {
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
-.brand__item {
-    margin: 1rem 0;
-    width: 100%;
-    height: 15rem;
-    font-size: 1.5rem;
-    padding: 1rem;
-    display: flex;
-    gap: 2rem;
-    background: var(--third-color);
-    border-radius: 1rem;
-}
-
-.brand__item__img {
-    flex: 0 0 auto;
-    width: 20rem;
-    height: 100%;
-}
-
-.brand__item__img img {
-    width: 100%;
-    height: 100%;
-}
-
-.brand__item .center {
-    flex: 1;
-    display: flex;
-    flex-flow: column;
-}
-
-.brand__item__info__name {
-    flex: 0 0 auto;
-    font-weight: 500;
-    font-size: 2.5rem;
-    text-align: center;
-}
-
-
-.brand__item__info__description {
-    background-color: var(--bgd-color);
-    flex: 1;
-    font-size: 1.5rem;
-    width: auto;
-    padding: 1rem;
-    border-radius: 0.5rem;
-}
-
-.ctn__all__brand .control {
-    flex: 0 0 auto;
-    width: 20rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
-}
-
-.ctn__all__brand .control .delete:hover {
+button.delete:hover {
     background-color: red;
 }
 
-.ctn__all__brand .control .update:hover {
+button.update:hover {
     background-color: yellow;
 }
 

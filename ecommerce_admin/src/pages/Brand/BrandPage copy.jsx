@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { MdCreateNewFolder } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
-import { Space, Table } from "antd";
+import {
+  BsFillArrowRightSquareFill,
+  BsFillArrowLeftSquareFill,
+} from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,67 +15,14 @@ import { brandRequest } from "../../config/apiRequest";
 import "../../assets/css/Brand.css";
 import CreateBrand from "./CreateBrand";
 import { routes } from "../../config/routes";
-import { sliceString } from "../../../utils/format";
-
 const BrandPage = () => {
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState(null);
   const [update, setUpdate] = useState(-1);
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
-
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "_id",
-      render: (_, brands) => <span>{brands._id}</span>,
-    },
-    {
-      title: "Picture",
-      dataIndex: "picturePath",
-      width: 100,
-      render: (_, brand) => (
-        <img src={brand.picturePath} alt="" />
-      ),
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      render: (_, brand) => <span>{brand.name}</span>,
-
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      render: (_, brand) => (
-        <span>{sliceString(brand.description, 130)}</span>
-      ),
-      sorter: (a, b) =>
-        a.description.localeCompare(b.description),
-    },
-    {
-      title: "Action",
-      width: 210,
-      render: (_, brand) => (
-        <Space size="middle">
-          <button
-            className="delete"
-            onClick={() => handleDelete(brand._id)}
-          >
-            Delete
-          </button>
-          <button
-            className="update"
-            onClick={() => handleUpdate(brand._id)}
-          >
-            Update
-          </button>
-        </Space>
-      ),
-    },
-  ];
 
   const handleGetAllBrand = async () => {
     try {
@@ -80,6 +30,7 @@ const BrandPage = () => {
         params: {
           search: search,
           update: update,
+          page: page,
         },
       });
       setBrands(res.data);
@@ -92,7 +43,7 @@ const BrandPage = () => {
 
   useEffect(() => {
     handleGetAllBrand();
-  }, [showCreate, search, update]);
+  }, [showCreate, search, update, page]);
 
   const handleDelete = async (brandId) => {
     try {
@@ -116,6 +67,17 @@ const BrandPage = () => {
 
   const handleUpdate = (brandId) => {
     navigate(`${routes.brand}/${brandId}`);
+  };
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+  const handleNextPage = () => {
+    if (brands.length >= 5) {
+      setPage(page + 1);
+    }
   };
 
   return (
@@ -164,14 +126,62 @@ const BrandPage = () => {
           {loading ? (
             <Loading />
           ) : (
-            <Table
-              dataSource={brands}
-              columns={columns}
-              rowKey="_id"
-              // pagination={false}
-            />
+            brands.map((brand, index) => (
+              <article key={index} className="brand__item">
+                <div className="brand__item__img">
+                  <img
+                    src={brand.picturePath}
+                    loading="lazy"
+                    alt=""
+                  />
+                </div>
+                <div className="center">
+                  <span className="brand__item__info__name">
+                    {brand.name}
+                  </span>
+                  <span className="brand__item__info__description">
+                    {brand.description}
+                  </span>
+                </div>
+                <div className="control">
+                  <button
+                    className="delete"
+                    onClick={() => handleDelete(brand._id)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="update"
+                    onClick={() => handleUpdate(brand._id)}
+                  >
+                    Update
+                  </button>
+                </div>
+              </article>
+            ))
+          )}
+          {brands.length === 0 && (
+            <span className="no__data">There is no data</span>
           )}
         </section>
+        <div className="page">
+          <div className="container__page">
+            <button
+              className="prev__page"
+              onClick={() => handlePrevPage()}
+            >
+              <BsFillArrowLeftSquareFill />
+              Prev
+            </button>
+            <button
+              className="next__page"
+              onClick={() => handleNextPage()}
+            >
+              Next
+              <BsFillArrowRightSquareFill />
+            </button>
+          </div>
+        </div>
       </div>
       {showCreate && (
         <CreateBrand data={showCreate} setData={setShowCreate} />

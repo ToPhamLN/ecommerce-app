@@ -6,6 +6,13 @@ export const userRequest = {
   logout: `${urlServer}/users/logout`,
 };
 
+export const productRequest = {
+  getAll: `${urlServer}/products/all`,
+  getById: `${urlServer}/products`,
+  create: `${urlServer}/products/create`,
+  update: `${urlServer}/products/update`,
+};
+
 export const brandRequest = {
   getAll: `${urlServer}/brands/all`,
   getById: `${urlServer}/brands`,

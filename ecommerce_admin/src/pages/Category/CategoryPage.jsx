@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { MdCreateNewFolder } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
-import {
-  BsFillArrowRightSquareFill,
-  BsFillArrowLeftSquareFill,
-} from "react-icons/bs";
+import { Space, Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Loading from "../../components/Loading";
-import { categoryRequest } from "../../config/apiRequest";
 import "../../assets/css/Brand.css";
+import { categoryRequest } from "../../config/apiRequest";
 import CreateCategory from "./CreateCategory";
 import { routes } from "../../config/routes";
+import { sliceString } from "../../../utils/format";
 
 const CategoryPage = () => {
   const [categories, setCategories] = useState([]);
@@ -22,8 +20,59 @@ const CategoryPage = () => {
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState(null);
   const [update, setUpdate] = useState(-1);
-  const [page, setPage] = useState(1);
   const navigate = useNavigate();
+
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "_id",
+      render: (_, category) => <span>{category._id}</span>,
+    },
+    {
+      title: "Picture",
+      dataIndex: "picturePath",
+      width: 100,
+      render: (_, category) => (
+        <img src={category.picturePath} alt="" />
+      ),
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      render: (_, category) => <span>{category.name}</span>,
+
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      render: (_, category) => (
+        <span>{sliceString(category.description, 130)}</span>
+      ),
+      sorter: (a, b) =>
+        a.description.localeCompare(b.description),
+    },
+    {
+      title: "Action",
+      width: 210,
+      render: (_, category) => (
+        <Space size="middle">
+          <button
+            className="delete"
+            onClick={() => handleDelete(category._id)}
+          >
+            Delete
+          </button>
+          <button
+            className="update"
+            onClick={() => handleUpdate(category._id)}
+          >
+            Update
+          </button>
+        </Space>
+      ),
+    },
+  ];
 
   const handleGetAllCategories = async () => {
     try {
@@ -31,7 +80,6 @@ const CategoryPage = () => {
         params: {
           search: search,
           update: update,
-          page: page,
         },
       });
       setCategories(res.data);
@@ -43,7 +91,7 @@ const CategoryPage = () => {
   };
   useEffect(() => {
     handleGetAllCategories();
-  }, [showCreate, search, update, page]);
+  }, [showCreate, search, update]);
 
   const handleDelete = async (categoryId) => {
     console.log(categoryId);
@@ -70,11 +118,6 @@ const CategoryPage = () => {
     navigate(`${routes.category}/${categoryId}`);
   };
 
-  const handlePrevPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
   return (
     <React.Fragment>
       <div className="container__brand">
@@ -118,66 +161,16 @@ const CategoryPage = () => {
           </div>
         </section>
         <section className="ctn__all__brand">
-          <span className="title">All categories</span>
           {loading ? (
             <Loading />
           ) : (
-            categories.map((category, index) => (
-              <article key={index} className="brand__item">
-                <div className="brand__item__img">
-                  <img
-                    src={category.picturePath}
-                    loading="lazy"
-                    alt=""
-                  />
-                </div>
-                <div className="center">
-                  <span className="brand__item__info__name">
-                    {category.name}
-                  </span>
-                  <span className="brand__item__info__description">
-                    {category.description}
-                  </span>
-                </div>
-                <div className="control">
-                  <button
-                    className="delete"
-                    onClick={() => handleDelete(category._id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="update"
-                    onClick={() => handleUpdate(category._id)}
-                  >
-                    Update
-                  </button>
-                </div>
-              </article>
-            ))
-          )}
-          {categories.length === 0 && (
-            <span className="no__data">There is no data</span>
+            <Table
+              dataSource={categories}
+              columns={columns}
+              rowKey="_id"
+            />
           )}
         </section>
-        <div className="page">
-          <div className="container__page">
-            <button
-              className="prev__page"
-              onClick={() => handlePrevPage()}
-            >
-              <BsFillArrowLeftSquareFill />
-              Prev
-            </button>
-            <button
-              className="next__page"
-              onClick={() => setPage(page + 1)}
-            >
-              Next
-              <BsFillArrowRightSquareFill />
-            </button>
-          </div>
-        </div>
       </div>
       {showCreate && (
         <CreateCategory

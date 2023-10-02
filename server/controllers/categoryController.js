@@ -117,12 +117,11 @@ export const getAllCategory = async (req, res, next) => {
     query.slug = {
       $regex: new RegExp(req.query.search, "i"),
     };
-    sort.text = req.query.text;
+    sort.slug = req.query.text;
     sort.updatedAt = req.query.update;
-    const categories = await Category.find(query)
-      .sort(sort)
-      .skip(skip)
-      .limit(limit);
+    const categories = await Category.find(query).sort(sort);
+    // .skip(skip)
+    // .limit(limit);
     res.status(200).json(categories);
   } catch (error) {
     next(error);

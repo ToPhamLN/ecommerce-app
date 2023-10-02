@@ -1,0 +1,116 @@
+.container__createproduct {
+    margin-left: 6rem;
+    display: flex;
+    justify-content: center;
+}
+
+.create__product {
+    position: relative;
+    background-color: var(--second-color);
+    border: 0.1rem solid #555;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.create__product::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(5deg);
+    background-color: var(--third-color);
+    border-radius: 1.5rem;
+    z-index: -1;
+}
+
+.create__product .title__form {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    text-transform: inherit;
+    font-style: italic;
+}
+
+.create__product .input__box {
+    display: flex;
+    align-items: center;
+    margin: 4rem 0;
+    position: relative;
+}
+
+.create__product .input__box label {
+    flex: 0 0 auto;
+    width: 9rem;
+}
+
+.create__product .input__box input,
+.create__product .input__box textarea {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    flex: 1;
+}
+
+.create__product .content__form {
+    padding-top: 4rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.create__product .groupname {
+    width: 35rem;
+    padding-right: 1.5rem;
+}
+
+.create__product .groupcontent {
+    width: 50rem;
+}
+
+.create__product .properties .span {
+    font-style: italic;
+    text-align: center;
+}
+
+.select__category,
+.select__brand {
+    border: none;
+    font-size: 1.5rem;
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.create__product .action {
+    display: flex;
+    justify-content: center;
+}
+
+.table__box {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row nowrap;
+}
+
+.action__table {
+    font-size: 2.5rem;
+    color: #555;
+}
+
+.action__table.view :hover {
+    color: #309b24;
+}
+
+.action__table.update:hover {
+    color: #cbce33;
+}
+
+.action__table.delete:hover {
+    color: #cf2828;
+}

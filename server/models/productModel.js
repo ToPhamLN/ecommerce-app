@@ -29,20 +29,19 @@ const productSchema = new Schema(
     pictureKey: {
       type: String,
     },
-    quantity: {
-      type: Number,
-      required: [true, "Please enter a quantity"],
-    },
     price: {
       type: Number,
       required: [true, "Please enter a price"],
     },
     category: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Category",
       required: [true, "Please enter a category"],
     },
     brand: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Brand",
+      required: [true, "Please enter a brand"],
     },
     size: {
       type: Array,

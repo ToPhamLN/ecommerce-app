@@ -9,18 +9,25 @@ import CategoryPage from "../pages/Category/CategoryPage";
 import UpdateCategory from "../pages/Category/UpdateCategory";
 import BrandPage from "../pages/Brand/BrandPage";
 import UpdateBrand from "../pages/Brand/UpdateBrand";
+import CreateProduct from "../pages/Product/CreateProduct";
+import UpdateProduct from "../pages/Product/UpdateProduct";
+
 export const routes = {
   login: "/login",
   register: "/register",
   dashboard: "/dashboard",
-  product: "/product",
   process: "/process",
   order: "/order",
   payment: "/payment",
+  product: "/product",
+  createProduct: "/product/create",
+  productId: "/product/:productId",
+  productUpdate: "/product/:productId/update",
   category: "/category",
   categoryId: "/category/:categoryId",
   brand: "/brand",
   brandId: "/brand/:brandId",
+  user: "/user",
 };
 
 export const publicRoutes = [
@@ -30,10 +37,12 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { path: routes.dashboard, component: DashboardPage },
-  { path: routes.product, component: ProductPage },
   { path: routes.process, component: ProcessPage },
   { path: routes.order, component: OrderPage },
   { path: routes.payment, component: PaymentPage },
+  { path: routes.product, component: ProductPage },
+  { path: routes.productUpdate, component: UpdateProduct },
+  { path: routes.createProduct, component: CreateProduct },
   { path: routes.category, component: CategoryPage },
   { path: routes.categoryId, component: UpdateCategory },
   { path: routes.brand, component: BrandPage },

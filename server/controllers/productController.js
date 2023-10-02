@@ -13,19 +13,23 @@ export const createProduct = async (req, res, next) => {
         message: "File not found",
       });
     }
+
     const newProduct = new Product({
       name: req.body.name,
       content: req.body.content,
-      quantity: req.body.quantity,
       picturePath: req.file.path,
       pictureKey: req.file.filename,
       price: req.body.price,
       category: req.body.category,
       brand: req.body.brand,
       size: req.body.size ? req.body.size.split(",") : undefined,
-      color: req.body.color ? req.body.color.split(",") : undefined,
+      color: req.body.color
+        ? req.body.color.split(",")
+        : undefined,
       ram: req.body.ram ? req.body.ram.split(",") : undefined,
-      storage: req.body.storage ? req.body.storage.split(",") : undefined,
+      storage: req.body.storage
+        ? req.body.storage.split(",")
+        : undefined,
       slug: convertSlug(req.body.name),
     });
     const product = await newProduct.save();
@@ -61,10 +65,16 @@ export const updateProduct = async (req, res, next) => {
       price: req.body.price || product.price,
       category: req.body.category || product.category,
       brand: req.body.brand || product.brand,
-      size: req.body.size ? req.body.size.split(",") : product.size,
-      color: req.body.color ? req.body.color.split(",") : product.color,
+      size: req.body.size
+        ? req.body.size.split(",")
+        : product.size,
+      color: req.body.color
+        ? req.body.color.split(",")
+        : product.color,
       ram: req.body.ram ? req.body.ram.split(",") : product.ram,
-      storage: req.body.storage ? req.body.storage.split(",") : undefined,
+      storage: req.body.storage
+        ? req.body.storage.split(",")
+        : undefined,
       slug: convertSlug(req.body.name),
     };
     const result = await Product.updateOne(
@@ -118,7 +128,20 @@ export const deleteProduct = async (req, res, next) => {
 // @access  public
 export const getAllProduct = async (req, res, next) => {
   try {
-    const products = await Product.find();
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    let skip = (page - 1) * limit;
+    query.slug = {
+      $regex: new RegExp(req.query.search, "i"),
+    };
+    sort.text = req.query.text;
+    sort.updatedAt = req.query.update;
+    const products = await Product.find(query)
+      .sort(sort)
+      .populate("category")
+      .populate("brand");
     res.status(200).json(products);
   } catch (error) {
     next(error);
@@ -130,6 +153,7 @@ export const getAllProduct = async (req, res, next) => {
 // @access  public
 export const getProduct = async (req, res, next) => {
   try {
+    console.log(req.params.productId);
     const product = await Product.findById({
       _id: req.params.productId,
     });

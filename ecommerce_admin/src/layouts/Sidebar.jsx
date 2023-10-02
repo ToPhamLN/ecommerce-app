@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiFillSetting } from "react-icons/ai";
 import {
+  BiSolidUserRectangle,
   BiSolidHome,
   BiSolidDashboard,
   BiLogoProductHunt,
@@ -24,15 +25,6 @@ const Sidebar = () => {
               className="item__sidebar"
             >
               <BiSolidHome />
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={routes.product}
-              link-name="Product"
-              className="item__sidebar"
-            >
-              <BiLogoProductHunt />
             </Link>
           </li>
           <li>
@@ -64,6 +56,15 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
+              to={routes.product}
+              link-name="Product"
+              className="item__sidebar"
+            >
+              <BiLogoProductHunt />
+            </Link>
+          </li>
+          <li>
+            <Link
               to={routes.category}
               link-name="Category"
               className="item__sidebar"
@@ -78,6 +79,15 @@ const Sidebar = () => {
               className="item__sidebar"
             >
               <TbBrandAbstract />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={routes.user}
+              link-name="User"
+              className="item__sidebar"
+            >
+              <BiSolidUserRectangle />
             </Link>
           </li>
           <li>
