@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { v2 as cloudinary } from "cloudinary";
 
 import User from "./../models/userModel.js";
-import convertSlug from "./../utils/convertSlug.js";
+import { convertSlug } from "./../utils/format.js";
 import {
   generateAccessToken,
   generateRefreshToken,

@@ -3,10 +3,12 @@ import SelectCategory from "../../components/SelectCategory";
 import SelectBrand from "../../components/SelectBrand";
 import Editor from "../../components/Editor";
 import Loading from "../../components/Loading";
+import UploadMultiple from "../../components/UploadMultiple";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { categoryRequest } from "../../config/apiRequest";
 
 import "react-quill/dist/quill.snow.css";
 import "../../assets/css/CreateProduct.css";
@@ -16,12 +18,14 @@ import { productRequest } from "../../config/apiRequest";
 
 const UpdateProduct = () => {
   const { productId } = useParams();
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
+  const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     control,
+    watch,
     setValue,
     formState: { errors },
   } = useForm();
@@ -35,6 +39,9 @@ const UpdateProduct = () => {
       const productData = res.data;
       Object.keys(productData).forEach((key) => {
         setValue(key, productData[key]);
+      });
+      Object.keys(productData.properties).forEach((key) => {
+        setValue(key, productData.properties[key]);
       });
     } catch (error) {
       console.log(error);
@@ -56,14 +63,20 @@ const UpdateProduct = () => {
       formData.append("category", data.category);
       formData.append("brand", data.brand);
       formData.append("price", data.price);
-      formData.append("size", data.size);
-      formData.append("color", data.color);
-      formData.append("ram", data.ram);
-      formData.append("storages", data.storages);
       formData.append("content", data.content);
-      formData.append("picture", data.picture[0]);
-      const res = await axios.post(
-        productRequest.update,
+      if (data.picture && data.picture.length > 0) {
+        data.picture.forEach((picture) => {
+          formData.append("picture", picture);
+        });
+      }
+      properties.forEach((property) => {
+        formData.append(
+          `properties[${property}]`,
+          data[property]
+        );
+      });
+      const res = await axios.put(
+        `${productRequest.update}/${productId}`,
         formData,
         {
           headers: {
@@ -87,6 +100,21 @@ const UpdateProduct = () => {
       setLoading(false);
     }
   };
+
+  const selectedCategory = watch("category");
+  const handleGetCategory = async () => {
+    try {
+      const res = await axios.get(
+        `${categoryRequest.getById}/${selectedCategory}`
+      );
+      setProperties(res.data.properties);
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+  useEffect(() => {
+    handleGetCategory();
+  }, [selectedCategory]);
   return (
     <React.Fragment>
       <div className="container__createproduct">
@@ -145,51 +173,30 @@ const UpdateProduct = () => {
 
               <div className="properties">
                 <div className="span">Properties</div>
-                <div className="input__box">
-                  <label htmlFor="size">Size:</label>
-                  <input
-                    type="text"
-                    name="size"
-                    {...register("size")}
-                  />
-                </div>
-                <div className="input__box">
-                  <label htmlFor="color">Color</label>
-                  <input
-                    type="text"
-                    name="color"
-                    {...register("color")}
-                  />
-                </div>{" "}
-                <div className="input__box">
-                  <label htmlFor="ram">RAM: </label>
-                  <input
-                    type="text"
-                    name="ram"
-                    {...register("ram")}
-                  />
-                </div>{" "}
-                <div className="input__box">
-                  <label htmlFor="size">Storage:</label>
-                  <input
-                    type="text"
-                    name="storage"
-                    {...register("storage")}
-                  />
-                </div>
+                {properties.map((item, index) => (
+                  <div key={index} className="input__box">
+                    <label htmlFor={item}>{item}</label>
+                    <Controller
+                      name={item}
+                      control={control}
+                      defaultValue=""
+                      render={({ field }) => (
+                        <input type="text" {...field} />
+                      )}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="groupcontent">
-              <div className="input__box">
-                <label htmlFor="picture">Picture: </label>
-                <input
-                  type="file"
-                  name="picture"
-                  {...register("picture")}
-                />
-              </div>
-              <span>Content: </span>
-              <div className="quill__editor">
+            <div
+              className="groupcontent"
+              style={{ marginTop: "4rem" }}
+            >
+              <label>Content: </label>
+              <div
+                className="quill__editor"
+                style={{ marginTop: "1rem" }}
+              >
                 <Controller
                   name="content"
                   control={control}
@@ -205,9 +212,13 @@ const UpdateProduct = () => {
                   <p>{errors.content.message}</p>
                 )}
               </div>
+              <div style={{ marginTop: "4rem" }}>
+                <label htmlFor="picture">Picture: </label>
+                <UploadMultiple control={control} />
+              </div>
             </div>
           </div>
-          <div className="action">
+          <div className="action" style={{ marginTop: "4rem" }}>
             <button>Submit</button>
           </div>
         </form>

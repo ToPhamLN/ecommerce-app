@@ -1,12 +1,13 @@
 import { v2 as cloudinary } from "cloudinary";
 import Category from "../models/categoryModel.js";
-import convertSlug from "../utils/convertSlug.js";
+import { convertSlug } from "../utils/format.js";
 
 // @desc    Create new category
 // route    POST api/category/create
 // @access  private Auth
 export const createCategory = async (req, res, next) => {
   try {
+    console.log(req.body);
     if (!req.file) {
       return res.status(400).json({
         message: "File not found",
@@ -17,6 +18,7 @@ export const createCategory = async (req, res, next) => {
       description: req.body.description,
       picturePath: req.file.path,
       pictureKey: req.file.filename,
+      properties: req.body.properties.split(","),
       slug: convertSlug(req.body.name),
     });
     const category = await newCategory.save();
@@ -48,6 +50,7 @@ export const updateCategory = async (req, res, next) => {
       description: req.body.description || category.description,
       picturePath: category.picturePath,
       pictureKey: category.pictureKey,
+      properties: req.body.properties.split(","),
     };
 
     if (req.file) {
@@ -65,12 +68,6 @@ export const updateCategory = async (req, res, next) => {
       { $set: newCategory },
       { new: true }
     );
-
-    if (result.nModified === 0) {
-      return res.status(404).json({
-        message: "Cannot update",
-      });
-    }
 
     res.status(200).json({
       message: "Updated successfully",
@@ -109,15 +106,15 @@ export const deleteCategory = async (req, res, next) => {
 // @access  private Auth
 export const getAllCategory = async (req, res, next) => {
   try {
+    console.log(req.query);
     let query = {};
     let sort = {};
-    let page = parseInt(req.query.page) || 1;
-    const limit = 5;
-    let skip = (page - 1) * limit;
+    // let page = parseInt(req.query.page) || 1;
+    // const limit = 5;
+    // let skip = (page - 1) * limit;
     query.slug = {
       $regex: new RegExp(req.query.search, "i"),
     };
-    sort.slug = req.query.text;
     sort.updatedAt = req.query.update;
     const categories = await Category.find(query).sort(sort);
     // .skip(skip)

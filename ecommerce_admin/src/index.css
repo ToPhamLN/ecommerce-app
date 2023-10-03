@@ -100,9 +100,6 @@ button:hover {
 }
 
 .quill__editor {
-  height: 300px;
-  max-width: 50rem;
-  max-height: 100%;
   font-size: 1.5rem;
 }
 
@@ -129,5 +126,4 @@ button:hover {
   color: var(--text-color);
   font-size: 1.5rem;
   height: 15rem;
-  max-height: 26rem;
 }

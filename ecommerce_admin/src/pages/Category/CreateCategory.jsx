@@ -23,6 +23,7 @@ const CreateCategory = (props) => {
       setLoading(true);
       const formData = new FormData();
       formData.append("name", data.name);
+      formData.append("properties", data.properties);
       formData.append("description", data.description);
       formData.append("picture", data.picture[0]);
 
@@ -41,7 +42,6 @@ const CreateCategory = (props) => {
         autoClose: 1000,
       });
     } catch (error) {
-      console.error(error);
       toast.error(error.response.data?.message, {
         autoClose: 1000,
       });
@@ -95,7 +95,15 @@ const CreateCategory = (props) => {
               </p>
             )}
           </div>
-
+          <div className="input__box">
+            <label htmlFor="properties">Properties:</label>
+            <input
+              type="text"
+              id="properties"
+              name="properties"
+              {...register("properties", { required: true })}
+            />
+          </div>
           <div className="input__box">
             <label htmlFor="description">Description:</label>
             <textarea

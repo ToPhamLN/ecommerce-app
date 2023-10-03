@@ -24,14 +24,22 @@ const SelectBrand = (props) => {
       setLoading(false);
     }
   };
+  // const handleCategory =async() => {
+  //   try {
+  //     setLoading(true);
+  //     const res
+  //   } catch (error) {
+
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
   useEffect(() => {
     handleGetAllCategories();
   }, []);
   return (
     <React.Fragment>
       <select
-        name=""
-        id=""
         className="select__brand"
         {...register("brand", { required: true })}
       >

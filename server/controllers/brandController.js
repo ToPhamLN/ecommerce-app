@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import Brand from "../models/brandModel.js";
-import convertSlug from "../utils/convertSlug.js";
+import { convertSlug } from "../utils/format.js";
 
 // @desc    Create new brand
 // route    POST api/brand/create
@@ -121,7 +121,6 @@ export const getAllBrand = async (req, res, next) => {
     query.slug = {
       $regex: new RegExp(req.query.search, "i"),
     };
-    sort.text = req.query.text;
     sort.updatedAt = req.query.update;
     const brands = await Brand.find(query).sort(sort);
     // .skip(skip)

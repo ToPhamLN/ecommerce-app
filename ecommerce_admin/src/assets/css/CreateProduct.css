@@ -61,11 +61,11 @@
     width: 100%;
     display: grid;
     grid-template-columns: auto auto;
+    gap: 5rem;
 }
 
 .create__product .groupname {
     width: 35rem;
-    padding-right: 1.5rem;
 }
 
 .create__product .groupcontent {
@@ -89,6 +89,15 @@
 .create__product .action {
     display: flex;
     justify-content: center;
+}
+
+.upload__btn {
+    background-color: #8db9bb;
+
+    &:hover {
+        background-color: #82dfcb;
+        box-shadow: none;
+    }
 }
 
 .table__box {

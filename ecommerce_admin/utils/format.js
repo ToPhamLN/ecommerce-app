@@ -1,11 +1,8 @@
 export const sliceString = (str, maxLenght) => {
-  let word = str.split(" ");
-  if (word.length <= maxLenght) {
-    return str;
+  if (str.split(" ").length > maxLenght) {
+    return str.split(" ").slice(0, maxLenght).join(" ") + "...";
   } else {
-    const newChange = word.slice(0, maxLenght).join(" ");
-    const newString = newChange + "...";
-    return newString;
+    return str;
   }
 };
 

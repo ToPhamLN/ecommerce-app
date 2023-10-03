@@ -11,13 +11,16 @@ import { Space, Table } from "antd";
 import { routes } from "../../config/routes";
 
 import Loading from "../../components/Loading";
+import Deletion from "../../components/Deletion";
 import axios from "axios";
 import { productRequest } from "../../config/apiRequest";
 import { formatNumber } from "../../../utils/format";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showDelete, setShowDelete] = useState(false);
   const [search, setSearch] = useState(null);
   const [update, setUpdate] = useState(-1);
   const navigate = useNavigate();
@@ -91,7 +94,10 @@ const ProductPage = () => {
           >
             <BiSolidPencil />
           </span>
-          <span className="action__table delete">
+          <span
+            className="action__table delete"
+            onClick={() => handleDelete(product._id)}
+          >
             <BiSolidTrashAlt />
           </span>
         </Space>
@@ -115,13 +121,17 @@ const ProductPage = () => {
   };
   useEffect(() => {
     handleGetAllProducts();
-  }, [search, update]);
+  }, [search, update, showDelete]);
   const handleCreateProduct = () => {
     navigate(routes.createProduct);
   };
 
   const handleUpdate = (productId) => {
     navigate(`${routes.product}/${productId}/update`);
+  };
+  const handleDelete = (productId) => {
+    setShowDelete(!showDelete);
+    setSelectedProduct(productId);
   };
   return (
     <React.Fragment>
@@ -177,6 +187,13 @@ const ProductPage = () => {
           )}
         </section>
       </div>
+      {showDelete && (
+        <Deletion
+          data={showDelete}
+          setData={setShowDelete}
+          api={`${productRequest.delete}/${selectedProduct}`}
+        />
+      )}
     </React.Fragment>
   );
 };

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { MdCreateNewFolder } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
-import { Space, Table } from "antd";
+import { Space, Table, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { BiSolidPencil, BiSolidTrashAlt } from "react-icons/bi";
 import Loading from "../../components/Loading";
 import "../../assets/css/Brand.css";
 import { categoryRequest } from "../../config/apiRequest";
 import CreateCategory from "./CreateCategory";
 import { routes } from "../../config/routes";
 import { sliceString } from "../../../utils/format";
+import Deletion from "../../components/Deletion";
 
 const CategoryPage = () => {
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [showDelete, setShowDelete] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState(null);
@@ -47,28 +50,45 @@ const CategoryPage = () => {
       title: "Description",
       dataIndex: "description",
       render: (_, category) => (
-        <span>{sliceString(category.description, 130)}</span>
+        <span>{sliceString(category.description, 25)}</span>
       ),
       sorter: (a, b) =>
         a.description.localeCompare(b.description),
     },
     {
+      title: "Properties",
+      width: 100,
+      dataIndex: "properties",
+      render: (_, { properties }) => (
+        <>
+          {properties.map((item, index) => (
+            <Tag key={index} color="#5A8DDC">
+              {item}
+            </Tag>
+          ))}
+        </>
+      ),
+    },
+    {
       title: "Action",
-      width: 210,
+      width: 150,
       render: (_, category) => (
-        <Space size="middle">
-          <button
-            className="delete"
-            onClick={() => handleDelete(category._id)}
-          >
-            Delete
-          </button>
-          <button
-            className="update"
+        <Space className="table__box">
+          {/* <span className="action__table view">
+            <TbEyeSearch />
+          </span> */}
+          <span
+            className="action__table update"
             onClick={() => handleUpdate(category._id)}
           >
-            Update
-          </button>
+            <BiSolidPencil />
+          </span>
+          <span
+            className="action__table delete"
+            onClick={() => handleDelete(category._id)}
+          >
+            <BiSolidTrashAlt />
+          </span>
         </Space>
       ),
     },
@@ -91,27 +111,11 @@ const CategoryPage = () => {
   };
   useEffect(() => {
     handleGetAllCategories();
-  }, [showCreate, search, update]);
+  }, [showCreate, showDelete, search, update]);
 
   const handleDelete = async (categoryId) => {
-    console.log(categoryId);
-    try {
-      setLoading(true);
-      const res = await axios.delete(
-        `${categoryRequest.delete}/${categoryId}`
-      );
-      toast.warning(res.data.message, {
-        autoClose: 1000,
-      });
-      handleGetAllCategories();
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response.data?.message, {
-        autoClose: 1000,
-      });
-    } finally {
-      setLoading(false);
-    }
+    setShowDelete(!showDelete);
+    setSelectedCategory(categoryId);
   };
 
   const handleUpdate = (categoryId) => {
@@ -177,8 +181,14 @@ const CategoryPage = () => {
           data={showCreate}
           setData={setShowCreate}
         />
-      )}{" "}
-      <ToastContainer position="top-center" />
+      )}
+      {showDelete && (
+        <Deletion
+          data={showDelete}
+          setData={setShowDelete}
+          api={`${categoryRequest.delete}/${selectedCategory}`}
+        />
+      )}
     </React.Fragment>
   );
 };

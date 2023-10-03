@@ -22,12 +22,8 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-    picturePath: {
-      type: String,
-      required: [true, "Please enter a picture"],
-    },
-    pictureKey: {
-      type: String,
+    pictures: {
+      type: Array,
     },
     price: {
       type: Number,
@@ -43,20 +39,8 @@ const productSchema = new Schema(
       ref: "Brand",
       required: [true, "Please enter a brand"],
     },
-    size: {
-      type: Array,
-    },
-    color: {
-      type: Array,
-      default: undefined,
-    },
-    ram: {
-      type: Array,
-      default: undefined,
-    },
-    storage: {
-      type: Array,
-      default: undefined,
+    properties: {
+      type: Schema.Types.Mixed,
     },
     slug: {
       type: String,
@@ -68,3 +52,29 @@ const productSchema = new Schema(
 
 const Product = model("Product", productSchema);
 export default Product;
+
+//  category: {
+//       type: Schema.Types.ObjectId,
+//       ref: "Category",
+//       required: [true, "Please enter a category"],
+//     },
+//     brand: {
+//       type: Schema.Types.ObjectId,
+//       ref: "Brand",
+//       required: [true, "Please enter a brand"],
+//     },
+//     size: {
+//       type: Array,
+//     },
+//     color: {
+//       type: Array,
+//       default: undefined,
+//     },
+//     ram: {
+//       type: Array,
+//       default: undefined,
+//     },
+//     storage: {
+//       type: Array,
+//       default: undefined,
+//     },

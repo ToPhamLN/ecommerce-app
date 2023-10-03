@@ -1,0 +1,5 @@
+.container__dashboard {
+    margin-left: 6rem;
+    display: flex;
+    justify-content: center;
+}

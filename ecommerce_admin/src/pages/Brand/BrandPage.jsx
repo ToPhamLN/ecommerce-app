@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { MdCreateNewFolder } from "react-icons/md";
-import { BiSearchAlt } from "react-icons/bi";
+import {
+  BiSearchAlt,
+  BiSolidPencil,
+  BiSolidTrashAlt,
+} from "react-icons/bi";
 import { Space, Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Loading from "../../components/Loading";
@@ -13,11 +16,14 @@ import "../../assets/css/Brand.css";
 import CreateBrand from "./CreateBrand";
 import { routes } from "../../config/routes";
 import { sliceString } from "../../../utils/format";
+import Deletion from "../../components/Deletion";
 
 const BrandPage = () => {
   const [brands, setBrands] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState("");
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [search, setSearch] = useState(null);
   const [update, setUpdate] = useState(-1);
   const navigate = useNavigate();
@@ -47,28 +53,31 @@ const BrandPage = () => {
       title: "Description",
       dataIndex: "description",
       render: (_, brand) => (
-        <span>{sliceString(brand.description, 130)}</span>
+        <span>{sliceString(brand.description, 30)}</span>
       ),
       sorter: (a, b) =>
         a.description.localeCompare(b.description),
     },
     {
       title: "Action",
-      width: 210,
+      width: 150,
       render: (_, brand) => (
-        <Space size="middle">
-          <button
-            className="delete"
-            onClick={() => handleDelete(brand._id)}
-          >
-            Delete
-          </button>
-          <button
-            className="update"
+        <Space className="table__box">
+          {/* <span className="action__table view">
+            <TbEyeSearch />
+          </span> */}
+          <span
+            className="action__table update"
             onClick={() => handleUpdate(brand._id)}
           >
-            Update
-          </button>
+            <BiSolidPencil />
+          </span>
+          <span
+            className="action__table delete"
+            onClick={() => handleDelete(brand._id)}
+          >
+            <BiSolidTrashAlt />
+          </span>
         </Space>
       ),
     },
@@ -92,26 +101,11 @@ const BrandPage = () => {
 
   useEffect(() => {
     handleGetAllBrand();
-  }, [showCreate, search, update]);
+  }, [showCreate, showDelete, search, update]);
 
   const handleDelete = async (brandId) => {
-    try {
-      setLoading(true);
-      const res = await axios.delete(
-        `${brandRequest.delete}/${brandId}`
-      );
-      toast.warning(res.data.message, {
-        autoClose: 1000,
-      });
-      handleGetAllBrand();
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response.data?.message, {
-        autoClose: 1000,
-      });
-    } finally {
-      setLoading(false);
-    }
+    setSelectedBrand(brandId);
+    setShowDelete(!showDelete);
   };
 
   const handleUpdate = (brandId) => {
@@ -176,7 +170,13 @@ const BrandPage = () => {
       {showCreate && (
         <CreateBrand data={showCreate} setData={setShowCreate} />
       )}
-      <ToastContainer position="top-center" />
+      {showDelete && (
+        <Deletion
+          data={showDelete}
+          setData={setShowDelete}
+          api={`${brandRequest.delete}/${selectedBrand}`}
+        />
+      )}
     </React.Fragment>
   );
 };

@@ -29,6 +29,10 @@ const categorySchema = new Schema(
     pictureKey: {
       type: String,
     },
+    properties: {
+      type: Array,
+      required: [true, "Please enter a property"],
+    },
     slug: {
       type: String,
       unique: true,

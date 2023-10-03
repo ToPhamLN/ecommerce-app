@@ -11,6 +11,7 @@ export const productRequest = {
   getById: `${urlServer}/products`,
   create: `${urlServer}/products/create`,
   update: `${urlServer}/products/update`,
+  delete: `${urlServer}/products/delete`,
 };
 
 export const brandRequest = {

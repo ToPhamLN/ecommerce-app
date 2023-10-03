@@ -24,6 +24,7 @@ const SelectCategory = (props) => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     handleGetAllCategories();
   }, []);
@@ -41,6 +42,8 @@ const SelectCategory = (props) => {
           </option>
         ))}
       </select>
+      <div className="property"></div>
+
       {loading && <Loading />}
     </React.Fragment>
   );
