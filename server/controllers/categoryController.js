@@ -7,7 +7,6 @@ import { convertSlug } from "../utils/format.js";
 // @access  private Auth
 export const createCategory = async (req, res, next) => {
   try {
-    console.log(req.body);
     if (!req.file) {
       return res.status(400).json({
         message: "File not found",
@@ -106,7 +105,6 @@ export const deleteCategory = async (req, res, next) => {
 // @access  private Auth
 export const getAllCategory = async (req, res, next) => {
   try {
-    console.log(req.query);
     let query = {};
     let sort = {};
     // let page = parseInt(req.query.page) || 1;

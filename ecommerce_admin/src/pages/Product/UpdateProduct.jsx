@@ -15,6 +15,7 @@ import "../../assets/css/CreateProduct.css";
 import { routes } from "../../config/routes";
 import axios from "axios";
 import { productRequest } from "../../config/apiRequest";
+import SwitchInput from "../../components/SwitchInput";
 
 const UpdateProduct = () => {
   const { productId } = useParams();
@@ -64,6 +65,7 @@ const UpdateProduct = () => {
       formData.append("brand", data.brand);
       formData.append("price", data.price);
       formData.append("content", data.content);
+      formData.append("isSell", data.isSell);
       if (data.picture && data.picture.length > 0) {
         data.picture.forEach((picture) => {
           formData.append("picture", picture);
@@ -103,13 +105,15 @@ const UpdateProduct = () => {
 
   const selectedCategory = watch("category");
   const handleGetCategory = async () => {
-    try {
-      const res = await axios.get(
-        `${categoryRequest.getById}/${selectedCategory}`
-      );
-      setProperties(res.data.properties);
-    } catch (error) {
-      console.log(error.response.data.message);
+    if (selectedCategory !== undefined) {
+      try {
+        const res = await axios.get(
+          `${categoryRequest.getById}/${selectedCategory}`
+        );
+        setProperties(res.data.properties);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   useEffect(() => {
@@ -124,6 +128,13 @@ const UpdateProduct = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <span className="title__form">Update product</span>
+          <div className="stock__product">
+            <SwitchInput
+              control={control}
+              name="isSell"
+              defaultValue={false}
+            />
+          </div>
           <div className="content__form">
             <div className="groupname">
               <div className="input__box">
@@ -170,7 +181,6 @@ const UpdateProduct = () => {
                   </p>
                 )}
               </div>
-
               <div className="properties">
                 <div className="span">Properties</div>
                 {properties.map((item, index) => (

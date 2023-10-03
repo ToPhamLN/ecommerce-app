@@ -32,7 +32,6 @@ const CreateProduct = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       setLoading(true);
 
       const formData = new FormData();
@@ -80,13 +79,15 @@ const CreateProduct = () => {
 
   const selectedCategory = watch("category");
   const handleGetCategory = async () => {
-    try {
-      const res = await axios.get(
-        `${categoryRequest.getById}/${selectedCategory}`
-      );
-      setProperties(res.data.properties);
-    } catch (error) {
-      console.log(error);
+    if (selectedCategory !== undefined) {
+      try {
+        const res = await axios.get(
+          `${categoryRequest.getById}/${selectedCategory}`
+        );
+        setProperties(res.data.properties);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   useEffect(() => {

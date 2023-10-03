@@ -33,7 +33,6 @@ const LoginPage = () => {
     try {
       setLoading(true);
       const res = await axios.post(userRequest.login, data);
-      console.log(res.data);
       dispatch(setCredentials(res.data));
       setLoading(false);
       toast.success("Login successfully!", {
@@ -41,7 +40,6 @@ const LoginPage = () => {
       });
       setTimeout(() => navigate(routes.dashboard), 2000);
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message, {
         autoClose: 1000,
       });

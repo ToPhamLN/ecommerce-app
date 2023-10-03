@@ -7,7 +7,7 @@ import {
   BiSolidPencil,
   BiSolidTrashAlt,
 } from "react-icons/bi";
-import { Space, Table } from "antd";
+import { Space, Table, Tag } from "antd";
 import { routes } from "../../config/routes";
 
 import Loading from "../../components/Loading";
@@ -21,7 +21,7 @@ const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState("");
   const [loading, setLoading] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState("");
   const [update, setUpdate] = useState(-1);
   const navigate = useNavigate();
 
@@ -30,20 +30,22 @@ const ProductPage = () => {
       title: "ID",
       dataIndex: "_id",
       width: 100,
+      align: "center",
       render: (_, product) => <span>{product._id}</span>,
     },
     {
       title: "Picture",
       dataIndex: "picturePath",
       width: 100,
+      align: "center",
       render: (_, product) => (
-        <img src={product.picturePath} alt="" />
+        <img src={product.pictures[0].path} alt="" />
       ),
     },
     {
       title: "Name",
       dataIndex: "name",
-      // width: 200,
+      align: "center",
       render: (_, product) => <span>{product.name}</span>,
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
@@ -51,6 +53,7 @@ const ProductPage = () => {
       title: "Category",
       dataIndex: "category",
       width: 100,
+      align: "center",
       render: (_, product) => (
         <Link to={`${routes.category}/${product.category._id}`}>
           {product?.category.name}
@@ -63,6 +66,7 @@ const ProductPage = () => {
       title: "Brand",
       dataIndex: "brand",
       width: 100,
+      align: "center",
       render: (_, product) => (
         <Link to={`${routes.brand}/${product.brand._id}`}>
           {product?.brand.name}
@@ -75,14 +79,28 @@ const ProductPage = () => {
       title: "Price",
       dataIndex: "price",
       width: 100,
+      align: "center",
       render: (_, product) => (
         <span>{formatNumber(product?.price)} </span>
       ),
       sorter: (a, b) => a.price - b.price,
     },
     {
+      title: "Is Sell",
+      dataIndex: "isSell",
+      with: 100,
+      align: "center",
+      render: (_, product) => {
+        const color = product.isSell ? "green" : "red";
+        const text = product.isSell ? "True" : "False";
+        return <Tag color={color}>{text}</Tag>;
+      },
+      sorter: (a, b) => a?.isSell - b?.isSell,
+    },
+    {
       title: "Action",
       width: 200,
+      align: "center",
       render: (__, product) => (
         <Space className="table__box">
           <span className="action__table view">

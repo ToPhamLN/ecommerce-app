@@ -24,16 +24,7 @@ const SelectBrand = (props) => {
       setLoading(false);
     }
   };
-  // const handleCategory =async() => {
-  //   try {
-  //     setLoading(true);
-  //     const res
-  //   } catch (error) {
 
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
   useEffect(() => {
     handleGetAllCategories();
   }, []);
@@ -43,7 +34,7 @@ const SelectBrand = (props) => {
         className="select__brand"
         {...register("brand", { required: true })}
       >
-        <option value={undefined}></option>
+        <option></option>
         {brands.map((brand, index) => (
           <option key={index} value={brand._id}>
             {brand.name}

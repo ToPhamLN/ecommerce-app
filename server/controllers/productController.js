@@ -30,6 +30,7 @@ export const createProduct = async (req, res, next) => {
       brand,
       properties,
       pictures: pictures,
+      slug: convertSlug(name),
     });
     const product = await newProduct.save();
     res.status(201).json(product);
@@ -48,8 +49,15 @@ export const createProduct = async (req, res, next) => {
 // @access  private Auth
 export const updateProduct = async (req, res, next) => {
   try {
-    const { name, content, price, category, brand, properties } =
-      req.body;
+    const {
+      name,
+      content,
+      price,
+      category,
+      brand,
+      properties,
+      isSell,
+    } = req.body;
 
     const product = await Product.findById({
       _id: req.params.productId,
@@ -67,11 +75,12 @@ export const updateProduct = async (req, res, next) => {
       category,
       brand,
       properties,
+      isSell,
       pictures: product.pictures,
+      slug: convertSlug(name),
     };
 
-    if (req.files) {
-      console.log(req.files);
+    if (req.files.length > 0) {
       const pictures = req.files.map((item) => {
         return {
           path: item.path,
@@ -130,23 +139,19 @@ export const deleteProduct = async (req, res, next) => {
 // @access  public
 export const getAllProduct = async (req, res, next) => {
   try {
-    // let query = {};
-    // let sort = {};
-    // let page = parseInt(req.query.page) || 1;
-    // const limit = 5;
-    // let skip = (page - 1) * limit;
-    // query.slug = {
-    //   $regex: new RegExp(req.query.search, "i"),
-    // };
-    // sort.text = req.query.text;
-    // sort.updatedAt = req.query.update;
-    const products = await Product.find()
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    let skip = (page - 1) * limit;
+    query.slug = {
+      $regex: new RegExp(req.query.search, "i"),
+    };
+    sort.updatedAt = req.query.update;
+    const products = await Product.find(query)
       .populate("category")
-      .populate("brand");
-    // .find(query)
-    //   .sort(sort)
-    //   .populate("category")
-    //   .populate("brand");
+      .populate("brand")
+      .sort(sort);
     res.status(200).json(products);
   } catch (error) {
     next(error);

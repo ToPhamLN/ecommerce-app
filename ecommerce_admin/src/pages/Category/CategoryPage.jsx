@@ -29,12 +29,14 @@ const CategoryPage = () => {
     {
       title: "ID",
       dataIndex: "_id",
+      align: "center",
       render: (_, category) => <span>{category._id}</span>,
     },
     {
       title: "Picture",
       dataIndex: "picturePath",
       width: 100,
+      align: "center",
       render: (_, category) => (
         <img src={category.picturePath} alt="" />
       ),
@@ -42,6 +44,7 @@ const CategoryPage = () => {
     {
       title: "Name",
       dataIndex: "name",
+      align: "center",
       render: (_, category) => <span>{category.name}</span>,
 
       sorter: (a, b) => a.name.localeCompare(b.name),
@@ -49,6 +52,7 @@ const CategoryPage = () => {
     {
       title: "Description",
       dataIndex: "description",
+      align: "center",
       render: (_, category) => (
         <span>{sliceString(category.description, 25)}</span>
       ),
@@ -59,6 +63,7 @@ const CategoryPage = () => {
       title: "Properties",
       width: 100,
       dataIndex: "properties",
+      align: "center",
       render: (_, { properties }) => (
         <>
           {properties.map((item, index) => (
@@ -72,6 +77,7 @@ const CategoryPage = () => {
     {
       title: "Action",
       width: 150,
+      align: "center",
       render: (_, category) => (
         <Space className="table__box">
           {/* <span className="action__table view">

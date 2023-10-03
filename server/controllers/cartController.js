@@ -8,7 +8,9 @@ import Product from "../models/productModel.js";
 export const createCart = async (req, res, next) => {
   try {
     // const user = req.user;
-    const product = await Product.findById({ _id: req.body.product });
+    const product = await Product.findById({
+      _id: req.body.product,
+    });
     if (!product) {
       return res.status(400).json({
         message: "Product not found",
@@ -19,7 +21,6 @@ export const createCart = async (req, res, next) => {
       user: req.body.user,
     });
     if (existCart) {
-      console.log(existCart);
       return res.status(400).json({
         message: "Product already in cart",
       });
@@ -73,7 +74,9 @@ export const updateCart = async (req, res, next) => {
         message: "Cart not found",
       });
     }
-    const product = await Product.findById({ _id: cart.product });
+    const product = await Product.findById({
+      _id: cart.product,
+    });
     if (!product) {
       return res.status(404).json({
         message: "Product not found",

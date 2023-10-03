@@ -1,7 +1,7 @@
 import React from "react";
 
-const Order = () => {
-  return <React.Fragment>Order</React.Fragment>;
+const OrderPage = () => {
+  return <div>OrderPage</div>;
 };
 
-export default Order;
+export default OrderPage;

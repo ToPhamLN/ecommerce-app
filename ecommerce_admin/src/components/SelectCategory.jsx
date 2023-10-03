@@ -35,7 +35,7 @@ const SelectCategory = (props) => {
         className="select__category"
         {...register("category", { required: true })}
       >
-        <option value={undefined}></option>
+        <option></option>
         {categories.map((category, index) => (
           <option key={index} value={category._id}>
             {category.name}

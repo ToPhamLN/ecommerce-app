@@ -165,7 +165,6 @@ export const updateAvatar = async (req, res, next) => {
       });
     }
     const user = req.user;
-    console.log(user, req.body, req.file);
 
     let newUser = {
       avatar: {
@@ -212,7 +211,6 @@ export const updateBackground = async (req, res, next) => {
       });
     }
     const user = req.user;
-    console.log(user, req.body, req.file);
 
     let newUser = {
       background: {
@@ -357,7 +355,6 @@ export const getUser = async (req, res) => {
 export const searchUser = async (req, res, next) => {
   try {
     const q = req.query.q;
-    console.log(q);
     let keyUser = undefined;
     if (q !== "") {
       keyUser = new RegExp(convertSlug(q));
@@ -366,7 +363,6 @@ export const searchUser = async (req, res, next) => {
         message: "Please enter keywords",
       });
     }
-    console.log(keyUser);
     const users = await User.find({
       slug: { $regex: keyUser, $options: "i" },
     });

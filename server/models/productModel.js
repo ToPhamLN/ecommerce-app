@@ -42,6 +42,10 @@ const productSchema = new Schema(
     properties: {
       type: Schema.Types.Mixed,
     },
+    isSell: {
+      type: Boolean,
+      default: true,
+    },
     slug: {
       type: String,
       default: undefined,
