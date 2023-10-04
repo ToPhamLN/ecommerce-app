@@ -9,8 +9,12 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   --primary-color: #302424;
-  --bgd-color: #e5f4f5;
+  --bgd-color: #e7e2f1;
   --second-color: #b7b8bb;
+  --third-color: #c2d5e7;
+  --fourth-color: #d7dee6;
+  --fifth-color: radial-gradient(circle 975px at 2.6% 48.3%, #000878 0%, #5fb8e0 99.7%);
+  --sixth-color: linear-gradient(120deg, #07415c 2%, #253486 14%, #1d5066 53%, #1b5f70 87%);
   --btn-color: #53ccec;
   --btn-hover: #8865ff;
   --btn-blur: #082a8f3a;
@@ -18,6 +22,7 @@
   --text-color: #050505;
   --text-bar-color: #c9d6d8;
   --text-bar-hover: #fff;
+  --gradient-wrapper: linear-gradient(230deg, rgba(93, 93, 93, 0.03) 0%, rgba(93, 93, 93, 0.03) 50%, rgba(78, 78, 78, 0.03) 50%, rgba(78, 78, 78, 0.03) 100%), linear-gradient(107deg, rgba(55, 55, 55, 0.01) 0%, rgba(55, 55, 55, 0.01) 50%, rgba(170, 170, 170, 0.01) 50%, rgba(170, 170, 170, 0.01) 100%), linear-gradient(278deg, rgba(16, 16, 16, 0.03) 0%, rgba(16, 16, 16, 0.03) 50%, rgba(24, 24, 24, 0.03) 50%, rgba(24, 24, 24, 0.03) 100%), linear-gradient(205deg, rgba(116, 116, 116, 0.03) 0%, rgba(116, 116, 116, 0.03) 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 100%), linear-gradient(150deg, rgba(5, 5, 5, 0.03) 0%, rgba(5, 5, 5, 0.03) 50%, rgba(80, 80, 80, 0.03) 50%, rgba(80, 80, 80, 0.03) 100%), linear-gradient(198deg, rgba(231, 231, 231, 0.03) 0%, rgba(231, 231, 231, 0.03) 50%, rgba(26, 26, 26, 0.03) 50%, rgba(26, 26, 26, 0.03) 100%), linear-gradient(278deg, rgba(89, 89, 89, 0.03) 0%, rgba(89, 89, 89, 0.03) 50%, rgba(26, 26, 26, 0.03) 50%, rgba(26, 26, 26, 0.03) 100%), linear-gradient(217deg, rgba(28, 28, 28, 0.03) 0%, rgba(28, 28, 28, 0.03) 50%, rgba(202, 202, 202, 0.03) 50%, rgba(202, 202, 202, 0.03) 100%), linear-gradient(129deg, rgba(23, 23, 23, 0.03) 0%, rgba(23, 23, 23, 0.03) 50%, rgba(244, 244, 244, 0.03) 50%, rgba(244, 244, 244, 0.03) 100%), linear-gradient(135deg, rgb(1, 132, 255), rgb(198, 5, 91));
   --gradient-navbar: linear-gradient(90deg, #020024 0%, #3f3f85 38%, #2f2c4d 90%);
   --gradient-sidebar: linear-gradient(180deg, #020024 0%, #3f3f85 38%, #2f2c4d 90%);
   --gradient-footer: linear-gradient(-120deg, #020024 0%, #3f3f85 38%, #2f2c4d 90%);
@@ -52,4 +57,76 @@ input {
   border: none;
   padding: 1rem;
   border-radius: 0.5rem;
+}
+
+/* button {
+  outline: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 0;
+  background-color: var(--btn-color);
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  transition: all .5s ease;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: var(--btn-hover);
+  color: var(--text-color);
+  box-shadow: var(--btn-shadow);
+} */
+
+.Toastify__toast--success {
+  background-color: var(--bgd-color);
+}
+
+.Toastify__toast-body {
+  color: var(--text-color);
+  font-size: 1.5rem;
+}
+
+.ant-table-content {
+  font-size: 1.5rem;
+}
+
+.ant-table-thead th {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.ant-table-tbody tr:nth-child(even) {
+  background-color: #dbdbdb;
+  color: #333;
+}
+
+.quill__editor {
+  font-size: 1.5rem;
+}
+
+.ql-toolbar {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.5rem;
+}
+
+.ql-toolbar .ql-picker-label {
+  color: var(--text-color);
+  font-size: 1.5rem;
+}
+
+.ql-toolbar .ql-picker-options {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  font-size: 1.5rem;
+}
+
+.ql-editor {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  height: 15rem;
 }

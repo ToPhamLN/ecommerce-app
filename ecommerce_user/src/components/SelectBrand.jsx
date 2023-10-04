@@ -34,7 +34,7 @@ const SelectBrand = (props) => {
         className="select__brand"
         {...register("brand", { required: true })}
       >
-        <option value={null}></option>
+        <option value={undefined}>------</option>
         {brands.map((brand, index) => (
           <option key={index} value={brand._id}>
             {brand.name}

@@ -15,7 +15,7 @@ section.form__auth {
 }
 
 section.form__auth .poster img {
-    width: 50rem;
+    width: 70rem;
     height: 50rem;
     border-radius: 0.5rem;
     object-fit: cover;

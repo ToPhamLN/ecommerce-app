@@ -176,3 +176,33 @@ export const getProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAllSell = async (req, res, next) => {
+  try {
+    console.log(req.query);
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    let skip = (page - 1) * limit;
+    query.slug = {
+      $regex: new RegExp(req.query.search, "i"),
+    };
+    if (req.query.gtePrice && req.query.ltePrice) {
+      query.price = {
+        $gte: gtePrice,
+        $lte: ltePrice,
+      };
+    }
+    sort.updatedAt = req.query.update;
+    const products = await Product.find(query)
+      .populate("category")
+      .populate("brand")
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};

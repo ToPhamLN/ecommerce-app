@@ -3,17 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/userSlice.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import axios from "axios";
 
+import Loading from "../../components/Loading.jsx";
+import { routes } from "../../config/routes.js";
 import { userRequest } from "../../config/apiRequest";
 import "../../assets/css/Register.css";
 import posterImg from "../../assets/imgs/poster.jpg";
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -26,12 +31,19 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
       const res = await axios.post(userRequest.login, data);
-      console.log(res.data);
       dispatch(setCredentials(res.data));
-      navigate("/dashboard");
+      setLoading(false);
+      toast.success("Login successfully!", {
+        autoClose: 1000,
+      });
+      setTimeout(() => navigate(routes.home), 2000);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, {
+        autoClose: 1000,
+      });
+      setLoading(false);
     }
   };
   return (
@@ -96,6 +108,8 @@ const LoginPage = () => {
           </form>
         </section>
       </div>
+      {loading && <Loading />}
+      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

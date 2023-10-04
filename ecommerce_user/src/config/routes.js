@@ -7,10 +7,11 @@ import PaymentPage from "../pages/Payment/PaymentPage";
 import CategoryPage from "../pages/Category/CategoryPage";
 import BrandPage from "../pages/Brand/BrandPage";
 import CartPage from "../pages/Cart/CartPage";
+import FeedPage from "../pages/Feed/FeedPage";
 export const routes = {
   login: "/login",
   register: "/register",
-  home: "/home",
+  home: "/",
   feed: "/feed",
   product: "/product",
   order: "/order",
@@ -27,6 +28,7 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
+  { path: routes.feed, component: FeedPage },
   { path: routes.product, component: ProductPage },
   { path: routes.order, component: OrderPage },
   { path: routes.payment, component: PaymentPage },

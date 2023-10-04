@@ -3,21 +3,21 @@ import axios from "axios";
 import Loading from "./Loading";
 import PropTypes from "prop-types";
 
-import { brandRequest } from "../config/apiRequest";
+import { categoryRequest } from "../config/apiRequest";
 
-const SelectBrand = (props) => {
+const SelectCategory = (props) => {
   const { register } = props;
-  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const handleGetAllCategories = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(brandRequest.getAll, {
+      const res = await axios.get(categoryRequest.getAll, {
         params: {
           text: 1,
         },
       });
-      setBrands(res.data);
+      setCategories(res.data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -31,22 +31,25 @@ const SelectBrand = (props) => {
   return (
     <React.Fragment>
       <select
-        className="select__brand"
-        {...register("brand", { required: true })}
+        name="category"
+        className="select__category"
+        {...register("category", { required: true })}
       >
-        <option value={null}></option>
-        {brands.map((brand, index) => (
-          <option key={index} value={brand._id}>
-            {brand.name}
+        <option></option>
+        {categories.map((category, index) => (
+          <option key={index} value={category._id}>
+            {category.name}
           </option>
         ))}
       </select>
+      <div className="property"></div>
+
       {loading && <Loading />}
     </React.Fragment>
   );
 };
-SelectBrand.propTypes = {
+SelectCategory.propTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default SelectBrand;
+export default SelectCategory;

@@ -1,0 +1,93 @@
+aside.navcategory {
+    position: fixed;
+    top: 7rem;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    background: var(--gradient-navbar);
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 3rem;
+    align-items: center;
+    padding: 0 10rem;
+    z-index: 1;
+    border-top: 1px solid #0e758f;
+}
+
+.wrapper__navcategory {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+}
+
+.category__item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+
+    &:hover {
+        &>.picture {
+            transform: translateY(-0.5rem);
+        }
+
+        &>span {
+            transform: scale(1.05);
+            color: white;
+        }
+    }
+}
+
+.category__item .picture {
+    height: 3rem;
+    width: 3rem;
+}
+
+.category__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.7rem;
+}
+
+.category__item span {
+    font-size: 1.5rem;
+    color: var(--text-bar-color);
+}
+
+.control.prev {
+    left: 5rem;
+}
+
+.control.next {
+    right: 5rem;
+}
+
+.control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    font-size: 2rem;
+    height: 4rem;
+    background: var(--fifth-color);
+    transition: transform 0.2s ease, background-color 0.9s ease-in;
+
+    &:hover {
+        background: linear-gradient(120deg, #07415c 2%, #253486 14%, #1d5066 53%, #1b5f70 87%);
+    }
+
+    &:disabled {
+        background: #1b4d8f86;
+    }
+
+}
