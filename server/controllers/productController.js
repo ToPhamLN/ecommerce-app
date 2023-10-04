@@ -1,7 +1,10 @@
 import { v2 as cloudinary } from "cloudinary";
 
 import Product from "../models/productModel.js";
-import { convertSlug, convertObject } from "../utils/format.js";
+import {
+  convertSlug,
+  convertObjectArr,
+} from "../utils/format.js";
 
 // @desc    Create new product
 // route    POST api/products/create
@@ -21,7 +24,6 @@ export const createProduct = async (req, res, next) => {
         };
       });
     }
-
     const newProduct = new Product({
       name,
       content,
@@ -172,6 +174,43 @@ export const getProduct = async (req, res, next) => {
       });
     }
     res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllSell = async (req, res, next) => {
+  try {
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    let skip = (page - 1) * limit;
+    query.isSell = "true";
+    query.slug = {
+      $regex: new RegExp(req.query.search, "i"),
+    };
+    if (req.query.gtePrice && req.query.ltePrice) {
+      query.price = {
+        $gte: parseInt(req.query.gtePrice),
+        $lte: parseInt(req.query.ltePrice),
+      };
+    }
+    if (req.query.brand) {
+      query.brand = req.query.brand;
+    }
+    if (req.query.category) {
+      query.category = req.query.category;
+    }
+    console.log(query);
+    sort.slug = req.query.sort;
+    const products = await Product.find(query)
+      .populate("category")
+      .populate("brand")
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
+    res.status(200).json(products);
   } catch (error) {
     next(error);
   }

@@ -45,3 +45,15 @@ export const convertObject = (obj) => {
 
   return result;
 };
+
+export const convertObjectArr = (obj) => {
+  for (const key in obj) {
+    if (obj[key].includes(",")) {
+      obj[key] = obj[key]
+        .split(",")
+        .map((value) => value.trim());
+    } else {
+      obj[key] = [obj[key]];
+    }
+  }
+};
