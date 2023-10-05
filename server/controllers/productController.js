@@ -202,7 +202,6 @@ export const getAllSell = async (req, res, next) => {
     if (req.query.category) {
       query.category = req.query.category;
     }
-    console.log(query);
     sort.slug = req.query.sort;
     const products = await Product.find(query)
       .populate("category")
@@ -211,6 +210,25 @@ export const getAllSell = async (req, res, next) => {
       .skip(skip)
       .limit(limit);
     res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProductSell = async (req, res, next) => {
+  try {
+    const product = await Product.findById({
+      _id: req.params.productId,
+    })
+      .populate("category")
+      .populate("brand")
+      .exec();
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found",
+      });
+    }
+    res.status(200).json(product);
   } catch (error) {
     next(error);
   }

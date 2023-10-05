@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import NavCategory from "../../components/NavCategory";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Pagination, Space, Tag } from "antd";
+import { Pagination, Space, Tag, FloatButton } from "antd";
 import "../../assets/css/Home.css";
 import SelectBrand from "../../../../ecommerce_admin/src/components/SelectBrand";
 import Loading from "../../components/Loading";
 import axios from "axios";
 import { productRequest } from "../../config/apiRequest";
-import { sliceString } from "../../utils/format";
+import { sliceString, formatDate } from "../../utils/format";
 
-const Hompage = () => {
+const HomPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const { register, watch } = useForm();
@@ -21,7 +21,6 @@ const Hompage = () => {
   const [sort, setSort] = useState(null);
   const brand = watch("brand");
   const [category, setCategory] = useState(null);
-  console.log(category);
 
   const handleGetProucts = async () => {
     try {
@@ -117,7 +116,7 @@ const Hompage = () => {
                     {sliceString(product.name, 6)}
                   </span>
                   <span className="product__item__updated">
-                    {product.updatedAt}
+                    {formatDate(product.updatedAt)}
                   </span>
                   <div className="product__item__content">
                     <Tag color="#208A49">Reply 0%</Tag>
@@ -126,11 +125,12 @@ const Hompage = () => {
                   <span className="product__item__price">
                     {product.price + " vnđ"}
                   </span>
-                  <button className="product__item__btn">
-                    <Link to={`/product/${product._id}`}>
-                      Read more
-                    </Link>
-                  </button>
+                  <Link
+                    className="product__item__btn"
+                    to={`/products/${product._id}`}
+                  >
+                    Read more
+                  </Link>
                 </div>
               </article>
             ))
@@ -150,8 +150,9 @@ const Hompage = () => {
         </section>
       </div>
       {loading && <Loading />}
+      <FloatButton.BackTop />
     </React.Fragment>
   );
 };
 
-export default Hompage;
+export default HomPage;

@@ -8,6 +8,7 @@ export const userRequest = {
 
 export const productRequest = {
   getAllSell: `${urlServer}/products/sell/all`,
+  getByIdSell: `${urlServer}/products/sell`,
 };
 
 export const brandRequest = {

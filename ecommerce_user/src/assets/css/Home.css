@@ -146,13 +146,10 @@
     box-shadow: 0 4px 6px -1px #4299e133, 0 2px 4px -1px #4299e133;
     transition: all 0.3s ease;
     cursor: pointer;
-
-    &>a {
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-    }
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .product__item__btn:hover {

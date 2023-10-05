@@ -1,4 +1,4 @@
-import HomePage from "../pages/Home/Hompage";
+import HomePage from "../pages/Home/HomPage";
 import LoginPage from "../pages/Login/LoginPage";
 import RegisterPage from "../pages/Register/RegisterPage";
 import ProductPage from "../pages/Product/ProductPage";
@@ -13,7 +13,7 @@ export const routes = {
   register: "/register",
   home: "/",
   feed: "/feed",
-  productId: "/product/:productId",
+  productId: "/products/:productId",
   order: "/order",
   payment: "/payment",
   category: "/category",

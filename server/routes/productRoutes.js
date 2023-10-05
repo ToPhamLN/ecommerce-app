@@ -7,6 +7,7 @@ import {
   getAllProduct,
   getAllSell,
   getProduct,
+  getProductSell,
   updateProduct,
 } from "../controllers/productController.js";
 
@@ -20,6 +21,8 @@ router.post(
 router.get("/all", getAllProduct);
 router.get("/sell/all", getAllSell);
 router.get("/:productId", getProduct);
+router.get("/sell/:productId", getProductSell);
+
 router.put(
   "/update/:productId",
   uploadCloud.array("picture", 5),

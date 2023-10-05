@@ -20,6 +20,7 @@ import PropTypes from "prop-types";
 
 import "../assets/css/Navbar.css";
 import ExpandNav from "./ExpandNav";
+import SearchNavbar from "../components/SearchNavbar";
 
 const Navbar = (props) => {
   const { user } = props;
@@ -28,12 +29,12 @@ const Navbar = (props) => {
   return (
     <React.Fragment>
       <header className="navbar">
-        <Link className="logo__nav" to="/">
-          E-commerce
-        </Link>
-        <form action="">
-          <input type="text" />
-        </form>
+        <div className="logo__nav">
+          <Link className="logo__nav__item" to="/">
+            E-commerce
+          </Link>
+          <SearchNavbar />
+        </div>
         {user ? (
           <React.Fragment>
             <div className="options__bar">

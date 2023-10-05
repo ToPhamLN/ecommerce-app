@@ -1,0 +1,115 @@
+.product__picture {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid #555;
+    background: var(--gradient-wrapper);
+
+}
+
+.slide__picture {
+    position: relative;
+    width: 100%;
+    height: 40rem;
+    background-color: #0d071680;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.show__picture {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.picture__item__product {
+    height: 30rem;
+    background-color: aqua;
+}
+
+.picture__item__product img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide__picture span {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border: none;
+    font-size: 4rem;
+    color: #ffffff;
+    opacity: 0.5;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in opacity 0.3s ease;
+
+    &:hover {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+.picture__list {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+    gap: 3rem;
+}
+
+.picture__list_item {
+    height: 100%;
+    opacity: 0.7;
+    transition: transform 0.3s ease opacity 0.3 ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+.picture__list_item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.attention {
+    margin-top: 2rem;
+    background: #ffffff;
+    box-shadow: 1.2rem 1.7rem 5.1rem #00000038;
+    backdrop-filter: blur(0.6rem);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    font-size: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.det__attention {
+    display: flex;
+    width: 50%;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 2rem;
+}
+
+.det__attention .icon {
+    font-size: 4rem;
+    color: #32cf32;
+}
+
+.det__attention .text {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
