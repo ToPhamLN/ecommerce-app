@@ -22,25 +22,8 @@ const cartSchema = new Schema(
       type: Number,
       default: 0,
     },
-    quantity: {
-      type: Number,
-      default: 0,
-    },
-    size: {
-      type: String,
-      default: undefined,
-    },
-    color: {
-      type: String,
-      default: undefined,
-    },
-    ram: {
-      type: String,
-      default: undefined,
-    },
-    storage: {
-      type: String,
-      default: undefined,
+    properties: {
+      type: Schema.Types.Mixed,
     },
     user: {
       type: Schema.Types.ObjectId,

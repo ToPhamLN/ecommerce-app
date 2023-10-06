@@ -11,6 +11,11 @@ import {
   updateProduct,
 } from "../controllers/productController.js";
 
+import {
+  verifyTokenAndAuthAdmin,
+  verifyToken,
+} from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
 
 router.post(
@@ -18,15 +23,21 @@ router.post(
   uploadCloud.array("picture", 5),
   createProduct
 );
-router.get("/all", getAllProduct);
-router.get("/sell/all", getAllSell);
+router.get("/all", verifyTokenAndAuthAdmin, getAllProduct);
 router.get("/:productId", getProduct);
-router.get("/sell/:productId", getProductSell);
-
 router.put(
   "/update/:productId",
+  verifyTokenAndAuthAdmin,
   uploadCloud.array("picture", 5),
   updateProduct
 );
-router.delete("/delete/:productId", deleteProduct);
+router.delete(
+  "/delete/:productId",
+  verifyTokenAndAuthAdmin,
+  deleteProduct
+);
+
+router.get("/sell/all", getAllSell);
+router.get("/sell/:productId", verifyToken, getProductSell);
+
 export default router;

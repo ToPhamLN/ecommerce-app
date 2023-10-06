@@ -10,13 +10,23 @@ import {
 } from "../controllers/categoryController.js";
 
 const router = express.Router();
+import { verifyTokenAndAuthAdmin } from "../middlewares/authMiddleware.js";
 
-router.post("/create", uploadCloud.single("picture"), createCategory);
+router.post(
+  "/create",
+  uploadCloud.single("picture"),
+  createCategory
+);
 router.get("/all", getAllCategory);
 router.get("/:categoryId", getCategory);
-router.delete("/delete/:categoryId", deleteCategory);
+router.delete(
+  "/delete/:categoryId",
+  verifyTokenAndAuthAdmin,
+  deleteCategory
+);
 router.put(
   "/update/:categoryId",
+  verifyTokenAndAuthAdmin,
   uploadCloud.single("picture"),
   updateCategory
 );

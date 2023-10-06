@@ -9,6 +9,8 @@ import {
   updateBrand,
 } from "../controllers/brandController.js";
 
+import { verifyTokenAndAuthAdmin } from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
 
 router.post(
@@ -18,9 +20,14 @@ router.post(
 );
 router.get("/all", getAllBrand);
 router.get("/:brandId", getBrand);
-router.delete("/delete/:brandId", deleteBrand);
+router.delete(
+  "/delete/:brandId",
+  verifyTokenAndAuthAdmin,
+  deleteBrand
+);
 router.put(
   "/update/:brandId",
+  verifyTokenAndAuthAdmin,
   uploadCloud.single("picture"),
   updateBrand
 );

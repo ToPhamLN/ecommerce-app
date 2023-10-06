@@ -17,6 +17,7 @@ export const verifyToken = async (req, res, next) => {
         if (err) {
           res.status(403).json({
             message: "Token is not valid",
+            setLogin: true,
           });
         }
         try {
@@ -24,15 +25,13 @@ export const verifyToken = async (req, res, next) => {
           if (!existed) {
             res.status(403).json({
               message: "User is not valid",
+              setToken: true,
             });
           }
           req.user = existed;
           next();
         } catch (error) {
-          res.status(500).json({
-            message: "Internal Server Error",
-            error: error.message,
-          });
+          next(error);
         }
       }
     );
@@ -52,6 +51,25 @@ export const verifyTokenAndAuthAdmin = (req, res, next) => {
       return res.status(403).json({
         message: "You're not authorized to perform this action!",
       });
+    }
+  });
+};
+
+export const AuthCart = (req, res, next) => {
+  verifyToken(req, res, async () => {
+    try {
+      const { cartId } = req.body;
+      const existedCart = Cart.findOne({
+        _id: cartId,
+        user: req.user.id,
+      });
+      if (existedCart || req.user.isAdmin) {
+        next();
+      } else {
+        message: "Cart not found!";
+      }
+    } catch (error) {
+      next(error);
     }
   });
 };
