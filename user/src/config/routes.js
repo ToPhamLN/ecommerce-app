@@ -7,6 +7,7 @@ import PaymentPage from "../pages/Payment/PaymentPage";
 import CategoryPage from "../pages/Category/CategoryPage";
 import BrandPage from "../pages/Brand/BrandPage";
 import CartPage from "../pages/Cart/CartPage";
+import UpdateCart from "../pages/Cart/UpdateCart";
 import FeedPage from "../pages/Feed/FeedPage";
 export const routes = {
   login: "/login",
@@ -19,6 +20,7 @@ export const routes = {
   category: "/category",
   brand: "/brand",
   cart: "/cart",
+  cartId: "/cart/:cartId",
 };
 
 export const publicRoutes = [
@@ -35,4 +37,5 @@ export const privateRoutes = [
   { path: routes.category, component: CategoryPage },
   { path: routes.brand, component: BrandPage },
   { path: routes.cart, component: CartPage },
+  { path: routes.cartId, component: UpdateCart },
 ];

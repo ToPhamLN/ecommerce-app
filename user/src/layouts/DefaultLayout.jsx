@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -26,6 +27,7 @@ const DefaultLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

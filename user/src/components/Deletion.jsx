@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { MdOutlineCancelPresentation } from "react-icons/md";
 import "./../assets/css/Deletion.css";
 import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
+import axios from "../config/axios";
 import Loading from "./Loading";
 
 const Deletion = (props) => {

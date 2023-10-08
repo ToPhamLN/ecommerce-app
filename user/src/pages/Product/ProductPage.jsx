@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../../config/axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import {
   BiSolidUpArrow,
@@ -21,37 +20,27 @@ import Loading from "../../components/Loading";
 
 const ProductPage = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
-  const { userInfo } = useSelector((state) => state.user);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
   };
-  const navigate = useNavigate();
 
   const handleGetProduct = async () => {
-    if (userInfo === null) {
-      navigate("/");
-    }
     try {
-      if (userInfo === null) {
-        navigate("/");
-      }
       const res = await axios.get(
-        `${productRequest.getByIdSell}/${productId}`,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            token: `Bearer ${userInfo?.accessToken}`,
-          },
-        }
+        `${productRequest.getByIdSell}/${productId}`
       );
       setProduct(res.data);
     } catch (error) {
-      navigate("*");
-      console.log(error);
+      if (error.response.status === 401) {
+        navigate("/login");
+      } else {
+        navigate("*");
+      }
     } finally {
       setLoading(false);
     }

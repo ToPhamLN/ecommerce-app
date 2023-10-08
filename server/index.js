@@ -25,11 +25,14 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
   optionsSuccessStatus: 204,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(
+  bodyParser.urlencoded({ limit: "30mb", extended: true })
+);
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 
 app.use("/api/users", userRoutes);

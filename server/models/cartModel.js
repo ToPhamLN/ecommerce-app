@@ -18,12 +18,15 @@ const cartSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Product",
     },
+    properties: {
+      type: Schema.Types.Mixed,
+    },
+    quantity: {
+      type: Number,
+    },
     unitPrice: {
       type: Number,
       default: 0,
-    },
-    properties: {
-      type: Schema.Types.Mixed,
     },
     user: {
       type: Schema.Types.ObjectId,

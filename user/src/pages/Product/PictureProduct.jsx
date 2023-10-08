@@ -17,13 +17,13 @@ const PictureProduct = (props) => {
   const [slider, setSlider] = useState(0);
   const handleNextSlider = () => {
     setSlider((slider) =>
-      slider == pictures.length - 1 ? 0 : slider - 1
+      slider == pictures.length - 1 ? 0 : slider + 1
     );
   };
 
   const handlePrevSlider = () => {
     setSlider((slider) =>
-      slider == 0 ? pictures.length - 1 : slider + 1
+      slider == 0 ? pictures.length - 1 : slider - 1
     );
   };
 

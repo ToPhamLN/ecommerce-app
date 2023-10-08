@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { MdOutlineCancelPresentation } from "react-icons/md";
 import PropTypes from "prop-types";
-import axios from "axios";
+import axios from "../../config/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 
 import Loading from "../../components/Loading";
 import { categoryRequest } from "../../config/apiRequest";
 
 const CreateCategory = (props) => {
-  const { userInfo } = useSelector((state) => state.user);
   const { data, setData } = props;
   const [loading, setLoading] = useState(false);
   const {
@@ -35,7 +33,6 @@ const CreateCategory = (props) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: `Bearer ${userInfo.accessToken}`,
           },
         }
       );

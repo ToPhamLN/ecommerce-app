@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { MdOutlineCancelPresentation } from "react-icons/md";
 import PropTypes from "prop-types";
-import axios from "axios";
+import axios from "../../config/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 
 import Loading from "../../components/Loading.jsx";
 import "./../../assets/css/CreateBrand.css";
@@ -19,7 +18,6 @@ const CreateBrand = (props) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { userInfo } = useSelector((state) => state.user);
 
   const onSubmit = async (data) => {
     try {
@@ -36,7 +34,6 @@ const CreateBrand = (props) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: `Bearer ${userInfo.accessToken}`,
           },
         }
       );
@@ -45,7 +42,9 @@ const CreateBrand = (props) => {
       toast.success("Create successfully!", {
         autoClose: 1000,
       });
-      setData(!data);
+      setTimeout(() => {
+        setData(!data);
+      }, 2000);
     } catch (error) {
       console.error(error);
       toast.error(error.response.data?.message, {

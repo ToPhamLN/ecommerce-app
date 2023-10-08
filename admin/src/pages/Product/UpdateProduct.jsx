@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import axios from "../../config/axios";
 
 import SelectCategory from "../../components/SelectCategory";
 import SelectBrand from "../../components/SelectBrand";
@@ -31,7 +30,6 @@ const UpdateProduct = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const { userInfo } = useSelector((state) => state.user);
 
   const handleGetProduct = async () => {
     try {
@@ -86,7 +84,6 @@ const UpdateProduct = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: `Bearer ${userInfo.accessToken}`,
           },
         }
       );

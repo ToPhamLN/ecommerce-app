@@ -41,7 +41,7 @@ const Navbar = (props) => {
               <div className="menu__nav">
                 <button
                   className="menu__nav__item message"
-                  name="message"
+                  name="Message"
                 >
                   <span>
                     <AiOutlineMessage />
@@ -49,20 +49,21 @@ const Navbar = (props) => {
                 </button>
                 <button
                   className="menu__nav__item notification"
-                  name="notification"
+                  name="Notification"
                 >
                   <span>
                     <BsBell />
                   </span>
                 </button>
-                <button
+                <Link
                   className="menu__nav__item cart"
-                  name="cart"
+                  name="Cart"
+                  to="/cart"
                 >
                   <span>
                     <BsCart3 />
                   </span>
-                </button>
+                </Link>
                 <div className="more__menu">
                   <span className="toggle__more__menu">
                     <AiOutlineMore />
@@ -71,7 +72,7 @@ const Navbar = (props) => {
                     <div className="wrapper__more__menu">
                       <button
                         className="menu__nav__item order"
-                        name="order"
+                        name="Order"
                       >
                         <span>
                           <MdNoAdultContent />
@@ -79,7 +80,7 @@ const Navbar = (props) => {
                       </button>
                       <button
                         className="menu__nav__item payment"
-                        name="payment"
+                        name="Payment"
                       >
                         <span>
                           <MdContentPasteSearch />
@@ -87,7 +88,7 @@ const Navbar = (props) => {
                       </button>
                       <button
                         className="menu__nav__item feedback"
-                        name="feedback"
+                        name="Feedback"
                       >
                         <span>
                           <AiOutlineQuestionCircle />

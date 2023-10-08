@@ -10,7 +10,7 @@ import { cartRequest } from "../../config/apiRequest";
 import axios from "../../config/axios";
 import Loading from "../../components/Loading";
 
-const ActionProduct = (props) => {
+const ActionCart = (props) => {
   const [loading, setLoading] = useState(false);
   const { product } = props;
   const [selectedProperties, setSelectedProperties] = useState(
@@ -150,8 +150,8 @@ const ActionProduct = (props) => {
   );
 };
 
-ActionProduct.propTypes = {
+ActionCart.propTypes = {
   product: PropTypes.object.isRequired,
 };
 
-export default ActionProduct;
+export default ActionCart;

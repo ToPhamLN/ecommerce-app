@@ -1,8 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import axios from "../../config/axios";
 
 import { brandRequest } from "../../config/apiRequest";
 import Loading from "../../components/Loading";
@@ -15,7 +14,6 @@ const UpdateBrand = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm();
   const [loading, setLoading] = useState(false);
-  const { userInfo } = useSelector((state) => state.user);
 
   const handleGetBrand = async () => {
     setLoading(true);
@@ -52,7 +50,6 @@ const UpdateBrand = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: `Bearer ${userInfo.accessToken}`,
           },
         }
       );

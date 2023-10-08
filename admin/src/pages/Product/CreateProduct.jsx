@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import SelectCategory from "../../components/SelectCategory";
 import SelectBrand from "../../components/SelectBrand";
@@ -16,7 +15,7 @@ import { routes } from "../../config/routes";
 import "react-quill/dist/quill.snow.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../../assets/css/CreateProduct.css";
-import axios from "axios";
+import axios from "../../config/axios";
 import UploadMultiple from "../../components/UploadMultiple";
 
 const CreateProduct = () => {
@@ -30,7 +29,6 @@ const CreateProduct = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const { userInfo } = useSelector((state) => state.user);
 
   const onSubmit = async (data) => {
     try {
@@ -60,7 +58,6 @@ const CreateProduct = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            token: `Bearer ${userInfo.accessToken}`,
           },
         }
       );

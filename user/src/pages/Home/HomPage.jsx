@@ -8,7 +8,11 @@ import SelectBrand from "../../components/SelectBrand";
 import Loading from "../../components/Loading";
 import axios from "axios";
 import { productRequest } from "../../config/apiRequest";
-import { sliceString, formatDate } from "../../utils/format";
+import {
+  sliceString,
+  formatNumber,
+  formatDate,
+} from "../../utils/format";
 
 const HomPage = () => {
   const [products, setProducts] = useState([]);
@@ -123,7 +127,7 @@ const HomPage = () => {
                     <Tag color="#6610F2">Online is so cheap</Tag>
                   </div>
                   <span className="product__item__price">
-                    {product.price + " vnđ"}
+                    {formatNumber(product.price) + " vnđ"}
                   </span>
                   <Link
                     className="product__item__btn"

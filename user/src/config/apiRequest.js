@@ -14,15 +14,16 @@ export const productRequest = {
 export const brandRequest = {
   getAll: `${urlServer}/brands/all`,
   getById: `${urlServer}/brands`,
-  create: `${urlServer}/brands/create`,
-  update: `${urlServer}/brands/update`,
-  delete: `${urlServer}/brands/delete`,
 };
 
 export const categoryRequest = {
   getAll: `${urlServer}/categories/all`,
   getById: `${urlServer}/categories`,
-  create: `${urlServer}/categories/create`,
-  update: `${urlServer}/categories/update`,
-  delete: `${urlServer}/categories/delete`,
+};
+
+export const cartRequest = {
+  create: `${urlServer}/carts/create`,
+  getAllCart: `${urlServer}/carts/sell/all`,
+  getById: `${urlServer}/carts/`,
+  updateCart: `${urlServer}/carts/update`,
 };

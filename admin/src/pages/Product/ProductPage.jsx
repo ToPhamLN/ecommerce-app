@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { MdCreateNewFolder } from "react-icons/md";
 import { TbEyeSearch } from "react-icons/tb";
 import {
@@ -13,7 +12,7 @@ import { routes } from "../../config/routes";
 
 import Loading from "../../components/Loading";
 import Deletion from "../../components/Deletion";
-import axios from "axios";
+import axios from "../../config/axios";
 import { productRequest } from "../../config/apiRequest";
 import { formatNumber } from "../../../utils/format";
 
@@ -25,7 +24,6 @@ const ProductPage = () => {
   const [search, setSearch] = useState("");
   const [update, setUpdate] = useState(-1);
   const navigate = useNavigate();
-  const { userInfo } = useSelector((state) => state.user);
 
   const columns = [
     {
@@ -130,9 +128,6 @@ const ProductPage = () => {
         params: {
           search: search,
           update: update,
-        },
-        headers: {
-          token: `Bearer ${userInfo.accessToken}`,
         },
       });
       setProducts(res.data);

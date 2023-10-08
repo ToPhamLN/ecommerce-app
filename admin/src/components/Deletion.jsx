@@ -3,24 +3,19 @@ import PropTypes from "prop-types";
 import { MdOutlineCancelPresentation } from "react-icons/md";
 import "./../assets/css/Deletion.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useSelector } from "react-redux";
 
-import axios from "axios";
+import axios from "../config/axios";
+
 import Loading from "./Loading";
 
 const Deletion = (props) => {
   const { data, setData, api } = props;
-  const { userInfo } = useSelector((state) => state.user);
 
   const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
     try {
       setLoading(true);
-      const res = await axios.delete(api, {
-        headers: {
-          token: `Bearer ${userInfo.accessToken}`,
-        },
-      });
+      const res = await axios.delete(api);
       toast.warning(res.data.message, {
         autoClose: 1000,
       });

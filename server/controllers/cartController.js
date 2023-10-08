@@ -7,18 +7,17 @@ import Product from "../models/productModel.js";
 // @access  private Auth
 export const createCart = async (req, res, next) => {
   try {
-    // const user = req.user;
     const product = await Product.findById({
       _id: req.body.product,
     });
     if (!product) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: "Product not found",
       });
     }
     const existCart = await Cart.findOne({
       product: req.body.product,
-      user: req.body.user,
+      user: req.user.id,
     });
     if (existCart) {
       return res.status(400).json({
@@ -26,17 +25,17 @@ export const createCart = async (req, res, next) => {
       });
     }
     const newCart = new Cart({
-      product: req.body.product,
+      product: product._id,
       quantity: req.body.quantity,
-      size: req.body.size || undefined,
-      color: req.body.color || undefined,
-      ram: req.body.ram || undefined,
-      storage: req.body.storage || undefined,
+      properties: req.body.properties,
       unitPrice: req.body.quantity * product.price,
-      user: req.body.user, // user.id
+      user: req.user.id,
     });
     const cart = await newCart.save();
-    res.status(200).json(cart);
+    res.status(200).json({
+      message: "Added cart successfully!",
+      cart,
+    });
   } catch (error) {
     next(error);
   }
@@ -47,13 +46,27 @@ export const createCart = async (req, res, next) => {
 // @access  private Auth
 export const getCart = async (req, res, next) => {
   try {
-    const cart = await Cart.findById({ _id: req.params.cartId });
-    if (!cart) {
+    const getCart = await Cart.findById({
+      _id: req.params.cartId,
+    })
+      .populate({
+        path: "user",
+        select: "-password",
+      })
+      .populate({
+        path: "product",
+        select: "-content",
+        populate: {
+          path: "category brand",
+          select: "name _id",
+        },
+      });
+    if (!getCart) {
       return res.status(400).json({
         message: "Cart not found",
       });
     }
-    res.status(200).json(cart);
+    res.status(200).json(getCart);
   } catch (error) {
     next(error);
   }
@@ -64,43 +77,32 @@ export const getCart = async (req, res, next) => {
 // @access  private Auth
 export const updateCart = async (req, res, next) => {
   try {
-    // const user = req.user;
-    const cart = await Cart.findById({
-      _id: req.params.cartId,
-      user: req.body.user,
-    });
-    if (!cart) {
-      return res.status(400).json({
-        message: "Cart not found",
-      });
-    }
+    const { quantity, properties, status } = req.body;
+    const cart = req.cart;
     const product = await Product.findById({
       _id: cart.product,
     });
     if (!product) {
       return res.status(404).json({
-        message: "Product not found",
+        message: "Resource not found",
       });
     }
     const newCart = {
-      quantity: req.body.quantity,
-      size: req.body.size || undefined,
-      color: req.body.color || undefined,
-      ram: req.body.ram || undefined,
-      storage: req.body.storage || undefined,
-      unitPrice: req.body.quantity * product.price,
-      user: req.body.user, // user.id
+      product: product._id,
+      quantity: quantity ? quantity : cart.quantity,
+      properties: properties ? properties : cart.properties,
+      unitPrice: quantity
+        ? quantity * product.price
+        : cart.unitPrice,
+      status: status ? status : cart.status,
     };
+    console.log(newCart, req.params);
+
     const result = await Cart.updateOne(
       { _id: req.params.cartId },
       { $set: newCart },
       { new: true }
     );
-    if (result.nModified === 0) {
-      return res.status(400).json({
-        message: "Can't update",
-      });
-    }
     res.status(200).json({
       message: "Updated successfully",
     });
@@ -133,6 +135,30 @@ export const deleteCart = async (req, res, next) => {
 export const getAllCart = async (req, res, next) => {
   try {
     const carts = await Cart.find();
+    res.status(200).json(carts);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllCartForUser = async (req, res, next) => {
+  try {
+    const carts = await Cart.find({
+      user: req.user._id,
+      status: "Not_Processed",
+    })
+      .populate({
+        path: "user",
+        select: "-password",
+      })
+      .populate({
+        path: "product",
+        select: "-content -properties",
+        populate: {
+          path: "category brand",
+          select: "name _id",
+        },
+      });
     res.status(200).json(carts);
   } catch (error) {
     next(error);
