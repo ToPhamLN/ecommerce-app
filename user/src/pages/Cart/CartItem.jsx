@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Tag, InputNumber } from "antd";
 import PropTypes from "prop-types";
 import { FaDeleteLeft, FaAlgolia } from "react-icons/fa6";
 import { formatNumber } from "../../utils/format";
 import axios from "../../config/axios";
+import Deletion from "../../components/Deletion";
 import { cartRequest } from "../../config/apiRequest";
 import { Link } from "react-router-dom";
 import { routes } from "../../config/routes";
 
 const CartItem = (props) => {
   const [loading, setLoading] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const { cart, reset } = props;
 
   const handleChangeQuantity = async (value) => {
@@ -29,7 +31,9 @@ const CartItem = (props) => {
       setLoading(false);
     }
   };
-  useEffect(() => {}, []);
+  const handleDeleteCart = async () => {
+    setShowDelete(!showDelete);
+  };
   return (
     <React.Fragment>
       <article
@@ -103,13 +107,24 @@ const CartItem = (props) => {
               </span>
             </button>
           </Link>
-          <button className="deletecart">
+          <button
+            className="deletecart"
+            onClick={() => handleDeleteCart()}
+          >
             <span>
               <FaDeleteLeft />
             </span>
           </button>
         </div>
       </article>
+      {showDelete && (
+        <Deletion
+          data={showDelete}
+          setData={setShowDelete}
+          reset={reset}
+          api={`${cartRequest.delete}/${cart._id}`}
+        />
+      )}
     </React.Fragment>
   );
 };

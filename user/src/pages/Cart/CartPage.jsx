@@ -11,7 +11,7 @@ const CartPage = () => {
 
   const handleGetCarts = async () => {
     try {
-      const res = await axios.get(cartRequest.getAllCart);
+      const res = await axios.get(cartRequest.getAll);
       setCarts(res.data);
     } catch (error) {
       console.log(error);

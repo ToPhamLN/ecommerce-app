@@ -7,7 +7,7 @@ import axios from "../config/axios";
 import Loading from "./Loading";
 
 const Deletion = (props) => {
-  const { data, setData, api } = props;
+  const { data, setData, api, reset } = props;
   const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
     try {
@@ -19,6 +19,7 @@ const Deletion = (props) => {
       setTimeout(() => {
         setData(!data);
       }, 2000);
+      reset();
     } catch (error) {
       toast.error(error.response.data?.message, {
         autoClose: 1000,
@@ -53,6 +54,7 @@ const Deletion = (props) => {
 Deletion.propTypes = {
   data: PropTypes.bool.isRequired,
   setData: PropTypes.func.isRequired,
+  reset: PropTypes.func,
   api: PropTypes.string.isRequired,
 };
 

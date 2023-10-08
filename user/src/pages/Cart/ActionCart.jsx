@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { BsCartPlus, BsHandbag, BsShare } from "react-icons/bs";
+import { BsCartPlus, BsShare } from "react-icons/bs";
 import { Tag, InputNumber } from "antd";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import "../../assets/css/ActionProduct.css";
 import { formatDate, formatNumber } from "../../utils/format";
@@ -12,12 +13,13 @@ import Loading from "../../components/Loading";
 
 const ActionCart = (props) => {
   const [loading, setLoading] = useState(false);
-  const { product } = props;
+  const navigate = useNavigate();
+  const { cart } = props;
+  const { product } = cart;
   const [selectedProperties, setSelectedProperties] = useState(
-    {}
+    cart.properties
   );
   const [quantity, setQuantity] = useState(1);
-
   const handlePropertyClick = (property, value) => {
     setSelectedProperties((prevState) => ({
       ...prevState,
@@ -25,7 +27,7 @@ const ActionCart = (props) => {
     }));
   };
 
-  const handleAddCart = async () => {
+  const handleUpdateCart = async () => {
     const propertyKeys = Object.keys(product.properties);
     if (
       Object.keys(selectedProperties).length ===
@@ -33,18 +35,22 @@ const ActionCart = (props) => {
       quantity > 0
     ) {
       try {
+        setLoading(true);
         const formData = {};
         formData.product = product._id;
         formData.properties = selectedProperties;
         formData.quantity = quantity;
         formData.unitPrice = product.price * quantity;
-        const res = await axios.post(
-          cartRequest.create,
+        const res = await axios.put(
+          `${cartRequest.updateCart}/${cart._id}`,
           formData
         );
         toast.success(res.data.message, {
           autoClose: 1000,
         });
+        setTimeout(() => {
+          navigate("/cart");
+        }, 2000);
       } catch (error) {
         const message =
           error.response.data?.message || error.response.data;
@@ -127,19 +133,13 @@ const ActionCart = (props) => {
 
       <div className="control__product">
         <button
-          className="add__art"
-          onClick={() => handleAddCart()}
+          className="purchase__product"
+          onClick={() => handleUpdateCart()}
         >
           <span>
             <BsCartPlus />
           </span>
-          Add To Cart
-        </button>
-        <button className="purchase__product">
-          <span>
-            <BsHandbag />
-          </span>
-          Purchase
+          Change
         </button>
         <span className="share">
           <BsShare />
@@ -151,7 +151,7 @@ const ActionCart = (props) => {
 };
 
 ActionCart.propTypes = {
-  product: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
 };
 
 export default ActionCart;

@@ -55,7 +55,6 @@ export const getCart = async (req, res, next) => {
       })
       .populate({
         path: "product",
-        select: "-content",
         populate: {
           path: "category brand",
           select: "name _id",
@@ -96,8 +95,6 @@ export const updateCart = async (req, res, next) => {
         : cart.unitPrice,
       status: status ? status : cart.status,
     };
-    console.log(newCart, req.params);
-
     const result = await Cart.updateOne(
       { _id: req.params.cartId },
       { $set: newCart },

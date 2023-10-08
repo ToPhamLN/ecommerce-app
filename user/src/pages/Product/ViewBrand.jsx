@@ -34,7 +34,9 @@ const ViewBrand = (props) => {
 
   return (
     <React.Fragment>
-      <span className="moreview__title">More View Brand</span>
+      <Link className="moreview__title" to={"/"}>
+        More View Brand
+      </Link>
       {loading ? (
         <Spin size="large" />
       ) : (

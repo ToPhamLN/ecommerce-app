@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AiOutlineLogin,
-  AiOutlineMessage,
+  // AiOutlineMessage,
   AiOutlineMore,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
@@ -39,14 +39,14 @@ const Navbar = (props) => {
           <React.Fragment>
             <div className="options__bar">
               <div className="menu__nav">
-                <button
+                {/* <button
                   className="menu__nav__item message"
                   name="Message"
                 >
                   <span>
                     <AiOutlineMessage />
                   </span>
-                </button>
+                </button> */}
                 <button
                   className="menu__nav__item notification"
                   name="Notification"

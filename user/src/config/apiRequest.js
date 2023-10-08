@@ -23,7 +23,8 @@ export const categoryRequest = {
 
 export const cartRequest = {
   create: `${urlServer}/carts/create`,
-  getAllCart: `${urlServer}/carts/sell/all`,
+  getAll: `${urlServer}/carts/sell/all`,
   getById: `${urlServer}/carts/`,
   updateCart: `${urlServer}/carts/update`,
+  delete: `${urlServer}/carts/delete`,
 };
