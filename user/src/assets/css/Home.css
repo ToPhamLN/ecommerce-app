@@ -108,6 +108,20 @@
     font-style: italic;
 }
 
+.product__item__oldprice {
+    position: absolute;
+    bottom: 0.1;
+    right: 1rem;
+    display: block;
+    font-family: sans-serif;
+    text-decoration: line-through;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #b31623;
+    text-rendering: auto;
+}
+
 .product__item__price {
     position: absolute;
     bottom: 0;

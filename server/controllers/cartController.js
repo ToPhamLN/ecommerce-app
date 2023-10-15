@@ -15,15 +15,6 @@ export const createCart = async (req, res, next) => {
         message: "Product not found",
       });
     }
-    const existCart = await Cart.findOne({
-      product: req.body.product,
-      user: req.user.id,
-    });
-    if (existCart) {
-      return res.status(400).json({
-        message: "Product already in cart",
-      });
-    }
     const newCart = new Cart({
       product: product._id,
       quantity: req.body.quantity,
@@ -140,10 +131,20 @@ export const getAllCart = async (req, res, next) => {
 
 export const getAllCartForUser = async (req, res, next) => {
   try {
-    const carts = await Cart.find({
-      user: req.user._id,
-      status: "Not_Processed",
-    })
+    let query = {};
+    let sort = {};
+    let page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    let skip = (page - 1) * limit;
+    if (req.user.isAdmin) query.user = req.user._id;
+    if (req.query.status) query.status = req.query.status;
+    if (req.query.gtePrice && req.query.ltePrice) {
+      query.price = {
+        $gte: parseInt(req.query.gtePrice),
+        $lte: parseInt(req.query.ltePrice),
+      };
+    }
+    const carts = await Cart.find(query)
       .populate({
         path: "user",
         select: "-password",
@@ -155,7 +156,9 @@ export const getAllCartForUser = async (req, res, next) => {
           path: "category brand",
           select: "name _id",
         },
-      });
+      })
+      .limit(limit)
+      .skip(skip);
     res.status(200).json(carts);
   } catch (error) {
     next(error);

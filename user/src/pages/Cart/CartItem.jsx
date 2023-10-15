@@ -12,7 +12,7 @@ import { routes } from "../../config/routes";
 const CartItem = (props) => {
   const [loading, setLoading] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
-  const { cart, reset } = props;
+  const { cart, reset, orders, handleSelectCart } = props;
 
   const handleChangeQuantity = async (value) => {
     try {
@@ -34,6 +34,7 @@ const CartItem = (props) => {
   const handleDeleteCart = async () => {
     setShowDelete(!showDelete);
   };
+
   return (
     <React.Fragment>
       <article
@@ -43,7 +44,12 @@ const CartItem = (props) => {
         }}
       >
         <div className="control__check__cart">
-          <input type="checkbox" className="check__cart" />
+          <input
+            type="checkbox"
+            className="check__cart"
+            onChange={() => handleSelectCart(cart._id)}
+            checked={orders.includes(cart._id)}
+          />
         </div>
         <div className="wrapper__cart__item">
           <div className="picture__cart">
@@ -130,6 +136,8 @@ const CartItem = (props) => {
 };
 CartItem.propTypes = {
   cart: PropTypes.object.isRequired,
+  orders: PropTypes.array.isRequired,
   reset: PropTypes.func.isRequired,
+  handleSelectCart: PropTypes.func.isRequired,
 };
 export default CartItem;

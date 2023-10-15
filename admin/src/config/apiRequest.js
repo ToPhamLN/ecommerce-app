@@ -29,3 +29,11 @@ export const categoryRequest = {
   update: `${urlServer}/categories/update`,
   delete: `${urlServer}/categories/delete`,
 };
+
+export const discountRequest = {
+  getAll: `${urlServer}/discounts/all`,
+  getById: `${urlServer}/discounts`,
+  create: `${urlServer}/discounts/create`,
+  update: `${urlServer}/discounts/update`,
+  delete: `${urlServer}/discounts/delete`,
+};

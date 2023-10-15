@@ -19,13 +19,21 @@ const orderSchema = new Schema(
         ref: "Cart",
       },
     ],
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
     totalPrice: {
       type: Number,
       default: 0,
+    },
+    currentcy: {
+      type: Number,
+      default: 0,
+    },
+    username: {
+      type: String,
+      required: [true, "You must enter a valid Cart username"],
+    },
+    email: {
+      type: String,
+      required: [true, "You must enter a valid Cart email"],
     },
     address: {
       type: String,
@@ -39,6 +47,18 @@ const orderSchema = new Schema(
       type: String,
       enum: ["Pending", "Confirmed", "Canceled"],
       default: "Pending",
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    discount: {
+      type: Schema.Types.ObjectId,
+      ref: "Discount",
+    },
+    paymentMethod: {
+      type: String,
+      required: [true, "You must enter a valid Cart payment"],
     },
   },
   { timestamps: true }

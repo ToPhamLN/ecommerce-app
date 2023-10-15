@@ -65,6 +65,7 @@
 .check__cart {
     width: 3rem;
     height: 3rem;
+    cursor: pointer;
 }
 
 .wrapper__cart__item {
@@ -169,6 +170,10 @@
     height: 100%;
 }
 
+.control__cart.purchase__cart__item input {
+    cursor: pointer;
+}
+
 .extra__control button {
     display: flex;
     justify-content: center;
@@ -182,6 +187,7 @@
     color: white;
     font-size: 1.7rem;
     transition: 400ms;
+    cursor: pointer;
 
     &:hover {
         color: #007ACC;
@@ -249,6 +255,7 @@
     color: white;
     font-size: 1.7rem;
     transition: 400ms;
+    cursor: pointer;
 
     &:hover {
         color: #007ACC;

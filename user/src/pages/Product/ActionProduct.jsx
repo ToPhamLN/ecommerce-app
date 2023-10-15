@@ -74,6 +74,7 @@ const ActionProduct = (props) => {
         <span className="product__name">{product?.name}</span>
       </div>
       <div className="price__product">
+        <span>{formatNumber(product.oldprice)} vnđ</span>
         <span>{formatNumber(product.price)} vnđ</span>
       </div>
 

@@ -11,6 +11,8 @@ import BrandPage from "../pages/Brand/BrandPage";
 import UpdateBrand from "../pages/Brand/UpdateBrand";
 import CreateProduct from "../pages/Product/CreateProduct";
 import UpdateProduct from "../pages/Product/UpdateProduct";
+import DiscountPage from "../pages/Discount/DiscountPage";
+import UpdateDiscount from "../pages/Discount/UpdateDiscount";
 
 export const routes = {
   login: "/login",
@@ -27,6 +29,8 @@ export const routes = {
   categoryId: "/category/:categoryId",
   brand: "/brand",
   brandId: "/brand/:brandId",
+  discount: "/discount",
+  discountId: "/discount/:discountId",
   user: "/user",
 };
 
@@ -47,4 +51,6 @@ export const privateRoutes = [
   { path: routes.categoryId, component: UpdateCategory },
   { path: routes.brand, component: BrandPage },
   { path: routes.brandId, component: UpdateBrand },
+  { path: routes.discount, component: DiscountPage },
+  { path: routes.discountId, component: UpdateDiscount },
 ];

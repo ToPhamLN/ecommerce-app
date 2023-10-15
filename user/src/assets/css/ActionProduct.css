@@ -41,8 +41,12 @@
     font-weight: lighter;
     color: #158599;
     display: flex;
-    background-color: #fff;
-    justify-content: center;
+    justify-content: space-between;
+
+    &>span:first-child {
+        color: #b31623;
+        text-decoration: line-through;
+    }
 }
 
 .tag__product .product__updatedAt {
@@ -59,9 +63,11 @@
 }
 
 .option__product h3 {
-    text-transform: uppercase;
+    text-transform: capitalize;
+    font-weight: 600;
     font-size: 1.5rem;
-    color: #0d1b44
+    color: #0d1b44;
+    margin-bottom: 1rem;
 }
 
 .option__btn {

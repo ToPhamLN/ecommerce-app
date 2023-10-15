@@ -25,6 +25,10 @@ const productSchema = new Schema(
     pictures: {
       type: Array,
     },
+    oldprice: {
+      type: Number,
+      required: [true, "Please enter a old price"],
+    },
     price: {
       type: Number,
       required: [true, "Please enter a price"],

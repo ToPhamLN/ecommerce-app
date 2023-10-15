@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AiFillSetting } from "react-icons/ai";
 import {
   BiSolidUserRectangle,
   BiSolidHome,
   BiSolidDashboard,
   BiLogoProductHunt,
+  BiSolidDiscount,
 } from "react-icons/bi";
 import { TbBrandBinance, TbBrandAbstract } from "react-icons/tb";
 import { SiProcesswire } from "react-icons/si";
@@ -91,8 +91,12 @@ const Sidebar = () => {
             </Link>
           </li>
           <li>
-            <Link link-name="Setting" className="item__sidebar">
-              <AiFillSetting />
+            <Link
+              to={routes.discount}
+              link-name="Discount"
+              className="item__sidebar"
+            >
+              <BiSolidDiscount />
             </Link>
           </li>
         </ul>

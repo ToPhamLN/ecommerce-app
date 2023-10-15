@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   AiOutlineLogin,
   // AiOutlineMessage,
-  AiOutlineMore,
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
 import {
@@ -15,6 +14,8 @@ import {
   MdExpandMore,
   MdContentPasteSearch,
   MdNoAdultContent,
+  MdOutlineMoreVert,
+  MdOutlineMoreHoriz,
 } from "react-icons/md";
 import PropTypes from "prop-types";
 
@@ -25,6 +26,7 @@ import SearchNavbar from "../components/SearchNavbar";
 const Navbar = (props) => {
   const { user } = props;
   const [showExpand, setShowExpand] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   return (
     <React.Fragment>
@@ -39,14 +41,6 @@ const Navbar = (props) => {
           <React.Fragment>
             <div className="options__bar">
               <div className="menu__nav">
-                {/* <button
-                  className="menu__nav__item message"
-                  name="Message"
-                >
-                  <span>
-                    <AiOutlineMessage />
-                  </span>
-                </button> */}
                 <button
                   className="menu__nav__item notification"
                   name="Notification"
@@ -64,38 +58,47 @@ const Navbar = (props) => {
                     <BsCart3 />
                   </span>
                 </Link>
-                <div className="more__menu">
+                {showMenu && (
+                  <>
+                    <Link
+                      className="menu__nav__item order"
+                      name="Order"
+                      to={"/order"}
+                    >
+                      <span>
+                        <MdNoAdultContent />
+                      </span>
+                    </Link>
+                    <Link
+                      className="menu__nav__item payment"
+                      name="Goods"
+                      to={"/goods"}
+                    >
+                      <span>
+                        <MdContentPasteSearch />
+                      </span>
+                    </Link>
+                    <Link
+                      className="menu__nav__item feedback"
+                      name="Feedback"
+                    >
+                      <span>
+                        <AiOutlineQuestionCircle />
+                      </span>
+                    </Link>
+                  </>
+                )}
+                <div
+                  className="more__menu"
+                  onClick={() => setShowMenu(!showMenu)}
+                >
                   <span className="toggle__more__menu">
-                    <AiOutlineMore />
+                    {showMenu ? (
+                      <MdOutlineMoreHoriz />
+                    ) : (
+                      <MdOutlineMoreVert />
+                    )}
                   </span>
-                  <div className="more__menu__list">
-                    <div className="wrapper__more__menu">
-                      <button
-                        className="menu__nav__item order"
-                        name="Order"
-                      >
-                        <span>
-                          <MdNoAdultContent />
-                        </span>
-                      </button>
-                      <button
-                        className="menu__nav__item payment"
-                        name="Payment"
-                      >
-                        <span>
-                          <MdContentPasteSearch />
-                        </span>
-                      </button>
-                      <button
-                        className="menu__nav__item feedback"
-                        name="Feedback"
-                      >
-                        <span>
-                          <AiOutlineQuestionCircle />
-                        </span>
-                      </button>
-                    </div>
-                  </div>
                 </div>
               </div>
               <div className="auth user">

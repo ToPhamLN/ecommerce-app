@@ -63,6 +63,7 @@ const UpdateProduct = () => {
       formData.append("name", data.name);
       formData.append("category", data.category);
       formData.append("brand", data.brand);
+      formData.append("oldprice", data.oldprice);
       formData.append("price", data.price);
       formData.append("content", data.content);
       formData.append("isSell", data.isSell);
@@ -165,6 +166,19 @@ const UpdateProduct = () => {
                 {errors.brand && (
                   <p className="error-message">
                     Brand is required
+                  </p>
+                )}
+              </div>
+              <div className="input__box">
+                <label htmlFor="oldprice">Old Price: </label>
+                <input
+                  type="text"
+                  name="oldprice"
+                  {...register("oldprice", { required: true })}
+                />
+                {errors.oldprice && (
+                  <p className="error-message">
+                    Price is required
                   </p>
                 )}
               </div>

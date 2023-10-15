@@ -1,0 +1,219 @@
+aside.nav__select {
+    position: fixed;
+    top: 7rem;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    background: var(--gradient-navbar);
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 3rem;
+    align-items: center;
+    padding: 0 10rem;
+    z-index: 1;
+    border-top: 1px solid #0e758f;
+}
+
+.nav__select__wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    position: relative;
+}
+
+.nav__select__item {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    background: transparent;
+    color: #d6d1d1;
+
+    &:hover {
+        transform: scale(1.05);
+        color: white;
+    }
+}
+
+.select.nav__select__item {
+    transform: scale(1.05);
+    color: white;
+}
+
+.select.nav__select__item::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 0.3rem;
+    background-color: white;
+}
+
+.container__order {
+    padding: 0rem 5rem 0 5rem;
+    display: flex;
+    flex-flow: column;
+    gap: 2rem;
+}
+
+section.order__wrapper {
+    position: relative;
+    min-height: 100rem;
+    border: 0.1rem solid #7c7777;
+    border-radius: 1rem;
+    padding: 3rem 2rem 5rem 2rem;
+    background: var(--gradient-wrapper);
+    display: flex;
+    flex-flow: column;
+}
+
+.order__item {
+    background: linear-gradient(45deg, #98ccfd34 0%, #70e1e781 100%);
+    position: relative;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    border: 0.1rem solid #ccc;
+    margin-bottom: 1rem;
+}
+
+.order__item__primary {
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+}
+
+.order__item__primary h1 {
+    font-weight: bold;
+}
+
+.order__item__id {
+    flex: 1;
+    display: flex;
+    gap: 3rem;
+}
+
+
+.order__item__status {
+    flex: 1;
+    display: flex;
+    gap: 3rem
+}
+
+.order__item__currentcy {
+    flex: 1;
+    display: flex;
+    gap: 3rem
+}
+
+.toggle__more__order {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+
+    & button {
+        font-size: 2rem;
+        border: none;
+        outline: none;
+        width: 4rem;
+        height: 4rem;
+        background-image: linear-gradient(90deg, #b5bbc7, #b0bac5, #dae9ee);
+
+        border-radius: 0.3rem;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.order__item__info {
+    width: 100%;
+    padding: 1rem 3rem;
+    background-color: #f0e5e5;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.5rem;
+}
+
+.order__item__info h3 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.order__item__info h1 {
+    font-size: 1.7rem;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+
+.order__item__info__wrapper {
+    display: flex;
+    gap: 15rem;
+}
+
+.order__item__info__cart {
+    flex: 1;
+}
+
+.order__item__info__user {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    width: 40%;
+}
+
+.order__item__info__user div,
+.order__info__payment {
+    display: flex;
+    flex-flow: row;
+}
+
+.order__item__info__user div h2,
+.order__info__payment h2 {
+    flex: 0 0 auto;
+    width: 10rem;
+    font-weight: bold;
+}
+
+.orders__item__info {
+    font-size: 1.5rem;
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+
+.order__info__cart__name {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.order__info__catulate__cart {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order__info__cart__quantity {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}

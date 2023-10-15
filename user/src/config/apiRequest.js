@@ -28,3 +28,21 @@ export const cartRequest = {
   updateCart: `${urlServer}/carts/update`,
   delete: `${urlServer}/carts/delete`,
 };
+
+export const discountRequest = {
+  code: `${urlServer}/discounts/code`,
+  usecode: `${urlServer}/discounts/usecode`,
+  getAll: `${urlServer}/discounts/all`,
+  getById: `${urlServer}/discounts`,
+  create: `${urlServer}/discounts/create`,
+  update: `${urlServer}/discounts/update`,
+  delete: `${urlServer}/discounts/delete`,
+};
+
+export const orderRequest = {
+  create: `${urlServer}/orders/create`,
+  getAllSell: `${urlServer}/orders/all`,
+  getById: `${urlServer}/orders/`,
+  update: `${urlServer}/orders/update`,
+  delete: `${urlServer}/orders/delete`,
+};

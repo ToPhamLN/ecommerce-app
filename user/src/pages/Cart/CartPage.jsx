@@ -4,14 +4,23 @@ import axios from "../../config/axios";
 import { cartRequest } from "../../config/apiRequest";
 import "../../assets/css/Cart.css";
 import CartItem from "./CartItem";
+import OrderInfo from "../Order/OrderInfo";
 
 const CartPage = () => {
   const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showOrderInfo, setShowOrderInfo] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const handleGetCarts = async () => {
     try {
-      const res = await axios.get(cartRequest.getAll);
+      const res = await axios.get(cartRequest.getAll, {
+        params: {
+          status: "Not_Processed",
+        },
+      });
       setCarts(res.data);
     } catch (error) {
       console.log(error);
@@ -23,10 +32,50 @@ const CartPage = () => {
     handleGetCarts();
   }, []);
 
+  useEffect(() => {
+    let total = 0;
+    carts.forEach((cart) => {
+      if (orders.includes(cart._id)) {
+        total += cart.unitPrice;
+      }
+    });
+    setTotalPrice(total);
+  }, [orders, carts]);
+
+  const handleOrder = () => {
+    setShowOrderInfo(true);
+  };
+  const handleSelectCart = (id) => {
+    setOrders((prevOrders) => {
+      if (prevOrders.includes(id)) {
+        return prevOrders.filter((item) => item !== id);
+      } else {
+        return [...prevOrders, id];
+      }
+    });
+  };
+
+  const handleSelectAll = () => {
+    setSelectAll((prevSelectAll) => !prevSelectAll);
+
+    if (!selectAll) {
+      setOrders(carts.map((cart) => cart._id));
+    } else {
+      setOrders([]);
+    }
+  };
+
   return (
     <React.Fragment>
       {loading ? (
         <Loading />
+      ) : showOrderInfo ? (
+        <OrderInfo
+          carts={carts}
+          orders={orders}
+          totalPrice={totalPrice}
+          setShowOrderInfo={setShowOrderInfo}
+        />
       ) : (
         <div className="container__cart">
           <section className="list__cart">
@@ -41,6 +90,8 @@ const CartPage = () => {
                   key={index}
                   cart={cart}
                   reset={handleGetCarts}
+                  orders={orders}
+                  handleSelectCart={handleSelectCart}
                 />
               ))}
             </div>
@@ -48,14 +99,18 @@ const CartPage = () => {
           <div className="purchase__cart">
             <div className="wrapper">
               <div className="control__cart purchase__cart__item">
-                {/* <span>Select All</span>
-                <input type="checkbox" />
-                <span>Delete</span> */}
+                <span>Select All</span>
+                <input
+                  type="checkbox"
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                />
+                <span>Delete</span>
               </div>
               <div className="payment__cart purchase__cart__item">
                 <span>Total payment:</span>
-                <span>20.000.000 vnđ</span>
-                <button>Purchase</button>
+                <span>{totalPrice.toLocaleString()} vnđ</span>
+                <button onClick={handleOrder}>Purchase</button>
               </div>
             </div>
           </div>

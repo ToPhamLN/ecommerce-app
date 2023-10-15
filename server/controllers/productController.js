@@ -11,8 +11,15 @@ import {
 // @access  private Auth
 export const createProduct = async (req, res, next) => {
   try {
-    const { name, content, price, category, brand, properties } =
-      req.body;
+    const {
+      name,
+      content,
+      oldprice,
+      price,
+      category,
+      brand,
+      properties,
+    } = req.body;
 
     let pictures = [];
 
@@ -27,6 +34,7 @@ export const createProduct = async (req, res, next) => {
     const newProduct = new Product({
       name,
       content,
+      oldprice,
       price,
       category,
       brand,
@@ -54,6 +62,7 @@ export const updateProduct = async (req, res, next) => {
     const {
       name,
       content,
+      oldprice,
       price,
       category,
       brand,
@@ -73,6 +82,7 @@ export const updateProduct = async (req, res, next) => {
     const newProduct = {
       name,
       content,
+      oldprice,
       price,
       category,
       brand,
