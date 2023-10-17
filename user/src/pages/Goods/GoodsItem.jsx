@@ -79,7 +79,10 @@ const GoodsItem = (props) => {
             </div>
           </div>
           <div className="extra__control">
-            <Link className="watch__cart">
+            <Link
+              className="watch__cart"
+              to={`/goods/${cart._id}`}
+            >
               <button>
                 <span>
                   <FaAlgolia />

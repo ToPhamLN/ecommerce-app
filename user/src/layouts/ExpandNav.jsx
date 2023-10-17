@@ -1,7 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { AiFillSetting, AiOutlineLogout } from "react-icons/ai";
+import {
+  AiOutlineMessage,
+  AiFillSetting,
+  AiOutlineLogout,
+  AiOutlineQuestionCircle,
+} from "react-icons/ai";
 import { BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import { logoutUser } from "../slices/userSlice";
 const ExpandNav = () => {
@@ -25,6 +30,18 @@ const ExpandNav = () => {
             <span className="expand__item">
               <AiFillSetting />
               Setting
+            </span>
+          </li>
+          <li>
+            <span className="expand__item">
+              <AiOutlineQuestionCircle />
+              Feedback
+            </span>
+          </li>
+          <li>
+            <span className="expand__item">
+              <AiOutlineMessage />
+              Contact
             </span>
           </li>
           <li>

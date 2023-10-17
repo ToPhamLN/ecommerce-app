@@ -44,7 +44,7 @@ const cartSchema = new Schema(
       ],
     },
   },
-  { timesptamps: true }
+  { timestamps: true }
 );
 
 const Cart = model("Cart", cartSchema);

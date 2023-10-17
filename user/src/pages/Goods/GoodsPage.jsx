@@ -14,14 +14,17 @@ const GoodsPage = () => {
   const [status, setStatus] = useState(null);
   const [gtePrice, setGtePrice] = useState(null);
   const [ltePrice, setLtePrice] = useState(null);
-  const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState(-1);
 
   const handleGetCarts = async () => {
+    const statusForm =
+      status === null ? { $ne: "Not_Processed" } : status;
+
     try {
       setLoading(true);
       const res = await axios.get(cartRequest.getAll, {
         params: {
-          status,
+          status: statusForm,
           page,
           limit,
           gtePrice,
@@ -130,9 +133,8 @@ const GoodsPage = () => {
             >
               <span>Sort:</span>
               <select className="select__sort">
-                <option value={undefined}></option>
-                <option value={1}>Latest update</option>
-                <option value={-1}>Oldest update</option>
+                <option value={-1}>Latest update</option>
+                <option value={1}>Oldest update</option>
               </select>
             </div>
           </div>

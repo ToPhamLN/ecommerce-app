@@ -55,7 +55,7 @@ const OrderItem = (props) => {
                   >
                     <Link
                       className="order__info__cart__name"
-                      to={`/products/${item.product._id}`}
+                      to={`/goods/${item._id}`}
                     >
                       {item.product.name}
                     </Link>

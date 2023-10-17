@@ -17,6 +17,7 @@ import ViewBrand from "./ViewBrand";
 import ViewCategory from "./ViewCategory";
 import "react-quill/dist/quill.snow.css";
 import Loading from "../../components/Loading";
+import "../../assets/css/Review.css";
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -93,7 +94,7 @@ const ProductPage = () => {
                 </div>
               </div>
               <section className="product__review">
-                <ReviewProduct />
+                <ReviewProduct productId={productId} />
               </section>
             </div>
             <div className="group__product__moreview">

@@ -21,6 +21,7 @@ export const createCart = async (req, res, next) => {
       properties: req.body.properties,
       unitPrice: req.body.quantity * product.price,
       user: req.user.id,
+      status: req.body.status,
     });
     const cart = await newCart.save();
     res.status(200).json({
@@ -139,11 +140,12 @@ export const getAllCartForUser = async (req, res, next) => {
     if (req.user.isAdmin) query.user = req.user._id;
     if (req.query.status) query.status = req.query.status;
     if (req.query.gtePrice && req.query.ltePrice) {
-      query.price = {
+      query.unitPrice = {
         $gte: parseInt(req.query.gtePrice),
         $lte: parseInt(req.query.ltePrice),
       };
     }
+    if (req.query.sort) sort.updatedAt = req.query.sort;
     const carts = await Cart.find(query)
       .populate({
         path: "user",
@@ -158,7 +160,8 @@ export const getAllCartForUser = async (req, res, next) => {
         },
       })
       .limit(limit)
-      .skip(skip);
+      .skip(skip)
+      .sort(sort);
     res.status(200).json(carts);
   } catch (error) {
     next(error);

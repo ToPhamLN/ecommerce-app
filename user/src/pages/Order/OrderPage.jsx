@@ -4,18 +4,21 @@ import axios from "../../config/axios";
 import { orderRequest } from "../../config/apiRequest";
 import OrderItem from "./OrderItem";
 import { Pagination, Space } from "antd";
+import Loading from "../../components/Loading";
 
 const OrderPage = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [gtePrice, setGtePrice] = useState(null);
   const [ltePrice, setLtePrice] = useState(null);
-  const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState(-1);
   const [status, setStatus] = useState(null);
 
   const handleGetOrders = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(orderRequest.getAllSell, {
         params: {
           gtePrice: gtePrice,
@@ -29,6 +32,8 @@ const OrderPage = () => {
       setOrders(res.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -161,9 +166,8 @@ const OrderPage = () => {
             >
               <span>Sort:</span>
               <select className="select__sort">
-                <option value={undefined}></option>
-                <option value={1}>Name A-Z</option>
-                <option value={-1}>Name Z-A</option>
+                <option value={-1}>Latest update</option>
+                <option value={1}>Oldest update</option>
               </select>
             </div>
           </div>
@@ -184,6 +188,7 @@ const OrderPage = () => {
           </div>
         </section>
       </div>
+      {loading && <Loading />}
     </React.Fragment>
   );
 };

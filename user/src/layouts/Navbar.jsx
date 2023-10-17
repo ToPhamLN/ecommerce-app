@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  AiOutlineLogin,
-  // AiOutlineMessage,
-  AiOutlineQuestionCircle,
-} from "react-icons/ai";
+import { AiOutlineLogin } from "react-icons/ai";
 import {
   BsPersonBoundingBox,
   BsCart3,
@@ -78,14 +74,6 @@ const Navbar = (props) => {
                         <MdContentPasteSearch />
                       </span>
                     </Link>
-                    <Link
-                      className="menu__nav__item feedback"
-                      name="Feedback"
-                    >
-                      <span>
-                        <AiOutlineQuestionCircle />
-                      </span>
-                    </Link>
                   </>
                 )}
                 <div
@@ -103,7 +91,10 @@ const Navbar = (props) => {
               </div>
               <div className="auth user">
                 <div className="avatar__nav">
-                  <img src={user?.avatar} alt="" />
+                  <img
+                    src={user?.avatar ? user.avatar.path : ""}
+                    alt=""
+                  />
                 </div>
                 <div className="username__nav">
                   {user.username}

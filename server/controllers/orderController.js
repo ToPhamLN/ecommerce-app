@@ -87,8 +87,8 @@ export const getAllOrder = async (req, res, next) => {
       };
     }
     if (req.query.status) query.status = req.query.status;
-    sort.slug = req.query.sort;
-    console.log(query);
+    if (req.query.sort) sort.updatedAt = req.query.sort;
+
     const order = await Order.find(query)
       .populate({
         path: "order",

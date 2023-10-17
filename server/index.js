@@ -14,6 +14,7 @@ import brandRoutes from "./routes/brandRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import discountRoutes from "./routes/discountRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 import {
   notFound,
   errorHandler,
@@ -43,6 +44,7 @@ app.use("/api/brands", brandRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/discounts", discountRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

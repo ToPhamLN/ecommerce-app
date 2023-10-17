@@ -89,7 +89,7 @@ const UpdateCart = () => {
                 </div>
               </div>
               <section className="product__review">
-                <ReviewProduct />
+                <ReviewProduct productId={cart?.product?._id} />
               </section>
             </div>
             <div className="group__product__moreview">

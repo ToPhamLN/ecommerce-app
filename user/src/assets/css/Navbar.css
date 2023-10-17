@@ -18,7 +18,7 @@ header.navbar {
     color: var(--text-bar-color);
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 7rem;
 
 }
 
@@ -255,6 +255,13 @@ header.navbar {
     height: 4rem;
     border-radius: 50%;
     background-color: var(--text-bar-color);
+}
+
+.auth .avatar__nav img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
 }
 
 .auth .username__nav {

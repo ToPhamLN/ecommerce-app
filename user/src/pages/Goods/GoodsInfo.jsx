@@ -6,7 +6,6 @@ import {
   BiSolidDownArrow,
 } from "react-icons/bi";
 import { FloatButton } from "antd";
-import ActionCart from "./ActionCart";
 import PictureProduct from "../Product/PictureProduct";
 import Loading from "../../components/Loading";
 import ReviewProduct from "../Product/ReviewProduct";
@@ -14,6 +13,7 @@ import ViewBrand from "../Product/ViewBrand";
 import ViewCategory from "../Product/ViewCategory";
 import { cartRequest } from "../../config/apiRequest";
 import "../../assets/css/Product.css";
+import ActionGoods from "./ActionGood";
 
 const GoodsInfo = () => {
   const [loading, setLoading] = useState(true);
@@ -57,7 +57,7 @@ const GoodsInfo = () => {
               <PictureProduct product={cart.product} />
             </section>
             <section className="product__action">
-              <ActionCart cart={cart} />
+              <ActionGoods cart={cart} />
             </section>
           </div>
           <div className="layer__product__secondary">
@@ -89,7 +89,7 @@ const GoodsInfo = () => {
                 </div>
               </div>
               <section className="product__review">
-                <ReviewProduct />
+                <ReviewProduct productId={cart?.product?._id} />
               </section>
             </div>
             <div className="group__product__moreview">

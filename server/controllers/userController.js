@@ -34,6 +34,7 @@ export const postRegister = async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       password: hashed,
+      avatar: {},
       address: req.body.address,
       contact: req.body.contact,
       slug: convertSlug(req.body.username),
@@ -92,7 +93,18 @@ export const postLogin = async (req, res, next) => {
 export const getProfile = async (req, res, next) => {
   try {
     const user = req.user;
-    res.status(200).json(user);
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user);
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      path: "/",
+      sameSite: "strict",
+    });
+    const { password, ...others } = user._doc;
+    res
+      .status(200)
+      .json({ ...others, accessToken, refreshToken });
   } catch (error) {
     next(error);
   }
@@ -108,20 +120,26 @@ export const updateAuth = async (req, res, next) => {
       $or: [
         { email: req.body.email || user.email },
         { username: req.body.username || user.username },
-        {
-          slug: req.body.username
-            ? convertSlug(req.body.username)
-            : user.slug,
-        },
       ],
+      _id: { $ne: user._id },
     });
-    if (existedUser?._id == user?._id) {
+    console.log(existedUser, req.body);
+    if (existedUser) {
       return res.status(400).json({
         message: "User already existed",
       });
     }
-    const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(req.body.password, salt);
+    if (req.body.oldPassword) {
+      const validPassword = await bcrypt.compare(
+        req.body.oldPassword,
+        user.password
+      );
+      if (!validPassword) {
+        return res.status(404).json({
+          message: "Wrong password, please try again!",
+        });
+      }
+    }
     let newUser = {
       username: req.body.username || user.username,
       email: req.body.email || user.email,
@@ -132,20 +150,20 @@ export const updateAuth = async (req, res, next) => {
         ? convertSlug(req.body.username)
         : user.slug,
     };
-    if (req.body.password) {
+    if (req.body.newPassword) {
+      const salt = await bcrypt.genSalt(10);
+      const hashed = await bcrypt.hash(
+        req.body.newPassword,
+        salt
+      );
       newUser.password = hashed;
     }
+
     const result = await User.updateOne(
       { _id: user._id },
       { $set: newUser }
     );
-    if (result.nModified === 0) {
-      return res.status(400).json({
-        message: "User not updated",
-      });
-    }
     res.status(200).json({
-      status: true,
       message: "User updated successfully",
       result: result,
     });
@@ -188,7 +206,6 @@ export const updateAvatar = async (req, res, next) => {
       }
     }
     res.status(200).json({
-      status: true,
       message: "User updated successfully",
       result: result,
     });

@@ -197,9 +197,10 @@ export const getAllSell = async (req, res, next) => {
     const limit = parseInt(req.query.limit);
     let skip = (page - 1) * limit;
     query.isSell = "true";
-    query.slug = {
-      $regex: new RegExp(req.query.search, "i"),
-    };
+    if (req.query.search)
+      query.slug = {
+        $regex: new RegExp(convertSlug(req.query.search), "i"),
+      };
     if (req.query.gtePrice && req.query.ltePrice) {
       query.price = {
         $gte: parseInt(req.query.gtePrice),

@@ -9,6 +9,7 @@ import { formatDate, formatNumber } from "../../utils/format";
 import { cartRequest } from "../../config/apiRequest";
 import axios from "../../config/axios";
 import Loading from "../../components/Loading";
+import OrderProduct from "../Order/OrderProduct";
 
 const ActionProduct = (props) => {
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,7 @@ const ActionProduct = (props) => {
     {}
   );
   const [quantity, setQuantity] = useState(1);
+  const [showOrder, setShowOrder] = useState(false);
 
   const handlePropertyClick = (property, value) => {
     setSelectedProperties((prevState) => ({
@@ -45,6 +47,7 @@ const ActionProduct = (props) => {
         toast.success(res.data.message, {
           autoClose: 1000,
         });
+        console.log(res.data.cart);
       } catch (error) {
         const message =
           error.response.data?.message || error.response.data;
@@ -54,6 +57,21 @@ const ActionProduct = (props) => {
       } finally {
         setLoading(false);
       }
+    } else {
+      toast.error("Please select all properties.", {
+        autoClose: 1000,
+      });
+    }
+  };
+
+  const handlePurchaseCart = () => {
+    const propertyKeys = Object.keys(product.properties);
+    if (
+      Object.keys(selectedProperties).length ===
+        propertyKeys.length &&
+      quantity > 0
+    ) {
+      setShowOrder((prev) => !prev);
     } else {
       toast.error("Please select all properties.", {
         autoClose: 1000,
@@ -136,7 +154,10 @@ const ActionProduct = (props) => {
           </span>
           Add To Cart
         </button>
-        <button className="purchase__product">
+        <button
+          className="purchase__product"
+          onClick={() => handlePurchaseCart()}
+        >
           <span>
             <BsHandbag />
           </span>
@@ -146,6 +167,15 @@ const ActionProduct = (props) => {
           <BsShare />
         </span>
       </div>
+      {showOrder && (
+        <OrderProduct
+          setShowOrder={setShowOrder}
+          product={product}
+          properties={selectedProperties}
+          quantity={quantity}
+          totalPrice={product.price * quantity}
+        />
+      )}
       {loading && <Loading />}
     </React.Fragment>
   );
