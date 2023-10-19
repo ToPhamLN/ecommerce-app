@@ -1,5 +1,50 @@
 .container__dashboard {
-    margin-left: 6rem;
+    position: relative;
+    margin: 10rem 3rem 0 9rem;
     display: flex;
+    flex-flow: column;
+    gap: 3rem;
+}
+
+.layer__dashboard.payment {
+    min-height: 80vh;
+    background: #41417c;
+    box-shadow: 15px 15px 30px #bebebe,
+        -15px -15px 30px #ffffff;
+    width: 100%;
+    border-radius: 2rem;
+}
+
+.layer__dashboard.total__payment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total__payment__item {
+    background: #41417c;
+    box-shadow: 15px 15px 30px #bebebe,
+        -15px -15px 30px #ffffff;
+    width: 100%;
+    width: 25rem;
+    height: 15rem;
+    color: white;
+    border-radius: 2rem;
+}
+
+.total__payment__item {
+    display: flex;
+    flex-flow: column;
     justify-content: center;
+    align-items: center;
+
+    >h1 {
+        font-size: 3rem;
+        font-weight: 800;
+    }
+
+    >h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
 }

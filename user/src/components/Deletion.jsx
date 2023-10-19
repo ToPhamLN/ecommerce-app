@@ -16,10 +16,10 @@ const Deletion = (props) => {
       toast.warning(res.data.message, {
         autoClose: 1000,
       });
+      reset();
       setTimeout(() => {
         setData(!data);
-      }, 2000);
-      reset();
+      }, 1000);
     } catch (error) {
       toast.error(error.response.data?.message, {
         autoClose: 1000,

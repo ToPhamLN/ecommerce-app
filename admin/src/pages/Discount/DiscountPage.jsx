@@ -13,7 +13,7 @@ import { discountRequest } from "../../config/apiRequest";
 import CreateDiscount from "./CreateDiscount";
 import { routes } from "../../config/routes";
 import Deletion from "../../components/Deletion";
-import { formatNumber } from "../../../utils/format";
+import { formatNumber } from "../../utils/format";
 
 const DiscountPage = () => {
   const [discounts, setDisCount] = useState([]);

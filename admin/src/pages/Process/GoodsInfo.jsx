@@ -1,56 +1,50 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../config/axios";
 import { useParams, useNavigate } from "react-router-dom";
-
 import {
   BiSolidUpArrow,
   BiSolidDownArrow,
 } from "react-icons/bi";
 import { FloatButton } from "antd";
-
-import "../../assets/css/Product.css";
-import { productRequest } from "../../config/apiRequest";
-import ActionProduct from "./ActionProduct";
-import PictureProduct from "./PictureProduct";
-import ReviewProduct from "../Review/ReviewProduct";
-import ViewBrand from "./ViewBrand";
-import ViewCategory from "./ViewCategory";
-import "react-quill/dist/quill.snow.css";
+import PictureProduct from "../Product/PictureProduct";
 import Loading from "../../components/Loading";
-import "../../assets/css/Review.css";
+import ReviewProduct from "../Review/ReviewProduct";
+import ViewBrand from "../Brand/ViewBrand";
+import ViewCategory from "../Category/ViewCategory";
+import { cartRequest } from "../../config/apiRequest";
+import "../../assets/css/Product.css";
+import ActionGoods from "./ActionGood";
 
-const ProductPage = () => {
-  const { productId } = useParams();
-  const navigate = useNavigate();
-  const [product, setProduct] = useState({});
+const GoodsInfo = () => {
   const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState({});
+  const { cartId } = useParams();
+  const navigate = useNavigate();
   const [showAll, setShowAll] = useState(false);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
   };
 
-  const handleGetProduct = async () => {
+  const handleGetCart = async () => {
     try {
       const res = await axios.get(
-        `${productRequest.getByIdSell}/${productId}`
+        `${cartRequest.getById}/${cartId}`
       );
-      setProduct(res.data);
+      setCart(res.data);
+      setLoading(false);
     } catch (error) {
       if (error.response.status === 401) {
         navigate("/login");
       } else {
         navigate("*");
       }
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    handleGetProduct();
+    handleGetCart();
   }, []);
-
   return (
     <React.Fragment>
       {loading ? (
@@ -59,10 +53,10 @@ const ProductPage = () => {
         <div className="container__product">
           <div className="layer__product__main">
             <section className="product__picture">
-              <PictureProduct product={product} />
+              <PictureProduct product={cart.product} />
             </section>
             <section className="product__action">
-              <ActionProduct product={product} />
+              <ActionGoods cart={cart} />
             </section>
           </div>
           <div className="layer__product__secondary">
@@ -76,11 +70,11 @@ const ProductPage = () => {
               >
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: product.content,
+                    __html: cart?.product?.content,
                   }}
                 />
                 <div className="toggle__content">
-                  {product.content.length > 200 && (
+                  {cart?.product?.content?.length > 200 && (
                     <button onClick={toggleShowAll}>
                       <span>
                         {showAll ? (
@@ -94,25 +88,25 @@ const ProductPage = () => {
                 </div>
               </div>
               <section className="product__review">
-                <ReviewProduct productId={productId} />
+                <ReviewProduct productId={cart?.product?._id} />
               </section>
             </div>
             <div className="group__product__moreview">
               <section className="product__moreview__category group__product__moreview__item">
                 <ViewCategory
-                  categoryId={product.category._id}
+                  categoryId={cart?.product?.category?._id}
                 />
               </section>
               <section className="product__moreview__brand  group__product__moreview__item">
-                <ViewBrand brandId={product.brand._id} />
+                <ViewBrand brandId={cart?.product?.brand?._id} />
               </section>
             </div>
           </div>
         </div>
       )}
-      <FloatButton.BackTop />
+      <FloatButton />
     </React.Fragment>
   );
 };
 
-export default ProductPage;
+export default GoodsInfo;

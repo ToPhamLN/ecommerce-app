@@ -105,14 +105,23 @@ export const updateCart = async (req, res, next) => {
 // @access  private Auth\
 export const deleteCart = async (req, res, next) => {
   try {
+    console.log(req.params);
+    const user = req.user;
+    const cart = req.cart;
+    if (
+      !user.isAdmin &&
+      !(cart.status == "Processing" || cart.status == "Canceled")
+    ) {
+      return res.status(400).json({
+        message: "You are not authorized to delete this cart",
+      });
+    }
     const result = await Cart.findByIdAndDelete({
       _id: req.params.cartId,
     });
-    if (result) {
-      res.status(200).json({
-        message: "Deleted successfully",
-      });
-    }
+    res.status(200).json({
+      message: "Deleted successfully",
+    });
   } catch (error) {
     next(error);
   }
@@ -132,6 +141,7 @@ export const getAllCart = async (req, res, next) => {
 
 export const getAllCartForUser = async (req, res, next) => {
   try {
+    console.log(req.query);
     let query = {};
     let sort = {};
     let page = parseInt(req.query.page);

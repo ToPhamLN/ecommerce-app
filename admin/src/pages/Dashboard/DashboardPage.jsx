@@ -1,35 +1,20 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { Switch, Button } from "antd";
 import "../../assets/css/dashboard.css";
+import CurrentcyRange from "./CurrentcyRange";
 
 const DashboardPage = () => {
-  const { control, handleSubmit } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
   return (
     <React.Fragment>
       <div className="container__dashboard">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="edit"
-            control={control}
-            defaultValue={false}
-            render={({ field }) => (
-              <Switch
-                checkedChildren="Sell"
-                unCheckedChildren="Not Sold"
-                {...field}
-              />
-            )}
-          />
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </form>
+        <div className="layer__dashboard total__payment">
+          <CurrentcyRange range={"day"} />
+          <CurrentcyRange range={"week"} />
+          <CurrentcyRange range={"month"} />
+          <CurrentcyRange range={"year"} />
+        </div>
+        <div className="layer__dashboard payment">
+          <div className="chart__payment"></div>
+        </div>
       </div>
     </React.Fragment>
   );

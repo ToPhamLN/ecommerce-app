@@ -39,7 +39,6 @@ const OrderPage = () => {
 
   useEffect(() => {
     handleGetOrders();
-    console.log(status);
   }, [gtePrice, ltePrice, sort, page, limit, status]);
 
   const onChangePagination = (page, pageSize) => {
@@ -174,7 +173,11 @@ const OrderPage = () => {
         </section>
         <section className="order__wrapper">
           {orders.map((order, index) => (
-            <OrderItem order={order} key={index} />
+            <OrderItem
+              order={order}
+              key={index}
+              reset={handleGetOrders}
+            />
           ))}
           <div className="pagination">
             <Space direction="vertical">

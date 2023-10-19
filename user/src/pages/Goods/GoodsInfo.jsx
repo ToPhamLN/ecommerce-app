@@ -8,7 +8,7 @@ import {
 import { FloatButton } from "antd";
 import PictureProduct from "../Product/PictureProduct";
 import Loading from "../../components/Loading";
-import ReviewProduct from "../Product/ReviewProduct";
+import ReviewProduct from "../Review/ReviewProduct";
 import ViewBrand from "../Product/ViewBrand";
 import ViewCategory from "../Product/ViewCategory";
 import { cartRequest } from "../../config/apiRequest";

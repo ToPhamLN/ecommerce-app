@@ -1,19 +1,65 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Tag } from "antd";
 import { TbDiscountCheckFilled } from "react-icons/tb";
 import {
   BiSolidUpArrow,
   BiSolidDownArrow,
 } from "react-icons/bi";
+import axios from "../../config/axios";
+import { orderRequest } from "../../config/apiRequest";
+import { toast } from "react-toastify";
+import Deletion from "../../components/Deletion";
+import { Spin } from "antd";
 
 const OrderItem = (props) => {
-  const { order } = props;
+  const { order, reset } = props;
   const [showAll, setShowAll] = useState(false);
-  const toggleShowAll = () => {
-    setShowAll(!showAll);
+  const [edit, setEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    username: order.username,
+    email: order.email,
+    contact: order.contact,
+    address: order.address,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo({
+      ...userInfo,
+      [name]: value,
+    });
   };
+
+  const handleEditOrder = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.put(
+        orderRequest.update + `/${order._id}`,
+        {
+          ...userInfo,
+        }
+      );
+      toast.success(res.data?.message, {
+        autoClose: 1000,
+      });
+    } catch (error) {
+      toast.error(error.response.data.message, 1000);
+    } finally {
+      setLoading(false);
+    }
+    setEdit((p) => !p);
+  };
+
+  const handleReset = () => {
+    reset();
+    setShowAll((p) => !p);
+  };
+
   return (
     <React.Fragment>
       <div className="order__item">
@@ -31,7 +77,7 @@ const OrderItem = (props) => {
             <span>{order.currentcy.toLocaleString()} vnđ</span>
           </div>
           <div className="toggle__more__order">
-            <button onClick={toggleShowAll}>
+            <button onClick={() => setShowAll(!showAll)}>
               <span>
                 {showAll ? (
                   <BiSolidUpArrow />
@@ -106,31 +152,111 @@ const OrderItem = (props) => {
                 <h1>User Information</h1>
                 <div className="username">
                   <h2>Username: </h2>
-                  <span>{order.username}</span>
-                </div>
-                <div className="address">
-                  <h2>Address: </h2>
-                  <span>{order.address}</span>
+                  {edit ? (
+                    <input
+                      type="text"
+                      name="username"
+                      value={userInfo.username}
+                      onChange={(e) => handleInputChange(e)}
+                    />
+                  ) : (
+                    <span>{userInfo.username}</span>
+                  )}
                 </div>
                 <div className="email">
                   <h2>Email: </h2>
-                  <span>{order.email}</span>
+                  {edit ? (
+                    <input
+                      type="text"
+                      name="email"
+                      value={userInfo.email}
+                      onChange={(e) => handleInputChange(e)}
+                    />
+                  ) : (
+                    <span>{userInfo.email}</span>
+                  )}
+                </div>
+                <div className="address">
+                  <h2> Address: </h2>
+                  {edit ? (
+                    <input
+                      type="text"
+                      name="address"
+                      value={userInfo.address}
+                      onChange={(e) => handleInputChange(e)}
+                    />
+                  ) : (
+                    <span>{userInfo.address}</span>
+                  )}
                 </div>
                 <div className="contact">
                   <h2>Contact: </h2>
-                  <span>{order.contact}</span>
+                  {edit ? (
+                    <input
+                      type="text"
+                      name="contact"
+                      value={userInfo.contact}
+                      onChange={(e) => handleInputChange(e)}
+                    />
+                  ) : (
+                    <span>{userInfo.contact}</span>
+                  )}
                 </div>
+                {(order.status === "Pending" ||
+                  order.status === "Canceled") && (
+                  <div className="order__item__info__control">
+                    {edit ? (
+                      <button
+                        className="submit"
+                        onClick={() => handleEditOrder()}
+                      >
+                        <AiFillEdit />
+                        Oke
+                      </button>
+                    ) : (
+                      <button
+                        className="edit"
+                        onClick={() => setEdit((p) => !p)}
+                      >
+                        {loading ? (
+                          <Spin size="large" />
+                        ) : (
+                          <React.Fragment>
+                            <AiFillEdit />
+                            Edit
+                          </React.Fragment>
+                        )}
+                      </button>
+                    )}
+                    <button
+                      className="delete"
+                      onClick={() => setShowDelete(!showDelete)}
+                    >
+                      <AiFillDelete />
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         )}
       </div>
+      {showDelete && (
+        <Deletion
+          data={showDelete}
+          setData={setShowDelete}
+          api={`${orderRequest.delete}/${order._id}`}
+          reset={handleReset}
+        />
+      )}
     </React.Fragment>
   );
 };
 
 OrderItem.propTypes = {
   order: PropTypes.object.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 export default OrderItem;

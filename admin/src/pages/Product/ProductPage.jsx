@@ -14,7 +14,7 @@ import Loading from "../../components/Loading";
 import Deletion from "../../components/Deletion";
 import axios from "../../config/axios";
 import { productRequest } from "../../config/apiRequest";
-import { formatNumber } from "../../../utils/format";
+import { formatNumber } from "../../utils/format";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -103,7 +103,10 @@ const ProductPage = () => {
       align: "center",
       render: (__, product) => (
         <Space className="table__box">
-          <span className="action__table view">
+          <span
+            className="action__table view"
+            onClick={() => handleView(product._id)}
+          >
             <TbEyeSearch />
           </span>
           <span
@@ -143,7 +146,9 @@ const ProductPage = () => {
   const handleCreateProduct = () => {
     navigate(routes.createProduct);
   };
-
+  const handleView = (productId) => {
+    navigate(`/products/${productId}`);
+  };
   const handleUpdate = (productId) => {
     navigate(`${routes.product}/${productId}/update`);
   };

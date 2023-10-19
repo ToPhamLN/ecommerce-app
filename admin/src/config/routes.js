@@ -2,6 +2,9 @@ import LoginPage from "../pages/Login/LoginPage";
 import RegisterPage from "../pages/Register/RegisterPage";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import ProductPage from "../pages/Product/ProductPage";
+import CreateProduct from "../pages/Product/CreateProduct";
+import UpdateProduct from "../pages/Product/UpdateProduct";
+import ProductItem from "../pages/Product/ProductItem";
 import ProcessPage from "../pages/Process/ProcessPage";
 import OrderPage from "../pages/Order/OrderPage";
 import PaymentPage from "../pages/Payment/PaymentPage";
@@ -9,21 +12,22 @@ import CategoryPage from "../pages/Category/CategoryPage";
 import UpdateCategory from "../pages/Category/UpdateCategory";
 import BrandPage from "../pages/Brand/BrandPage";
 import UpdateBrand from "../pages/Brand/UpdateBrand";
-import CreateProduct from "../pages/Product/CreateProduct";
-import UpdateProduct from "../pages/Product/UpdateProduct";
 import DiscountPage from "../pages/Discount/DiscountPage";
 import UpdateDiscount from "../pages/Discount/UpdateDiscount";
+import GoodsInfo from "../pages/Process/GoodsInfo";
 
 export const routes = {
   login: "/login",
   register: "/register",
   dashboard: "/dashboard",
-  process: "/process",
+  process: "/goods",
+  processId: "/goods/:cartId",
   order: "/order",
   payment: "/payment",
   product: "/product",
   createProduct: "/product/create",
   productId: "/product/:productId",
+  productItem: "/products/:productId",
   productUpdate: "/product/:productId/update",
   category: "/category",
   categoryId: "/category/:categoryId",
@@ -42,11 +46,13 @@ export const publicRoutes = [
 export const privateRoutes = [
   { path: routes.dashboard, component: DashboardPage },
   { path: routes.process, component: ProcessPage },
+  { path: routes.processId, component: GoodsInfo },
   { path: routes.order, component: OrderPage },
   { path: routes.payment, component: PaymentPage },
   { path: routes.product, component: ProductPage },
   { path: routes.productUpdate, component: UpdateProduct },
   { path: routes.createProduct, component: CreateProduct },
+  { path: routes.productItem, component: ProductItem },
   { path: routes.category, component: CategoryPage },
   { path: routes.categoryId, component: UpdateCategory },
   { path: routes.brand, component: BrandPage },

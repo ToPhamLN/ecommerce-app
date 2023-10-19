@@ -176,7 +176,7 @@ section.order__wrapper {
     flex: 0 0 auto;
     display: flex;
     flex-flow: column;
-    gap: 1rem;
+    gap: 2rem;
     width: 40%;
 }
 
@@ -184,6 +184,8 @@ section.order__wrapper {
 .order__info__payment {
     display: flex;
     flex-flow: row;
+    align-items: center;
+    height: 3.5rem;
 }
 
 .order__item__info__user div h2,
@@ -191,6 +193,12 @@ section.order__wrapper {
     flex: 0 0 auto;
     width: 10rem;
     font-weight: bold;
+}
+
+.order__item__info__user div input {
+    flex: 1;
+    width: 100%;
+    font-size: 1.5rem;
 }
 
 .orders__item__info {
@@ -216,4 +224,36 @@ section.order__wrapper {
     gap: 2rem;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+.order__item__info__control {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+
+    & button {
+        display: flex;
+        gap: 1rem;
+        outline: none;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        background-color: #134ea7;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.3 ease 0.4;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    & .submit {
+        background-color: #1391a7;
+    }
+
+    & .delete {
+        background-color: #bb1e26;
+    }
 }

@@ -78,10 +78,7 @@ button.toggle__create__brand:hover {
 section.ctn__all__brand {
     position: relative;
     margin: 3rem;
-    padding: 3rem;
-    border: 0.1rem solid #555;
     min-height: 70vh;
-    border-radius: 1rem;
 
 }
 

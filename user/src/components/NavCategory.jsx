@@ -7,12 +7,11 @@ import Loading from "./Loading";
 import "../assets/css/NavCategory.css";
 
 const NavCategory = (props) => {
-  const { setData } = props;
+  const { setData, data } = props;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8; // Số category hiển thị mỗi trang
-
+  const itemsPerPage = 6;
   const handleGetAllCategories = async () => {
     try {
       setLoading(true);
@@ -46,15 +45,24 @@ const NavCategory = (props) => {
     currentPage * itemsPerPage + itemsPerPage
   );
 
+  const handleAddCategory = (cartId) => {
+    setData(cartId);
+    if (data === cartId) setData(null);
+  };
+
   return (
     <React.Fragment>
       <aside className="navcategory">
         <div className="wrapper__navcategory">
           {visibleCategories.map((category, index) => (
             <div
-              className="category__item"
+              className={
+                data == category._id
+                  ? "select category__item"
+                  : "category__item"
+              }
               key={index}
-              onClick={() => setData(category._id)}
+              onClick={() => handleAddCategory(category._id)}
             >
               <div className="picture">
                 <img src={category.picturePath} alt="" />
@@ -92,6 +100,7 @@ const NavCategory = (props) => {
 
 NavCategory.propTypes = {
   setData: PropTypes.func.isRequired,
+  data: PropTypes.string,
 };
 
 export default NavCategory;

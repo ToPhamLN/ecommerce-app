@@ -13,13 +13,13 @@ import { productRequest } from "../../config/apiRequest";
 import ActionProduct from "./ActionProduct";
 import PictureProduct from "./PictureProduct";
 import ReviewProduct from "../Review/ReviewProduct";
-import ViewBrand from "./ViewBrand";
-import ViewCategory from "./ViewCategory";
+import ViewBrand from "../Brand/ViewBrand";
+import ViewCategory from "../Category/ViewCategory";
 import "react-quill/dist/quill.snow.css";
 import Loading from "../../components/Loading";
 import "../../assets/css/Review.css";
 
-const ProductPage = () => {
+const ProductItem = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
@@ -50,7 +50,6 @@ const ProductPage = () => {
   useEffect(() => {
     handleGetProduct();
   }, []);
-
   return (
     <React.Fragment>
       {loading ? (
@@ -115,4 +114,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductItem;

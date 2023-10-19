@@ -15,7 +15,7 @@ import { brandRequest } from "../../config/apiRequest";
 import "../../assets/css/Brand.css";
 import CreateBrand from "./CreateBrand";
 import { routes } from "../../config/routes";
-import { sliceString } from "../../../utils/format";
+import { sliceString } from "../../utils/format";
 import Deletion from "../../components/Deletion";
 
 const BrandPage = () => {

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Tag } from "antd";
 import { formatNumber } from "../../utils/format";
 import { Link } from "react-router-dom";
 import { FaDeleteLeft, FaAlgolia } from "react-icons/fa6";
+import Deletion from "../../components/Deletion";
+import { cartRequest } from "../../config/apiRequest";
 
 import { Steps } from "antd";
 import {
@@ -14,7 +16,8 @@ import {
 } from "@ant-design/icons";
 
 const GoodsItem = (props) => {
-  const { cart } = props;
+  const { cart, reset } = props;
+  const [showDelete, setShowDelete] = useState(false);
   let currentStep = 0;
   switch (cart?.status) {
     case "Processing":
@@ -30,6 +33,9 @@ const GoodsItem = (props) => {
       currentStep = 0;
       break;
   }
+  const handleDeleteCart = () => {
+    setShowDelete(!showDelete);
+  };
   return (
     <React.Fragment>
       <div className="goods__item">
@@ -89,18 +95,21 @@ const GoodsItem = (props) => {
                 </span>
               </button>
             </Link>
-            <button
-              className="deletecart"
-              // onClick={() => handleDeleteCart()}
-            >
-              <span>
-                <FaDeleteLeft />
-              </span>
-            </button>
+            {console.log(cart.status)}
+            {cart.status == "Canceled" && (
+              <button
+                className="deletecart"
+                onClick={() => handleDeleteCart()}
+              >
+                <span>
+                  <FaDeleteLeft />
+                </span>
+              </button>
+            )}
           </div>
         </div>
         <div className="secondary__goods__item">
-          {cart.status === "Canceled" ? (
+          {cart.status === "Processing" ? (
             <Steps
               current={0}
               items={[
@@ -131,11 +140,20 @@ const GoodsItem = (props) => {
           )}
         </div>
       </div>
+      {showDelete && (
+        <Deletion
+          data={showDelete}
+          setData={showDelete}
+          api={`${cartRequest.delete}/${cart._id}`}
+          reset={reset}
+        />
+      )}
     </React.Fragment>
   );
 };
 
 GoodsItem.propTypes = {
   cart: PropTypes.object,
+  reset: PropTypes.func,
 };
 export default GoodsItem;

@@ -28,7 +28,7 @@ aside.navcategory {
     position: relative;
     height: 100%;
     display: flex;
-    flex-flow: row nowrap;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
     cursor: pointer;
@@ -43,6 +43,29 @@ aside.navcategory {
             color: white;
         }
     }
+}
+
+.select.category__item {
+    position: relative;
+
+    &>.picture {
+        transform: translateY(-0.5rem);
+    }
+
+    &>span {
+        transform: scale(1.05);
+        color: white;
+    }
+}
+
+.select.category__item::before {
+    content: "";
+    position: absolute;
+    top: 90%;
+    left: 0;
+    width: 100%;
+    height: 0.2rem;
+    background-color: aliceblue;
 }
 
 .category__item .picture {

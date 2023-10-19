@@ -144,7 +144,11 @@ const GoodsPage = () => {
             <Loading />
           ) : carts.length > 0 ? (
             carts.map((cart, index) => (
-              <GoodsItem key={index} cart={cart} />
+              <GoodsItem
+                key={index}
+                cart={cart}
+                reset={handleGetCarts}
+              />
             ))
           ) : (
             <div> no data.</div>

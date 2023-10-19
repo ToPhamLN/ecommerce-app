@@ -110,6 +110,7 @@
 .action__table {
     font-size: 2.5rem;
     color: #555;
+    cursor: pointer;
 }
 
 .action__table.view :hover {
@@ -122,4 +123,22 @@
 
 .action__table.delete:hover {
     color: #cf2828;
+}
+
+.action__table.change {
+    border: none;
+    outline: none;
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 0.3rem;
+
+    >span {
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }

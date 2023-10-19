@@ -12,7 +12,7 @@ import "../../assets/css/Brand.css";
 import { categoryRequest } from "../../config/apiRequest";
 import CreateCategory from "./CreateCategory";
 import { routes } from "../../config/routes";
-import { sliceString } from "../../../utils/format";
+import { sliceString } from "../../utils/format";
 import Deletion from "../../components/Deletion";
 
 const CategoryPage = () => {
