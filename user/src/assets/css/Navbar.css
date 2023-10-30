@@ -276,6 +276,7 @@ header.navbar {
     color: var(--text-bar-color);
     padding: 0.9rem;
     border-radius: 50%;
+    cursor: pointer;
 
     &:hover {
         background-color: rgba(55, 127, 129, 0.486);

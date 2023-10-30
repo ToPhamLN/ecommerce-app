@@ -14,6 +14,13 @@ const feedbackSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    reply: {
+      type: String,
+    },
+    isRead: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

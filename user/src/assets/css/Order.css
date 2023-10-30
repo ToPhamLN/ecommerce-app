@@ -110,7 +110,7 @@ section.order__wrapper {
     gap: 3rem
 }
 
-.order__item__currentcy {
+.order__item__currency {
     flex: 1;
     display: flex;
     gap: 3rem

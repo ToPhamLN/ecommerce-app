@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../config/axios";
 
-import { categoryRequest } from "../../config/apiRequest";
-import Loading from "../../components/Loading";
-import { ToastContainer, toast } from "react-toastify";
-import { routes } from "../../config/routes";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../components/Loading";
+import { categoryRequest } from "../../config/apiRequest";
+import { routes } from "../../config/routes";
 
 const UpdateCategory = () => {
   const { categoryId } = useParams();
@@ -110,7 +110,6 @@ const UpdateCategory = () => {
         </form>
       </section>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

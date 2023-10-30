@@ -131,11 +131,11 @@ const ProcessPage = () => {
             status.color = "#136079";
             break;
           case "Shipped":
-            status.change = "Deliverd";
+            status.change = "Delivered";
             status.color = "#187E1B";
             break;
           case "Delivered":
-            status.change = "Cancled";
+            status.change = "Canceled";
             status.color = "#A71616";
             break;
           default:
@@ -158,16 +158,18 @@ const ProcessPage = () => {
             >
               <span>{status.change} </span>
             </button>
-            {cart.status !== "Canceled" && (
+            {cart.status == "Canceled" ? null : (
               <button
                 className="action__table change"
-                onClick={() => handleUpdate(cart._id, "Cancled")}
+                onClick={() =>
+                  handleUpdate(cart._id, "Canceled")
+                }
                 style={{
                   backgroundColor: "#A71616",
                   color: "white",
                 }}
               >
-                <span>Cancled</span>
+                <span>Canceled</span>
               </button>
             )}
             <span
@@ -266,11 +268,11 @@ const ProcessPage = () => {
           </div>
           <div
             className={`nav__select__item ${
-              status === "Delevered" ? "select" : ""
+              status === "Delivered" ? "select" : ""
             }`}
-            onClick={() => setStatus("Delevered")}
+            onClick={() => setStatus("Delivered")}
           >
-            Delevered
+            Delivered
           </div>
           <div
             className={`nav__select__item ${

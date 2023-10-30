@@ -106,7 +106,9 @@ const Navbar = (props) => {
                   >
                     <MdExpandMore />
                   </span>
-                  {showExpand && <ExpandNav />}
+                  {showExpand && (
+                    <ExpandNav setData={setShowExpand} />
+                  )}
                 </div>
               </div>
             </div>

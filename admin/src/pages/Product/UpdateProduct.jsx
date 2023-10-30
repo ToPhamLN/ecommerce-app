@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../config/axios";
 
-import SelectCategory from "../../components/SelectCategory";
-import SelectBrand from "../../components/SelectBrand";
+import { Controller, useForm } from "react-hook-form";
+import "react-quill/dist/quill.snow.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../../assets/css/CreateProduct.css";
 import Editor from "../../components/Editor";
 import Loading from "../../components/Loading";
-import UploadMultiple from "../../components/UploadMultiple";
-import { useParams, useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { categoryRequest } from "../../config/apiRequest";
-import "react-quill/dist/quill.snow.css";
-import "../../assets/css/CreateProduct.css";
-import { routes } from "../../config/routes";
-import { productRequest } from "../../config/apiRequest";
+import SelectBrand from "../../components/SelectBrand";
+import SelectCategory from "../../components/SelectCategory";
 import SwitchInput from "../../components/SwitchInput";
+import UploadMultiple from "../../components/UploadMultiple";
+import {
+  categoryRequest,
+  productRequest,
+} from "../../config/apiRequest";
+import { routes } from "../../config/routes";
 
 const UpdateProduct = () => {
   const { productId } = useParams();
@@ -248,7 +250,6 @@ const UpdateProduct = () => {
         </form>
       </div>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

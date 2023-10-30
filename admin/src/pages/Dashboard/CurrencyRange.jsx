@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import axios from "../../config/axios";
 import { Spin } from "antd";
 import { orderRequest } from "../../config/apiRequest";
+import { BsCalendarWeek } from "react-icons/bs";
 
-const CurrentcyRange = (props) => {
+const CurrencyRange = (props) => {
   const { range } = props;
   const [totalRange, setTotalRange] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -12,9 +13,8 @@ const CurrentcyRange = (props) => {
   const handleGetRange = async () => {
     try {
       const res = await axios.get(
-        orderRequest.currentcy + "/" + range
+        orderRequest.currency + "/" + range
       );
-      console.log(res.data);
       setTotalRange(res.data.total);
     } catch (error) {
       console.log(error);
@@ -29,25 +29,28 @@ const CurrentcyRange = (props) => {
   return (
     <React.Fragment>
       <div className="total__payment__item">
-        {loading ? (
-          <Spin size="large" />
+        <div className="conntent">
+          {loading ? (
+            <Spin size="large" />
+          ) : (
+            <>
+              <BsCalendarWeek />
+              <span>{totalRange.toLocaleString()} vnđ</span>
+            </>
+          )}
+        </div>
+        {range === "day" ? (
+          <div className="footer">Today</div>
         ) : (
-          <React.Fragment>
-            {range == "day" ? (
-              <h1>Today</h1>
-            ) : (
-              <h1>This {range}</h1>
-            )}
-            <h2>{totalRange.toLocaleString()} vnđ</h2>
-          </React.Fragment>
+          <div className="footer">This {range}</div>
         )}
       </div>
     </React.Fragment>
   );
 };
 
-CurrentcyRange.propTypes = {
+CurrencyRange.propTypes = {
   range: PropTypes.string,
 };
 
-export default CurrentcyRange;
+export default CurrencyRange;

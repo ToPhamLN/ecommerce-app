@@ -55,7 +55,15 @@ export const orderRequest = {
 export const reviewRequest = {
   create: `${urlServer}/reviews/create`,
   getAll: `${urlServer}/reviews/all`,
-  getById: `${urlServer}/reviews/`,
+  getById: `${urlServer}/reviews`,
   update: `${urlServer}/reviews/update`,
   delete: `${urlServer}/reviews/delete`,
+};
+
+export const feedbackRequest = {
+  create: `${urlServer}/feedbacks/create`,
+  getAll: `${urlServer}/feedbacks/all`,
+  getById: `${urlServer}/feedbacks`,
+  update: `${urlServer}/feedbacks/update`,
+  delete: `${urlServer}/feedbacks/delete`,
 };

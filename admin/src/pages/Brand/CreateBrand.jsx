@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { MdOutlineCancelPresentation } from "react-icons/md";
 import PropTypes from "prop-types";
-import axios from "../../config/axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { MdOutlineCancelPresentation } from "react-icons/md";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "../../config/axios";
 
 import Loading from "../../components/Loading.jsx";
-import "./../../assets/css/CreateBrand.css";
 import { brandRequest } from "../../config/apiRequest";
+import "./../../assets/css/CreateBrand.css";
 
 const CreateBrand = (props) => {
   const [loading, setLoading] = useState(false);
@@ -119,7 +119,6 @@ const CreateBrand = (props) => {
         </form>
       </section>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

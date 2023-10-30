@@ -1,13 +1,16 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { MdOutlineCancelPresentation } from "react-icons/md";
-import "./../assets/css/Deletion.css";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "../config/axios";
+import "./../assets/css/Deletion.css";
 import Loading from "./Loading";
+import { useNavigate } from "react-router-dom";
 
 const Deletion = (props) => {
-  const { data, setData, api, reset } = props;
+  const { data, setData, api, reset, path } = props;
+  console.log(data);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
     try {
@@ -16,14 +19,17 @@ const Deletion = (props) => {
       toast.warning(res.data.message, {
         autoClose: 1000,
       });
+      if (path) {
+        navigate(path);
+      }
       reset();
-      setTimeout(() => {
-        setData(!data);
-      }, 1000);
     } catch (error) {
-      toast.error(error.response.data?.message, {
-        autoClose: 1000,
-      });
+      console.log(error);
+      if (error.response) {
+        toast.error(error.response.data?.message, {
+          autoClose: 1000,
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -46,16 +52,16 @@ const Deletion = (props) => {
         </div>
       </div>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };
 
 Deletion.propTypes = {
-  data: PropTypes.bool.isRequired,
-  setData: PropTypes.func.isRequired,
+  data: PropTypes.bool,
+  setData: PropTypes.func,
   reset: PropTypes.func,
-  api: PropTypes.string.isRequired,
+  api: PropTypes.string,
+  path: PropTypes.string,
 };
 
 export default Deletion;

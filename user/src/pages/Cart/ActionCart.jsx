@@ -19,7 +19,7 @@ const ActionCart = (props) => {
   const [selectedProperties, setSelectedProperties] = useState(
     cart.properties
   );
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(cart.quantity);
   const handlePropertyClick = (property, value) => {
     setSelectedProperties((prevState) => ({
       ...prevState,

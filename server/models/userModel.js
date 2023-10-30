@@ -34,7 +34,7 @@ const userSchema = Schema(
           type: String,
         },
       },
-      default: undefined,
+      default: [],
     },
     isAdmin: {
       type: Boolean,

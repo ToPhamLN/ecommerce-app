@@ -83,20 +83,20 @@ const Sidebar = () => {
           </li>
           <li>
             <Link
-              to={routes.user}
-              link-name="User"
-              className="item__sidebar"
-            >
-              <BiSolidUserRectangle />
-            </Link>
-          </li>
-          <li>
-            <Link
               to={routes.discount}
               link-name="Discount"
               className="item__sidebar"
             >
               <BiSolidDiscount />
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={routes.user}
+              link-name="User"
+              className="item__sidebar"
+            >
+              <BiSolidUserRectangle />
             </Link>
           </li>
         </ul>

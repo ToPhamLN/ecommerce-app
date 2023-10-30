@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { MdOutlineCancelPresentation } from "react-icons/md";
 import PropTypes from "prop-types";
-import axios from "../../config/axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { MdOutlineCancelPresentation } from "react-icons/md";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "../../config/axios";
 
 import Loading from "../../components/Loading";
 import { categoryRequest } from "../../config/apiRequest";
@@ -121,7 +121,6 @@ const CreateCategory = (props) => {
         </form>
       </section>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

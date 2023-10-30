@@ -1,100 +1,20 @@
-import { Space, Table, Tag } from "antd";
+import { Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { BiSolidTrashAlt } from "react-icons/bi";
-import { TbEyeSearch } from "react-icons/tb";
-import { useNavigate, Link } from "react-router-dom";
-import Deletion from "../../components/Deletion";
+import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 import { orderRequest } from "../../config/apiRequest";
 import { formatDate } from "../../utils/format";
-import { toast } from "react-toastify";
 
 const PaymentPage = () => {
   const [orders, setOrders] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState("");
   const [loading, setLoading] = useState(true);
-  const [showDelete, setShowDelete] = useState(false);
   const [gtePrice, setGtePrice] = useState(null);
   const [ltePrice, setLtePrice] = useState(null);
   const [gteDate, setGteDate] = useState(null);
   const [lteDate, setLteDate] = useState(null);
   const [sort, setSort] = useState(-1);
   const [status, setStatus] = useState(null);
-  const navigate = useNavigate();
-
-  const currentDate = new Date(); // Ngày hiện tại
-
-  // Tính tổng currentcy cho ngày hôm nay
-  const todayTotal = orders.reduce((total, order) => {
-    const orderDate = new Date(order.createdAt);
-    if (
-      orderDate.getFullYear() === currentDate.getFullYear() &&
-      orderDate.getMonth() === currentDate.getMonth() &&
-      orderDate.getDate() === currentDate.getDate()
-    ) {
-      return total + order.currentcy;
-    }
-    return total;
-  }, 0);
-
-  // Tính tổng currentcy cho tuần này
-  const firstDayOfWeek = new Date(
-    currentDate.setDate(
-      currentDate.getDate() -
-        currentDate.getDay() +
-        (currentDate.getDay() === 0 ? -6 : 1)
-    )
-  );
-  const weekTotal = orders.reduce((total, order) => {
-    const orderDate = new Date(order.createdAt);
-    if (
-      orderDate >= firstDayOfWeek &&
-      orderDate <= currentDate
-    ) {
-      return total + order.currentcy;
-    }
-    return total;
-  }, 0);
-
-  // Tính tổng currentcy cho tháng này
-  const firstDayOfMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth(),
-    1
-  );
-  const monthTotal = orders.reduce((total, order) => {
-    const orderDate = new Date(order.createdAt);
-    if (
-      orderDate >= firstDayOfMonth &&
-      orderDate <= currentDate
-    ) {
-      return total + order.currentcy;
-    }
-    return total;
-  }, 0);
-
-  // Tính tổng currentcy cho năm nay
-  const firstDayOfYear = new Date(
-    currentDate.getFullYear(),
-    0,
-    1
-  );
-  const yearTotal = orders.reduce((total, order) => {
-    const orderDate = new Date(order.createdAt);
-    if (
-      orderDate >= firstDayOfYear &&
-      orderDate <= currentDate
-    ) {
-      return total + order.currentcy;
-    }
-    return total;
-  }, 0);
-
-  console.log(`Tổng currentcy cho ngày hôm nay: ${todayTotal}`);
-  console.log(`Tổng currentcy cho tuần này: ${weekTotal}`);
-  console.log(`Tổng currentcy cho tháng này: ${monthTotal}`);
-  console.log(`Tổng currentcy cho năm nay: ${yearTotal}`);
 
   const columns = [
     {
@@ -188,15 +108,15 @@ const PaymentPage = () => {
         a.order.discount.name - b.order.discount.name,
     },
     {
-      title: "Currentcy",
-      dataIndex: "currentcy",
+      title: "Currency",
+      dataIndex: "currency",
 
       width: 100,
       align: "center",
       render: (_, order) => (
-        <span>{order.currentcy.toLocaleString()} </span>
+        <span>{order.currency.toLocaleString()} </span>
       ),
-      sorter: (a, b) => a.currentcy - b.currentcy,
+      sorter: (a, b) => a.currency - b.currency,
     },
     {
       title: "Status",
@@ -227,54 +147,6 @@ const PaymentPage = () => {
       },
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
-    // {
-    //   title: "Action",
-    //   width: 150,
-    //   align: "center",
-    //   render: (_, order) => {
-    //     console.log(order.status);
-    //     let status = {};
-    //     switch (order.status) {
-    //       case "Pending":
-    //         status.change = "Confirmed";
-    //         status.color = "#187E1B";
-    //         break;
-    //       case "Confirmed":
-    //         status.change = "Cancled";
-    //         status.color = "#A71616";
-    //         break;
-    //       default:
-    //         status.change = null;
-    //         status.color = "#A9B916";
-    //         break;
-    //     }
-    //     return (
-    //       <Space className="table__box">
-    //         <button
-    //           className="action__table change"
-    //           onClick={() =>
-    //             handleUpdate(order._id, status.change)
-    //           }
-    //           style={{
-    //             backgroundColor: status.color,
-    //             color: "white",
-    //           }}
-    //         >
-    //           <span>{status.change} </span>
-    //         </button>
-    //         <span className="action__table view">
-    //           <TbEyeSearch />
-    //         </span>
-    //         <span
-    //           className="action__table delete"
-    //           onClick={() => handleDelete(order._id)}
-    //         >
-    //           <BiSolidTrashAlt />
-    //         </span>
-    //       </Space>
-    //     );
-    //   },
-    // },
   ];
 
   const handleGetOrders = async () => {
@@ -301,31 +173,6 @@ const PaymentPage = () => {
   useEffect(() => {
     handleGetOrders();
   }, [gtePrice, ltePrice, gteDate, lteDate, sort, status]);
-
-  // const handleDelete = async (orderId) => {
-  //   setSelectedOrder(orderId);
-  //   setShowDelete(!showDelete);
-  // };
-
-  // const handleUpdate = async (orderId, status) => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await axios.put(
-  //       orderRequest.update + `/${orderId}`,
-  //       {
-  //         status,
-  //       }
-  //     );
-  //     toast.success(res.data?.message, {
-  //       autoClose: 1000,
-  //     });
-  //     handleGetOrders();
-  //   } catch (error) {
-  //     toast.error(error.response.data.message, 1000);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <React.Fragment>
@@ -435,20 +282,10 @@ const PaymentPage = () => {
               dataSource={orders}
               columns={columns}
               rowKey="_id"
-              // pagination={false}
             />
           )}
         </section>
       </div>
-
-      {/* {showDelete && (
-        <Deletion
-          data={showDelete}
-          setData={setShowDelete}
-          api={`${orderRequest.delete}/${selectedOrder}`}
-          reset={handleGetOrders}
-        />
-      )} */}
     </React.Fragment>
   );
 };

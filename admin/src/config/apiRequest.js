@@ -4,6 +4,12 @@ export const userRequest = {
   register: `${urlServer}/users/register`,
   login: `${urlServer}/users/login`,
   logout: `${urlServer}/users/logout`,
+  getProfile: `${urlServer}/users/profile`,
+  updateAvatar: `${urlServer}/users/avatar`,
+  auth: `${urlServer}/users/auth`,
+  search: `${urlServer}/users/search`,
+  updateAuth: `${urlServer}/users/auth`,
+  all: `${urlServer}/users/all`,
 };
 
 export const cartRequest = {
@@ -30,7 +36,8 @@ export const orderRequest = {
   getById: `${urlServer}/orders/`,
   update: `${urlServer}/orders/update`,
   delete: `${urlServer}/orders/delete`,
-  currentcy: `${urlServer}/orders/currentcy`,
+  currency: `${urlServer}/orders/currency`,
+  stats: `${urlServer}/orders/stats`,
 };
 
 export const brandRequest = {
@@ -63,4 +70,12 @@ export const reviewRequest = {
   getById: `${urlServer}/reviews/`,
   update: `${urlServer}/reviews/update`,
   delete: `${urlServer}/reviews/delete`,
+};
+
+export const feedbackRequest = {
+  create: `${urlServer}/feedbacks/create`,
+  getAll: `${urlServer}/feedbacks/all`,
+  getById: `${urlServer}/feedbacks`,
+  update: `${urlServer}/feedbacks/update`,
+  delete: `${urlServer}/feedbacks/delete`,
 };

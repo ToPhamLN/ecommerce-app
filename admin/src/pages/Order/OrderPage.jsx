@@ -48,9 +48,9 @@ const OrderPage = () => {
           ) : (
             order.order.map((o, i) => (
               <Link key={i} to={`/goods/${o._id}`}>
-                <Tag color="rgb(90, 141, 220)">
+                <span color="rgb(90, 141, 220)">
                   {o.product.name}
-                </Tag>
+                </span>
               </Link>
             ))
           )}
@@ -89,15 +89,15 @@ const OrderPage = () => {
       sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
     },
     {
-      title: "Currentcy",
-      dataIndex: "currentcy",
+      title: "Currency",
+      dataIndex: "currency",
 
       width: 100,
       align: "center",
       render: (_, order) => (
-        <span>{order.currentcy.toLocaleString()} </span>
+        <span>{order.currency.toLocaleString()} </span>
       ),
-      sorter: (a, b) => a.currentcy - b.currentcy,
+      sorter: (a, b) => a.currency - b.currency,
     },
     {
       title: "Status",
@@ -140,7 +140,7 @@ const OrderPage = () => {
             status.color = "#187E1B";
             break;
           case "Confirmed":
-            status.change = "Cancled";
+            status.change = "Canceled";
             status.color = "#A71616";
             break;
           default:
@@ -162,6 +162,20 @@ const OrderPage = () => {
             >
               <span>{status.change} </span>
             </button>
+            {order.status == "Canceled" ? null : (
+              <button
+                className="action__table change"
+                onClick={() =>
+                  handleUpdate(order._id, "Canceled")
+                }
+                style={{
+                  backgroundColor: "#A71616",
+                  color: "white",
+                }}
+              >
+                <span>Canceled</span>
+              </button>
+            )}
             <span className="action__table view">
               <TbEyeSearch />
             </span>

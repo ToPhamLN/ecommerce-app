@@ -7,7 +7,7 @@ export const createOrder = async (req, res, next) => {
   const {
     order,
     totalPrice,
-    currentcy,
+    currency,
     discount,
     address,
     contact,
@@ -20,7 +20,7 @@ export const createOrder = async (req, res, next) => {
     const newCart = new Order({
       order,
       totalPrice,
-      currentcy,
+      currency,
       discount: discount || undefined,
       address,
       contact,
@@ -49,7 +49,7 @@ export const updateOrder = async (req, res, next) => {
     const {
       order,
       totalPrice,
-      currentcy,
+      currency,
       discount,
       address,
       contact,
@@ -70,7 +70,7 @@ export const updateOrder = async (req, res, next) => {
       totalPrice: totalPrice
         ? totalPrice
         : orderExisted.totalPrice,
-      currentcy: currentcy ? currentcy : orderExisted.currentcy,
+      currency: currency ? currency : orderExisted.currency,
       discount: discount ? discount : orderExisted.discount,
       address: address ? address : orderExisted.address,
       contact: contact ? contact : orderExisted.contact,
@@ -164,7 +164,7 @@ export const getAllOrder = async (req, res, next) => {
     let skip = (page - 1) * limit;
 
     if (req.query.gtePrice && req.query.ltePrice) {
-      query.currentcy = {
+      query.currency = {
         $gte: parseInt(req.query.gtePrice),
         $lte: parseInt(req.query.ltePrice),
       };
@@ -211,7 +211,7 @@ export const getAllOrder = async (req, res, next) => {
   }
 };
 
-export const currentcyRange = async (req, res, next) => {
+export const currencyRange = async (req, res, next) => {
   try {
     const range = req.params.range;
     const today = new Date();
@@ -272,16 +272,70 @@ export const currentcyRange = async (req, res, next) => {
       {
         $group: {
           _id: null,
-          totalCurrentcy: { $sum: "$currentcy" },
+          totalCurrency: { $sum: "$currency" },
           totalQuantity: { $sum: { $size: "$order" } },
         },
       },
     ]);
 
     res.json({
-      total: total[0] ? total[0].totalCurrentcy : 0,
+      total: total[0] ? total[0].totalCurrency : 0,
       quantity: total[0] ? total[0].totalQuantity : 0,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const statOrders = async (req, res, next) => {
+  try {
+    const { period } = req.params;
+    const now = new Date();
+    let startDate;
+
+    if (period === "week") {
+      startDate = new Date(
+        now.getTime() - 7 * 24 * 60 * 60 * 1000
+      );
+    } else if (period === "month") {
+      startDate = new Date(
+        now.getTime() - 30 * 24 * 60 * 60 * 1000
+      );
+    } else if (period === "year") {
+      startDate = new Date(
+        now.getFullYear() - 1,
+        now.getMonth(),
+        now.getDate()
+      );
+    } else {
+      throw new Error("Invalid period parameter");
+    }
+
+    const orders = await Order.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: startDate,
+            $lt: now,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            stat:
+              period !== "year"
+                ? { $dayOfMonth: "$createdAt" }
+                : { $month: "$createdAt" },
+            year: { $year: "$createdAt" },
+          },
+          totalOrders: { $sum: 1 },
+          totalCurrency: { $sum: "$currency" },
+        },
+      },
+    ]);
+
+    res.json(orders);
   } catch (error) {
     next(error);
   }

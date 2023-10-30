@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../config/axios";
 
-import { brandRequest } from "../../config/apiRequest";
-import Loading from "../../components/Loading";
-import { ToastContainer, toast } from "react-toastify";
-import { routes } from "../../config/routes";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../../components/Loading";
+import { brandRequest } from "../../config/apiRequest";
+import { routes } from "../../config/routes";
 
 const UpdateBrand = () => {
   const { brandId } = useParams();
@@ -111,7 +111,6 @@ const UpdateBrand = () => {
         </form>
       </section>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

@@ -11,8 +11,8 @@ const OrderCart = (props) => {
     totalPrice,
     setDiscount,
     discount,
-    currentcy,
-    setCurrentcy,
+    currency,
+    setCurrency,
   } = props;
   const [code, setCode] = useState("");
   const handleGetDiscount = async () => {
@@ -32,9 +32,9 @@ const OrderCart = (props) => {
   };
   useEffect(() => {
     if (discount.valid) {
-      setCurrentcy(discount.valid * totalPrice);
+      setCurrency(discount.valid * totalPrice);
     } else {
-      setCurrentcy(totalPrice);
+      setCurrency(totalPrice);
     }
   }, [discount, totalPrice]);
 
@@ -89,7 +89,7 @@ const OrderCart = (props) => {
           <div className="order__discount"></div>
           <div className="totalprice">
             <span className="totalprice">
-              {currentcy.toLocaleString()} vnđ
+              {currency.toLocaleString()} vnđ
             </span>
           </div>
         </div>
@@ -103,8 +103,8 @@ OrderCart.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   setDiscount: PropTypes.func.isRequired,
   discount: PropTypes.object,
-  currentcy: PropTypes.number.isRequired,
-  setCurrentcy: PropTypes.func.isRequired,
+  currency: PropTypes.number.isRequired,
+  setCurrency: PropTypes.func.isRequired,
 };
 
 export default OrderCart;

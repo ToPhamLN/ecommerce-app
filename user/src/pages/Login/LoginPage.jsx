@@ -1,21 +1,21 @@
+import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { setCredentials } from "../../slices/userSlice.js";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setCredentials } from "../../slices/userSlice.js";
 
-import Loading from "../../components/Loading.jsx";
-import { routes } from "../../config/routes.js";
-import { userRequest } from "../../config/apiRequest";
 import "../../assets/css/Register.css";
 import posterImg from "../../assets/imgs/poster.jpg";
+import Loading from "../../components/Loading.jsx";
+import { userRequest } from "../../config/apiRequest";
+import { routes } from "../../config/routes.js";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -109,7 +109,6 @@ const LoginPage = () => {
         </section>
       </div>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

@@ -1,4 +1,4 @@
-import Feedback from "../models/feedback";
+import Feedback from "../models/feedbackModel.js";
 
 export const createFeedback = async (req, res, next) => {
   const user = req.user;
@@ -22,11 +22,14 @@ export const createFeedback = async (req, res, next) => {
 export const updateFeedback = async (req, res, next) => {
   try {
     const { feedbackId } = req.params;
-    const { title, content } = req.body;
+    const { title, content, reply } = req.body;
+
+    const feedback = await Feedback.findById(feedbackId);
 
     const newFeedback = {
-      title,
-      content,
+      title: title ? title : feedback.title,
+      content: content ? content : feedback.content,
+      reply: reply ? reply : feedback.reply,
     };
 
     const result = await Feedback.updateOne(
@@ -34,6 +37,10 @@ export const updateFeedback = async (req, res, next) => {
       { $set: newFeedback },
       { new: true }
     );
+    res.status(200).json({
+      message: "Feedback updated successfully",
+      result,
+    });
   } catch (error) {
     next(error);
   }

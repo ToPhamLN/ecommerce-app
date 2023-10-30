@@ -72,9 +72,9 @@ const OrderItem = (props) => {
             <h1>Status: </h1>
             <span>{order.status}</span>
           </div>
-          <div className="order__item__currentcy">
-            <h1>Currentcy: </h1>
-            <span>{order.currentcy.toLocaleString()} vnđ</span>
+          <div className="order__item__currency">
+            <h1>Currency: </h1>
+            <span>{order.currency.toLocaleString()} vnđ</span>
           </div>
           <div className="toggle__more__order">
             <button onClick={() => setShowAll(!showAll)}>
@@ -134,7 +134,7 @@ const OrderItem = (props) => {
                 )}
                 <div className="totalprice">
                   <span className="totalprice">
-                    {order.currentcy.toLocaleString()} vnđ
+                    {order.currency.toLocaleString()} vnđ
                   </span>
                 </div>
                 <div className="order__info__payment">

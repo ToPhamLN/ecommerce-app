@@ -15,11 +15,15 @@ import UpdateBrand from "../pages/Brand/UpdateBrand";
 import DiscountPage from "../pages/Discount/DiscountPage";
 import UpdateDiscount from "../pages/Discount/UpdateDiscount";
 import GoodsInfo from "../pages/Process/GoodsInfo";
+import ProfilePage from "../pages/Profile/ProfilePage";
+import UserPage from "../pages/User/UserPage";
+import FeedbackPage from "../pages/Feedback/FeedbackPage";
 
 export const routes = {
   login: "/login",
   register: "/register",
-  dashboard: "/dashboard",
+  profile: "/profile",
+  dashboard: "/",
   process: "/goods",
   processId: "/goods/:cartId",
   order: "/order",
@@ -36,6 +40,7 @@ export const routes = {
   discount: "/discount",
   discountId: "/discount/:discountId",
   user: "/user",
+  feedback: "/feedback",
 };
 
 export const publicRoutes = [
@@ -44,6 +49,7 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
+  { path: routes.profile, component: ProfilePage },
   { path: routes.dashboard, component: DashboardPage },
   { path: routes.process, component: ProcessPage },
   { path: routes.processId, component: GoodsInfo },
@@ -59,4 +65,6 @@ export const privateRoutes = [
   { path: routes.brandId, component: UpdateBrand },
   { path: routes.discount, component: DiscountPage },
   { path: routes.discountId, component: UpdateDiscount },
+  { path: routes.user, component: UserPage },
+  { path: routes.feedback, component: FeedbackPage },
 ];

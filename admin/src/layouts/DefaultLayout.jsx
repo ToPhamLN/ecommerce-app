@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import { ToastContainer } from "react-toastify";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -27,6 +28,7 @@ const DefaultLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

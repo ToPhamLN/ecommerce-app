@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import Loading from "../../components/Loading";
 
 const OrderUser = (props) => {
-  const { orders, totalPrice, discount, currentcy } = props;
+  const { orders, totalPrice, discount, currency } = props;
   const { userInfo } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ const OrderUser = (props) => {
       form.order = orders;
       form.totalPrice = totalPrice;
       form.discount = discount._id;
-      form.currentcy = currentcy;
+      form.currency = currency;
       console.log(form);
       const res = await axios.post(orderRequest.create, form);
       toast.success(res.data?.message, {
@@ -178,7 +178,7 @@ OrderUser.propTypes = {
   orders: PropTypes.array.isRequired,
   totalPrice: PropTypes.number.isRequired,
   discount: PropTypes.object,
-  currentcy: PropTypes.number.isRequired,
+  currency: PropTypes.number.isRequired,
 };
 
 export default OrderUser;

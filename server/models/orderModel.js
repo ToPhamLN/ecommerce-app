@@ -23,7 +23,7 @@ const orderSchema = new Schema(
       type: Number,
       default: 0,
     },
-    currentcy: {
+    currency: {
       type: Number,
       default: 0,
     },

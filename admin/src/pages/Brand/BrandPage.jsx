@@ -64,7 +64,6 @@ const BrandPage = () => {
     },
     {
       title: "Action",
-      width: 150,
       align: "center",
       render: (_, brand) => (
         <Space className="table__box">

@@ -10,7 +10,7 @@ import { useState } from "react";
 const OrderInfo = (props) => {
   const { carts, orders, totalPrice, setShowOrderInfo } = props;
   const [discount, setDiscount] = useState({});
-  const [currentcy, setCurrentcy] = useState(totalPrice);
+  const [currency, setCurrency] = useState(totalPrice);
   const filteredCart = carts.filter((item) =>
     orders.includes(item._id)
   );
@@ -36,15 +36,15 @@ const OrderInfo = (props) => {
             orders={orders}
             totalPrice={totalPrice}
             discount={discount}
-            currentcy={currentcy}
+            currency={currency}
           />
           <OrderCart
             filteredCart={filteredCart}
             totalPrice={totalPrice}
             setDiscount={setDiscount}
             discount={discount}
-            setCurrentcy={setCurrentcy}
-            currentcy={currentcy}
+            setCurrency={setCurrency}
+            currency={currency}
           />
         </section>
       </div>

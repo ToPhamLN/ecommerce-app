@@ -99,7 +99,6 @@ const ProductPage = () => {
     },
     {
       title: "Action",
-      width: 200,
       align: "center",
       render: (__, product) => (
         <Space className="table__box">

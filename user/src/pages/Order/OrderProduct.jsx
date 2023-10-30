@@ -36,7 +36,7 @@ const OrderProduct = (props) => {
   });
   const [discount, setDiscount] = useState({});
   const [code, setCode] = useState("");
-  const [currentcy, setCurrentcy] = useState(totalPrice);
+  const [currency, setCurrency] = useState(totalPrice);
 
   const handleGetDiscount = async () => {
     try {
@@ -91,7 +91,7 @@ const OrderProduct = (props) => {
       form.order = order;
       form.totalPrice = totalPrice;
       form.discount = discount._id;
-      form.currentcy = currentcy;
+      form.currency = currency;
       const res = await axios.post(orderRequest.create, form);
       toast.success(res.data?.message, {
         autoClose: 1000,
@@ -125,9 +125,9 @@ const OrderProduct = (props) => {
   };
   useEffect(() => {
     if (discount.valid) {
-      setCurrentcy(discount.valid * totalPrice);
+      setCurrency(discount.valid * totalPrice);
     } else {
-      setCurrentcy(totalPrice);
+      setCurrency(totalPrice);
     }
   }, [discount, totalPrice]);
 
@@ -213,7 +213,7 @@ const OrderProduct = (props) => {
             </div>
           )}
           <div className="totalprice">
-            {currentcy.toLocaleString()} vnđ
+            {currency.toLocaleString()} vnđ
           </div>
         </div>
 

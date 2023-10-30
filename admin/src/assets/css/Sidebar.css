@@ -10,6 +10,7 @@ aside.sidebar {
 aside.sidebar ul {
     display: flex;
     flex-flow: column nowrap;
+    list-style: none;
 }
 
 aside.sidebar ul .item__sidebar {

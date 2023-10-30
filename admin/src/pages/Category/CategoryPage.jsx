@@ -76,7 +76,6 @@ const CategoryPage = () => {
     },
     {
       title: "Action",
-      width: 150,
       align: "center",
       render: (_, category) => (
         <Space className="table__box">

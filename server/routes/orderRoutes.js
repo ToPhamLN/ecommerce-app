@@ -5,7 +5,8 @@ import {
   getOrder,
   updateOrder,
   deleteOrder,
-  currentcyRange,
+  currencyRange,
+  statOrders,
 } from "../controllers/orderController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -17,6 +18,7 @@ router.get(":/orderId", verifyToken, getOrder);
 router.put("/update/:orderId", verifyToken, updateOrder);
 router.delete("/delete/:orderId", verifyToken, deleteOrder);
 
-router.get("/currentcy/:range", currentcyRange);
+router.get("/currency/:range", currencyRange);
+router.get("/stats/:period", statOrders);
 
 export default router;

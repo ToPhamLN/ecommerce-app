@@ -5,7 +5,7 @@ import axios from "../../config/axios";
 
 import { discountRequest } from "../../config/apiRequest";
 import Loading from "../../components/Loading";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { routes } from "../../config/routes";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -133,7 +133,6 @@ const UpdateDiscount = () => {
           </form>
         </section>
       )}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };

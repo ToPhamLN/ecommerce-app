@@ -1,8 +1,8 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { MdOutlineCancelPresentation } from "react-icons/md";
+import { toast } from "react-toastify";
 import "./../assets/css/Deletion.css";
-import { ToastContainer, toast } from "react-toastify";
 
 import axios from "../config/axios";
 
@@ -48,7 +48,6 @@ const Deletion = (props) => {
         </div>
       </div>
       {loading && <Loading />}
-      <ToastContainer position="top-center" />
     </React.Fragment>
   );
 };
