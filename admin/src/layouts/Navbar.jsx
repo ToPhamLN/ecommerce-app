@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AiOutlineLogin,
   AiOutlineMessage,
@@ -11,16 +11,37 @@ import {
   MdOutlineMoreHoriz,
   MdOutlineMoreVert,
 } from "react-icons/md";
+import axios from "../config/axios";
+import { notificationsRequest } from "../config/apiRequest";
 import { Link, useLocation } from "react-router-dom";
-
 import "../assets/css/Navbar.css";
 import ExpandNav from "./ExpandNav";
+import Notification from "../components/Notification";
+import Chat from "../pages/Chat/Chat";
 
 const Navbar = (props) => {
   const { user } = props;
+  const [notifications, setNotifications] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const [showExpand, setShowExpand] = useState(false);
+  const [showNotification, setShowNotification] =
+    useState(false);
+  const [showChat, setShowChat] = useState(false);
   const location = useLocation();
+
+  const handleGetNotification = async () => {
+    try {
+      const res = await axios.get(notificationsRequest.getAll);
+      setNotifications(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetNotification();
+  }, []);
+
   return (
     <React.Fragment>
       <header className="navbar">
@@ -34,22 +55,6 @@ const Navbar = (props) => {
           <React.Fragment>
             <div className="options__bar">
               <div className="menu__nav">
-                <button
-                  className="menu__nav__item notification"
-                  name="Notification"
-                >
-                  <span>
-                    <BsBell />
-                  </span>
-                </button>
-                <Link
-                  className="menu__nav__item cart"
-                  name="Message"
-                >
-                  <span>
-                    <AiOutlineMessage />
-                  </span>
-                </Link>
                 {showMenu && (
                   <>
                     <Link
@@ -75,6 +80,37 @@ const Navbar = (props) => {
                     )}
                   </span>
                 </div>
+                <div
+                  className="menu__nav__item notification"
+                  name="Notification"
+                  onClick={() => {
+                    setShowNotification((p) => !p);
+                    setShowChat(false);
+                  }}
+                >
+                  <span>
+                    <BsBell />
+                  </span>
+                  <span className="number">
+                    {
+                      notifications.filter(
+                        (obj) => obj.readBy === false
+                      ).length
+                    }
+                  </span>
+                </div>
+                <Link
+                  className="menu__nav__item cart"
+                  name="Message"
+                  onClick={() => {
+                    setShowChat((p) => !p);
+                    setShowNotification(false);
+                  }}
+                >
+                  <span>
+                    <AiOutlineMessage />
+                  </span>
+                </Link>
               </div>
               <div className="auth user">
                 <div className="avatar__nav">
@@ -93,7 +129,9 @@ const Navbar = (props) => {
                   >
                     <MdExpandMore />
                   </span>
-                  {showExpand && <ExpandNav />}
+                  {showExpand && (
+                    <ExpandNav setData={setShowExpand} />
+                  )}
                 </div>
               </div>
             </div>
@@ -116,6 +154,14 @@ const Navbar = (props) => {
             </ul>
           </React.Fragment>
         )}
+        {showNotification && (
+          <Notification
+            setShow={setShowNotification}
+            notifications={notifications}
+            reset={handleGetNotification}
+          />
+        )}
+        {showChat && <Chat setShow={setShowChat} />}
       </header>
     </React.Fragment>
   );

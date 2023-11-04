@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Table, Avatar } from "antd";
-import axios from "axios";
+import { Table, Avatar, Space } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { formatDate } from "../../utils/format";
 import Loading from "../../components/Loading";
-import { userRequest } from "../../config/apiRequest";
+import { feedbackRequest } from "../../config/apiRequest";
+import { TbEyeSearch } from "react-icons/tb";
 
 import "../../assets/css/User.css";
 
 const FeedbackPage = () => {
-  const [users, setUsers] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gteDate, setGteDate] = useState(null);
   const [lteDate, setLteDate] = useState(null);
@@ -20,22 +21,22 @@ const FeedbackPage = () => {
       dataIndex: "_id",
       align: "center",
       width: 100,
-      render: (_, users) => <span>{users._id}</span>,
+      render: (_, feedbacks) => <span>{feedbacks._id}</span>,
     },
     {
-      title: "Picture",
-      dataIndex: "picturePath",
+      title: "Avatar",
+      dataIndex: "avatar",
       width: 100,
       align: "center",
-      render: (_, users) => (
-        <Avatar src={users.avatar.path} size={70} />
+      render: (_, feedbacks) => (
+        <Avatar src={feedbacks.sender.avatar.path} size={70} />
       ),
     },
     {
       title: "User Name ",
       dataIndex: "username",
       width: 100,
-      render: (_, users) => (
+      render: (_, feedbacks) => (
         <div
           className="properties__container__table"
           style={{
@@ -44,16 +45,15 @@ const FeedbackPage = () => {
             textTransform: "none",
           }}
         >
-          <Link>{users.username}</Link>
+          <Link>{feedbacks.sender.username}</Link>
         </div>
       ),
       sorter: (a, b) => a.username.localeCompare(b.username),
     },
     {
-      title: "Email ",
-      dataIndex: "email",
-      width: 100,
-      render: (_, users) => (
+      title: "title ",
+      dataIndex: "title",
+      render: (_, feedbacks) => (
         <div
           className="properties__container__table"
           style={{
@@ -62,7 +62,7 @@ const FeedbackPage = () => {
             textTransform: "none",
           }}
         >
-          <Link>{users.email}</Link>
+          <span>{feedbacks.title}</span>
         </div>
       ),
       sorter: (a, b) => a.email.localeCompare(b.email),
@@ -72,17 +72,38 @@ const FeedbackPage = () => {
       dataIndex: "createdAt",
       align: "center",
       width: 100,
-      render: (_, users) => (
-        <span>{formatDate(users.createdAt)}</span>
+      render: (_, feedbacks) => (
+        <span>{formatDate(feedbacks.createdAt)}</span>
       ),
 
       sorter: (a, b) => a.createdAt.localeCompare(b.createdAt),
     },
+    {
+      title: "Action",
+      align: "center",
+      render: (_, feedbacks) => (
+        <Space
+          className="table__box"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Link
+            to={`/feedback/${feedbacks._id}`}
+            className="action__table view"
+          >
+            <TbEyeSearch />
+          </Link>
+        </Space>
+      ),
+    },
   ];
   const handleGetUsers = async () => {
     try {
-      const res = await axios.get(userRequest.all);
-      setUsers(res.data);
+      const res = await axios.get(feedbackRequest.getAll);
+      console.log(res.data);
+      setFeedbacks(res.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -128,18 +149,18 @@ const FeedbackPage = () => {
             </div>
           </div>
         </section>
+        <section className="ctn__all__order">
+          {loading ? (
+            <Loading />
+          ) : (
+            <Table
+              dataSource={feedbacks}
+              columns={columns}
+              rowKey="_id"
+            />
+          )}
+        </section>
       </div>
-      <section className="ctn__all__order">
-        {loading ? (
-          <Loading />
-        ) : (
-          <Table
-            dataSource={users}
-            columns={columns}
-            rowKey="_id"
-          />
-        )}
-      </section>
     </React.Fragment>
   );
 };

@@ -1,0 +1,142 @@
+.container__notification {
+    position: absolute;
+    top: 7rem;
+    right: 5rem;
+    width: 37rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 0.1rem solid #1e225e;
+}
+
+.container__notification header {
+    position: relative;
+
+}
+
+.container__notification h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.container__notification .exit {
+    position: absolute;
+    top: -0.5rem;
+    right: 0;
+    font-size: 2.3rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1b4d852a;
+    }
+
+}
+
+.notificaiton__wp {
+    max-height: 35rem;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+    overflow-y: auto;
+}
+
+.notificaiton__wp::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notificaiton__wp::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.notificaiton__wp::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.notification__item {
+    border-radius: 0.4rem;
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    gap: 0.1rem;
+
+    &:hover {
+        background-color: #aeafb160;
+    }
+}
+
+.notification__item .sideleft {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+
+    .description {
+        font-size: 1.5rem;
+        text-decoration: none;
+
+    }
+
+    .day {
+        font-size: 1.3rem;
+        color: #1b4c85;
+    }
+}
+
+
+.notification__item .sideright {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 1.4rem;
+    flex: 0 0 auto;
+
+    .delete {
+        font-size: 2rem;
+        color: #1b4c85;
+
+        &:hover {
+            color: #b82b2b;
+        }
+    }
+
+    .read {
+        width: 1.3rem;
+        height: 1.3rem;
+        border-radius: 50%;
+        background-color: #1b4c85;
+    }
+}
+
+
+
+
+.nav__notification {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.nav__notification button {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.5rem;
+    border-radius: 0.4rem;
+    outline: none;
+    border: 0.1rem solid #1b4c85;
+    cursor: pointer;
+    color: #1b4c85;
+}
+
+.nav__notification button.selected {
+    color: var(--bgd-color);
+    background-color: #1b4c85;
+    border: 0.1rem solid var(--bgd-color)
+}

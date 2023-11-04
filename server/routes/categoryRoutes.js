@@ -19,16 +19,16 @@ router.post(
 );
 router.get("/all", getAllCategory);
 router.get("/:categoryId", getCategory);
-router.delete(
-  "/delete/:categoryId",
-  verifyTokenAndAuthAdmin,
-  deleteCategory
-);
 router.put(
   "/update/:categoryId",
   verifyTokenAndAuthAdmin,
   uploadCloud.single("picture"),
   updateCategory
+);
+router.delete(
+  "/delete/:categoryId",
+  verifyTokenAndAuthAdmin,
+  deleteCategory
 );
 
 export default router;

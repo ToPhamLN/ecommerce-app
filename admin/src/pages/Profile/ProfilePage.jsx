@@ -61,7 +61,7 @@ const ProfilePage = () => {
           },
         }
       );
-      toast.success(res.data.message, 1000);
+      toast.success(res.data.message, { autoClose: 1000 });
       handleGetProfile();
       setLoadingSpin(false);
     } catch (error) {
@@ -83,7 +83,7 @@ const ProfilePage = () => {
       } else {
         toast.error(
           "New password and confirm password not match",
-          1000
+          { autoClose: 1000 }
         );
       }
     }
@@ -95,9 +95,11 @@ const ProfilePage = () => {
           "Content-Type": "application/json",
         },
       });
-      toast.success(res.data.message, 1000);
+      toast.success(res.data.message, { autoClose: 1000 });
     } catch (error) {
-      toast.error(error.response.data.message, 1000);
+      toast.error(error.response.data.message, {
+        autoClose: 1000,
+      });
     } finally {
       setLoadingSpin(false);
     }

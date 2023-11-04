@@ -105,7 +105,6 @@ export const updateCart = async (req, res, next) => {
 // @access  private Auth\
 export const deleteCart = async (req, res, next) => {
   try {
-    console.log(req.params);
     const user = req.user;
     const cart = req.cart;
     if (

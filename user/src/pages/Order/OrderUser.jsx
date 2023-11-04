@@ -6,6 +6,7 @@ import {
   orderRequest,
   discountRequest,
   cartRequest,
+  notificationsRequest,
 } from "../../config/apiRequest";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -56,13 +57,14 @@ const OrderUser = (props) => {
         return;
       }
     }
+    let orderRes;
     try {
       form.order = orders;
       form.totalPrice = totalPrice;
       form.discount = discount._id;
       form.currency = currency;
-      console.log(form);
       const res = await axios.post(orderRequest.create, form);
+      orderRes = res.data.order._id;
       toast.success(res.data?.message, {
         autoClose: 1000,
       });
@@ -80,6 +82,15 @@ const OrderUser = (props) => {
       } catch (error) {
         console.log(error);
       }
+    }
+    try {
+      await axios.post(notificationsRequest.create, {
+        description: `You have a new order from ${form.username}`,
+        path: `/order/${orderRes}`,
+        sendAdmin: true,
+      });
+    } catch (error) {
+      console.log(error);
     }
     setTimeout(() => {
       navigate("/order");

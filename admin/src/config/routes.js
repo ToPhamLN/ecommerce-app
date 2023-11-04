@@ -18,15 +18,18 @@ import GoodsInfo from "../pages/Process/GoodsInfo";
 import ProfilePage from "../pages/Profile/ProfilePage";
 import UserPage from "../pages/User/UserPage";
 import FeedbackPage from "../pages/Feedback/FeedbackPage";
+import FeedbackView from "../pages/Feedback/FeedbackView";
+import OrderView from "../pages/Order/OrderView";
 
 export const routes = {
   login: "/login",
   register: "/register",
   profile: "/profile",
   dashboard: "/",
-  process: "/goods",
-  processId: "/goods/:cartId",
+  process: "/good",
+  processId: "/good/:cartId",
   order: "/order",
+  orderId: "/order/:orderId",
   payment: "/payment",
   product: "/product",
   createProduct: "/product/create",
@@ -41,6 +44,7 @@ export const routes = {
   discountId: "/discount/:discountId",
   user: "/user",
   feedback: "/feedback",
+  feedbackId: "/feedback/:feedbackId",
 };
 
 export const publicRoutes = [
@@ -54,6 +58,7 @@ export const privateRoutes = [
   { path: routes.process, component: ProcessPage },
   { path: routes.processId, component: GoodsInfo },
   { path: routes.order, component: OrderPage },
+  { path: routes.orderId, component: OrderView },
   { path: routes.payment, component: PaymentPage },
   { path: routes.product, component: ProductPage },
   { path: routes.productUpdate, component: UpdateProduct },
@@ -67,4 +72,5 @@ export const privateRoutes = [
   { path: routes.discountId, component: UpdateDiscount },
   { path: routes.user, component: UserPage },
   { path: routes.feedback, component: FeedbackPage },
+  { path: routes.feedbackId, component: FeedbackView },
 ];

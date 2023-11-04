@@ -38,11 +38,13 @@ const UpdateCategory = () => {
 
   const onSubmit = async (data) => {
     try {
+      console.log(data);
       setLoading(true);
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
       formData.append("picture", data.picture[0]);
+      formData.append("properties", data.properties);
 
       const res = await axios.put(
         `${categoryRequest.update}/${categoryId}`,
@@ -77,7 +79,7 @@ const UpdateCategory = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <span className="title__create__brand">
-            Update brand
+            Update category
           </span>
           <div className="input__box">
             <label htmlFor="name">Name:</label>
@@ -96,6 +98,15 @@ const UpdateCategory = () => {
               id="picture"
               {...register("picture")}
               accept="image/*"
+            />
+          </div>
+          <div className="input__box">
+            <label htmlFor="properties">Properties:</label>
+            <input
+              type="text"
+              id="properties"
+              name="properties"
+              {...register("properties", { required: true })}
             />
           </div>
           <div className="input__box">

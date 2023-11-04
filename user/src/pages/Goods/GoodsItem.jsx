@@ -95,7 +95,6 @@ const GoodsItem = (props) => {
                 </span>
               </button>
             </Link>
-            {console.log(cart.status)}
             {cart.status == "Canceled" && (
               <button
                 className="deletecart"
@@ -109,7 +108,7 @@ const GoodsItem = (props) => {
           </div>
         </div>
         <div className="secondary__goods__item">
-          {cart.status === "Processing" ? (
+          {cart.status === "Canceled" ? (
             <Steps
               current={0}
               items={[

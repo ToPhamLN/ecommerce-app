@@ -213,7 +213,9 @@ const CreateProduct = () => {
           </div>
 
           <div className="action" style={{ marginTop: "4rem" }}>
-            <button>Submit</button>
+            <button className="submit__create__product">
+              Submit
+            </button>
           </div>
         </form>
       </div>

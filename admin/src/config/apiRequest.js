@@ -79,3 +79,10 @@ export const feedbackRequest = {
   update: `${urlServer}/feedbacks/update`,
   delete: `${urlServer}/feedbacks/delete`,
 };
+
+export const notificationsRequest = {
+  create: `${urlServer}/notifications/create`,
+  readed: `${urlServer}/notifications/readed`,
+  getAll: `${urlServer}/notifications/all`,
+  delete: `${urlServer}/notifications/delete`,
+};

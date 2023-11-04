@@ -9,6 +9,7 @@ header.navbar {
     align-items: center;
     justify-content: space-between;
     z-index: 3;
+    user-select: none;
 }
 
 .logo__nav {
@@ -85,7 +86,7 @@ header.navbar {
     align-items: center;
     justify-content: center;
     border-radius: 20%;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: white;
     background: var(--fifth-color);
     cursor: pointer;
@@ -98,8 +99,8 @@ header.navbar {
     top: 110%;
     left: 50%;
     transform: translateX(-50%);
-    padding: 1rem;
-    font-size: 1.5rem;
+    padding: 0.5rem;
+    font-size: 1.1rem;
     text-transform: inherit;
     background: linear-gradient(120deg, #07415c 2%, #253486 14%, #1d5066 53%, #1b5f70 87%);
     border-radius: 0.5rem;
@@ -113,6 +114,23 @@ header.navbar {
 
 .menu__nav__item:hover::before {
     display: block;
+}
+
+.menu__nav__item .number {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.2rem;
+
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #bb5151;
+    background-color: #fff;
 }
 
 .more__menu {
@@ -185,6 +203,7 @@ header.navbar {
     border: 0.1rem solid #555;
     background-color: var(--bgd-color);
     transform: translate(-65%, 5%);
+    z-index: 3;
 }
 
 .expand__nav ul {

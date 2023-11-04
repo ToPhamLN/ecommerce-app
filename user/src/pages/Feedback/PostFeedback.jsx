@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "../../config/axios";
-import { feedbackRequest } from "../../config/apiRequest";
+import {
+  feedbackRequest,
+  notificationsRequest,
+} from "../../config/apiRequest";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
@@ -22,17 +25,30 @@ const PostFeedback = () => {
     setForm({ ...form, [name]: value });
   };
   const handlePostFeedback = async () => {
+    let feedbackRes;
     try {
       setLoading(true);
       const res = await axios.post(feedbackRequest.create, form);
-      toast.success(res.data.message, 1000);
+      feedbackRes = res.data.feedback._id;
+      toast.success(res.data.message, { autoClose: 1000 });
       setTimeout(() => {
         navigate("/feedback");
       }, 1500);
     } catch (error) {
-      toast.error(error.response.data.message, 1000);
+      toast.error(error.response.data.message, {
+        autoClose: 1000,
+      });
     } finally {
       setLoading(false);
+    }
+    try {
+      await axios.post(notificationsRequest.create, {
+        description: `You have a feedback from ${form.username}`,
+        path: `/feedback/${feedbackRes}`,
+        sendAdmin: true,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 

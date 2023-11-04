@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
@@ -11,7 +12,7 @@ import {
 import { BsFillFileEarmarkPersonFill } from "react-icons/bs";
 import { logoutUser } from "../slices/userSlice";
 const ExpandNav = (props) => {
-  const { setData } = props;
+  const { setData, setShow } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -44,9 +45,12 @@ const ExpandNav = (props) => {
             </Link>
           </li>
           <li>
-            <span className="expand__item">
+            <span
+              className="expand__item"
+              onClick={() => setShow()}
+            >
               <AiOutlineMessage />
-              Contact
+              Message
             </span>
           </li>
           <li>
@@ -66,6 +70,7 @@ const ExpandNav = (props) => {
 
 ExpandNav.propTypes = {
   setData: PropTypes.func,
+  setShow: PropTypes.func,
 };
 
 export default ExpandNav;

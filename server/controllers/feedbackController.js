@@ -13,6 +13,7 @@ export const createFeedback = async (req, res, next) => {
     const feedback = await newFeedback.save();
     res.status(201).json({
       message: "Feedback sent successfully",
+      feedback: feedback,
     });
   } catch (error) {
     next(error);

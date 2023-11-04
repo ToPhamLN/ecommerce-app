@@ -47,7 +47,6 @@ const ActionProduct = (props) => {
         toast.success(res.data.message, {
           autoClose: 1000,
         });
-        console.log(res.data.cart);
       } catch (error) {
         const message =
           error.response.data?.message || error.response.data;

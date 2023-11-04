@@ -32,7 +32,6 @@ const GoodsPage = () => {
           sort,
         },
       });
-      console.log(res.data);
       setCarts(res.data);
       setLoading(false);
     } catch (error) {
@@ -78,11 +77,11 @@ const GoodsPage = () => {
           </div>
           <div
             className={`nav__select__item ${
-              status === "Delevered" ? "select" : ""
+              status === "Delivered" ? "select" : ""
             }`}
-            onClick={() => setStatus("Delevered")}
+            onClick={() => setStatus("Delivered")}
           >
-            Delevered
+            Delivered
           </div>
           <div
             className={`nav__select__item ${

@@ -48,7 +48,9 @@ const OrderItem = (props) => {
         autoClose: 1000,
       });
     } catch (error) {
-      toast.error(error.response.data.message, 1000);
+      toast.error(error.response.data.message, {
+        autoClose: 1000,
+      });
     } finally {
       setLoading(false);
     }

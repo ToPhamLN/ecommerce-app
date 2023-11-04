@@ -139,3 +139,25 @@
     border-radius: 0.5rem;
     z-index: -1;
 }
+
+.submit__create__product {
+    outline: none;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 0;
+    background-color: var(--btn-color);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    font-size: 15px;
+    transition: all .5s ease;
+    cursor: pointer;
+
+    &:hover {
+        letter-spacing: 3px;
+        background-color: var(--btn-hover);
+        color: var(--text-color);
+        box-shadow: var(--btn-shadow);
+    }
+
+}

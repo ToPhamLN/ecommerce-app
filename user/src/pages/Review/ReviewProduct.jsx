@@ -70,6 +70,9 @@ const ReviewProduct = (props) => {
       toast.success(res.data.message, 1000);
       handdleGetReviews();
     } catch (error) {
+      toast.error(error.response.data.message, {
+        autoClose: 1000,
+      });
       console.log(error);
     }
   };

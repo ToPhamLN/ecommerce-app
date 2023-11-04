@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
 import {
@@ -13,16 +14,20 @@ import {
   MdOutlineMoreVert,
   MdOutlineMoreHoriz,
 } from "react-icons/md";
-import PropTypes from "prop-types";
 
 import "../assets/css/Navbar.css";
 import ExpandNav from "./ExpandNav";
 import SearchNavbar from "../components/SearchNavbar";
+import Notification from "../components/Notification";
+import Chat from "../pages/Chat/Chat";
 
 const Navbar = (props) => {
   const { user } = props;
   const [showExpand, setShowExpand] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [showNotification, setShowNotification] =
+    useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   return (
     <React.Fragment>
@@ -37,23 +42,6 @@ const Navbar = (props) => {
           <React.Fragment>
             <div className="options__bar">
               <div className="menu__nav">
-                <button
-                  className="menu__nav__item notification"
-                  name="Notification"
-                >
-                  <span>
-                    <BsBell />
-                  </span>
-                </button>
-                <Link
-                  className="menu__nav__item cart"
-                  name="Cart"
-                  to="/cart"
-                >
-                  <span>
-                    <BsCart3 />
-                  </span>
-                </Link>
                 {showMenu && (
                   <>
                     <Link
@@ -88,6 +76,27 @@ const Navbar = (props) => {
                     )}
                   </span>
                 </div>
+                <button
+                  className="menu__nav__item notification"
+                  name="Notification"
+                  onClick={() => {
+                    setShowNotification((p) => !p);
+                    setShowChat(false);
+                  }}
+                >
+                  <span>
+                    <BsBell />
+                  </span>
+                </button>
+                <Link
+                  className="menu__nav__item cart"
+                  name="Cart"
+                  to="/cart"
+                >
+                  <span>
+                    <BsCart3 />
+                  </span>
+                </Link>
               </div>
               <div className="auth user">
                 <div className="avatar__nav">
@@ -107,7 +116,13 @@ const Navbar = (props) => {
                     <MdExpandMore />
                   </span>
                   {showExpand && (
-                    <ExpandNav setData={setShowExpand} />
+                    <ExpandNav
+                      setData={setShowExpand}
+                      setShow={() => {
+                        setShowChat((p) => !p);
+                        setShowNotification(false);
+                      }}
+                    />
                   )}
                 </div>
               </div>
@@ -131,6 +146,10 @@ const Navbar = (props) => {
             </ul>
           </React.Fragment>
         )}
+        {showNotification && (
+          <Notification setShow={setShowNotification} />
+        )}
+        {showChat && <Chat setShow={setShowChat} />}
       </header>
     </React.Fragment>
   );

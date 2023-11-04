@@ -9,6 +9,7 @@ header.navbar {
     align-items: center;
     justify-content: space-between;
     z-index: 2;
+    user-select: none;
 }
 
 .logo__nav {
@@ -293,6 +294,7 @@ header.navbar {
     border: 0.1rem solid #555;
     background-color: var(--bgd-color);
     transform: translate(-65%, 5%);
+    z-index: 3;
 }
 
 .expand__nav ul {

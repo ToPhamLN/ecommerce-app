@@ -230,11 +230,13 @@ const ProcessPage = () => {
         cartRequest.updateCart + "/" + cartId,
         { status }
       );
-      toast.success(res.data.message);
+      toast.success(res.data.message, { autoClose: 1000 });
       handleGetCarts();
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.message, {
+        autoClose: 1000,
+      });
     }
   };
 

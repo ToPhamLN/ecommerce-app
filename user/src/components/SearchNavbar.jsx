@@ -27,7 +27,6 @@ const SearchNavbar = () => {
 
   useEffect(() => {
     handleGetProducts();
-    console.log(search);
   }, [search]);
   return (
     <React.Fragment>
