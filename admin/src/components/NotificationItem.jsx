@@ -6,15 +6,19 @@ import { formatDate } from "../utils/format";
 import axios from "../config/axios";
 import { notificationsRequest } from "../config/apiRequest";
 const NotificationItem = (props) => {
-  const { notification, reset } = props;
+  const { notification, reset, setShow } = props;
   const navigate = useNavigate();
-  console.log(notification);
   const handlView = async () => {
     try {
-      const res = await axios.put(notificationsRequest.readed);
-    } catch (error) {}
-    navigate(notification.path);
-    reset();
+      await axios.put(
+        `${notificationsRequest.readed}/${notification._id}`
+      );
+      reset();
+      setShow();
+      navigate(notification.path);
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <React.Fragment>
@@ -43,6 +47,7 @@ const NotificationItem = (props) => {
 NotificationItem.propTypes = {
   notification: PropTypes.object,
   reset: PropTypes.func,
+  setShow: PropTypes.func,
 };
 
 export default NotificationItem;

@@ -91,13 +91,17 @@ const Navbar = (props) => {
                   <span>
                     <BsBell />
                   </span>
-                  <span className="number">
-                    {
-                      notifications.filter(
-                        (obj) => obj.readBy === false
-                      ).length
-                    }
-                  </span>
+                  {notifications.filter(
+                    (obj) => obj.readBy === false
+                  ).length > 0 && (
+                    <span className="number">
+                      {
+                        notifications.filter(
+                          (obj) => obj.readBy === false
+                        ).length
+                      }
+                    </span>
+                  )}
                 </div>
                 <Link
                   className="menu__nav__item cart"

@@ -11,7 +11,11 @@ const router = express.Router();
 
 router.get("/all", verifyToken, getAllNiotification);
 router.post("/create", verifyToken, createNotification);
-router.put("/update", verifyToken, readedNotification);
+router.put(
+  "/update/:notificationId",
+  verifyToken,
+  readedNotification
+);
 router.post("/delete", verifyToken, deleteNotification);
 
 export default router;

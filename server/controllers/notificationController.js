@@ -20,19 +20,19 @@ export const createNotification = async (req, res, next) => {
 
 export const readedNotification = async (req, res, next) => {
   try {
-    const user = rep.user;
-    const notification = await Notification.find({
-      ReadBy: { $ne: user._id },
-    });
-    const newNotification = await Promise.all(
-      notificationsToUpdate.map(async (notification) => {
-        notification.ReadBy.push(userId);
-        return await notification.save();
-      })
+    const { notificationId } = req.params;
+    const newNotification = {
+      readBy: true,
+    };
+
+    const result = await Notification.updateOne(
+      { _id: notificationId },
+      { $set: newNotification },
+      { new: true }
     );
+
     res.status(200).json({
-      message: "Updated notifications successfully ",
-      newNotification,
+      message: "Updated notification",
     });
   } catch (error) {
     next(error);
