@@ -10,7 +10,10 @@ import { Link } from "react-router-dom";
 import "../../assets/css/Order.css";
 import Deletion from "../../components/Deletion";
 import Loading from "../../components/Loading";
-import { cartRequest } from "../../config/apiRequest";
+import {
+  cartRequest,
+  notificationsRequest,
+} from "../../config/apiRequest";
 
 const ProcessPage = () => {
   const [carts, setCarts] = useState([]);
@@ -149,7 +152,11 @@ const ProcessPage = () => {
             <button
               className="action__table change"
               onClick={() =>
-                handleUpdate(cart._id, status.change)
+                handleUpdate(
+                  cart._id,
+                  status.change,
+                  cart.user._id
+                )
               }
               style={{
                 backgroundColor: status.color,
@@ -162,7 +169,11 @@ const ProcessPage = () => {
               <button
                 className="action__table change"
                 onClick={() =>
-                  handleUpdate(cart._id, "Canceled")
+                  handleUpdate(
+                    cart._id,
+                    "Canceled",
+                    cart.user._id
+                  )
                 }
                 style={{
                   backgroundColor: "#A71616",
@@ -223,8 +234,7 @@ const ProcessPage = () => {
     setShowDelete(!showDelete);
   };
 
-  const handleUpdate = async (cartId, status) => {
-    console.log(status, cartId);
+  const handleUpdate = async (cartId, status, userId) => {
     try {
       const res = await axios.put(
         cartRequest.updateCart + "/" + cartId,
@@ -237,6 +247,15 @@ const ProcessPage = () => {
       toast.error(error.response.data.message, {
         autoClose: 1000,
       });
+    }
+    try {
+      await axios.post(notificationsRequest.create, {
+        description: `Your goods: ${cartId} ${status} `,
+        path: `goods/${cartId}`,
+        user: userId,
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 

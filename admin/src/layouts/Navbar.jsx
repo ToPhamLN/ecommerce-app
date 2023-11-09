@@ -22,7 +22,7 @@ import Chat from "../pages/Chat/Chat";
 const Navbar = (props) => {
   const { user } = props;
   const [notifications, setNotifications] = useState([]);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   const [showExpand, setShowExpand] = useState(false);
   const [showNotification, setShowNotification] =
     useState(false);

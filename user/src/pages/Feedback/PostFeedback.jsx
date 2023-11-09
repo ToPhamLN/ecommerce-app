@@ -43,7 +43,7 @@ const PostFeedback = () => {
     }
     try {
       await axios.post(notificationsRequest.create, {
-        description: `You have a feedback from ${form.username}`,
+        description: `You have a new feedback from ${form.username}. Let reply...`,
         path: `/feedback/${feedbackRes}`,
         sendAdmin: true,
       });

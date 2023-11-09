@@ -2,14 +2,14 @@ import express from "express";
 import {
   createNotification,
   readedNotification,
-  getAllNiotification,
+  getAllNotification,
   deleteNotification,
 } from "../controllers/notificationController.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/all", verifyToken, getAllNiotification);
+router.get("/all", verifyToken, getAllNotification);
 router.post("/create", verifyToken, createNotification);
 router.put(
   "/update/:notificationId",

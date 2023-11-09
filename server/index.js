@@ -17,6 +17,8 @@ import discountRoutes from "./routes/discountRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
+import conversationRoutes from "./routes/conversationRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import {
   notFound,
   errorHandler,
@@ -49,6 +51,8 @@ app.use("/api/discounts", discountRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/feedbacks", feedbackRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/conversations", conversationRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -5,8 +5,10 @@ import NotificationItem from "./NotificationItem";
 import { TiDeleteOutline } from "react-icons/ti";
 
 const Notification = (props) => {
-  const { setShow } = props;
-  const [readBy, setReadBy] = useState(false);
+  const { setShow, notifications, reset } = props;
+  const [unRead, setUnRead] = useState(false);
+  const [filNotification, setFilNotification] =
+    useState(notifications);
   return (
     <React.Fragment>
       <div className="container__notification">
@@ -21,27 +23,37 @@ const Notification = (props) => {
         </header>
         <div className="nav__notification">
           <button
-            className={readBy === false ? "selected" : ""}
-            onClick={() => setReadBy(false)}
+            className={unRead === false ? "selected" : ""}
+            onClick={() => {
+              setUnRead(false);
+              setFilNotification(notifications);
+            }}
           >
             All
           </button>
           <button
-            className={readBy === true ? "selected" : ""}
-            onClick={() => setReadBy(true)}
+            className={unRead === true ? "selected" : ""}
+            onClick={() => {
+              setUnRead(true);
+              setFilNotification(
+                notifications.filter(
+                  (obj) => obj.readBy === false
+                )
+              );
+            }}
           >
             Unread
           </button>
         </div>
         <div className="notificaiton__wp">
-          <NotificationItem />
-          <NotificationItem />
-          <NotificationItem />
-          <NotificationItem />
-          <NotificationItem />
-          <NotificationItem />
-          <NotificationItem />
-          <NotificationItem />
+          {filNotification.map((notification, index) => (
+            <NotificationItem
+              key={index}
+              notification={notification}
+              reset={reset}
+              setShow={setShow}
+            />
+          ))}
         </div>
       </div>
     </React.Fragment>
@@ -49,7 +61,9 @@ const Notification = (props) => {
 };
 
 Notification.propTypes = {
-  setShow: PropTypes.bool.isRequired,
+  setShow: PropTypes.func.isRequired,
+  notifications: PropTypes.array,
+  reset: PropTypes.func,
 };
 
 export default Notification;

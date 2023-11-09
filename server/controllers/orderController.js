@@ -157,11 +157,13 @@ export const getOrder = async (req, res, next) => {
 // @access private Auth
 export const getAllOrder = async (req, res, next) => {
   try {
+    console.log(req.user);
     let query = {};
     let sort = {};
     let page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     let skip = (page - 1) * limit;
+    if (!req.user.isAdmin) query.user = req.user._id;
 
     if (req.query.gtePrice && req.query.ltePrice) {
       query.currency = {
@@ -185,7 +187,6 @@ export const getAllOrder = async (req, res, next) => {
 
     if (req.query.status) query.status = req.query.status;
     if (req.query.sort) sort.updatedAt = req.query.sort;
-    console.log(query, req.query);
 
     const order = await Order.find(query)
       .populate({

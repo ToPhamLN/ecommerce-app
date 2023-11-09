@@ -14,7 +14,6 @@ const PaymentPage = () => {
   const [gteDate, setGteDate] = useState(null);
   const [lteDate, setLteDate] = useState(null);
   const [sort, setSort] = useState(-1);
-  const [status, setStatus] = useState(null);
 
   const columns = [
     {
@@ -99,7 +98,7 @@ const PaymentPage = () => {
         return (
           order.discount && (
             <Link to={`/discount/${order.discount._id}`}>
-              {order?.discount.name}{" "}
+              {order?.discount.name}
             </Link>
           )
         );
@@ -111,41 +110,12 @@ const PaymentPage = () => {
       title: "Currency",
       dataIndex: "currency",
 
-      width: 100,
+      width: 150,
       align: "center",
       render: (_, order) => (
         <span>{order.currency.toLocaleString()} </span>
       ),
       sorter: (a, b) => a.currency - b.currency,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      align: "center",
-      render: (_, order) => {
-        let tagColor;
-        switch (order.status) {
-          case "Pending":
-            tagColor = "#A9B916";
-            break;
-          case "Confirmed":
-            tagColor = "#187E1B";
-            break;
-          case "Canceled":
-            tagColor = "#A71616";
-            break;
-          default:
-            tagColor = "#888888";
-            break;
-        }
-
-        return (
-          <span style={{ color: tagColor, fontWeight: "bold" }}>
-            {order.status}
-          </span>
-        );
-      },
-      sorter: (a, b) => a.name.localeCompare(b.name),
     },
   ];
 
@@ -158,7 +128,7 @@ const PaymentPage = () => {
           lteDate: lteDate,
           gteDate: gteDate,
           sort: sort,
-          status: status,
+          status: "Confirmed",
         },
       });
       console.log(res.data);
@@ -176,43 +146,10 @@ const PaymentPage = () => {
 
   return (
     <React.Fragment>
-      <aside className="nav__select">
-        <div className="nav__select__wrapper">
-          <div
-            className={`nav__select__item ${
-              status === null ? "select" : ""
-            }`}
-            onClick={() => setStatus(null)}
-          >
-            All
-          </div>
-          <div
-            className={`nav__select__item ${
-              status === "Pending" ? "select" : ""
-            }`}
-            onClick={() => setStatus("Pending")}
-          >
-            Pending
-          </div>
-          <div
-            className={`nav__select__item ${
-              status === "Confirmed" ? "select" : ""
-            }`}
-            onClick={() => setStatus("Confirmed")}
-          >
-            Confirmed
-          </div>
-          <div
-            className={`nav__select__item ${
-              status === "Canceled" ? "select" : ""
-            }`}
-            onClick={() => setStatus("Canceled")}
-          >
-            Canceled
-          </div>
-        </div>
-      </aside>
-      <div className="container__order">
+      <div
+        className="container__order"
+        style={{ margin: "10rem 3rem 0 9rem" }}
+      >
         <section className="filters">
           <div className="filters__title">Filters:</div>
           <div className="filters__sort">

@@ -28,11 +28,11 @@ router.put(
   uploadCloud.single("avatar"),
   updateAvatar
 );
+router.get("/search", verifyToken, searchUser);
 router.delete("/delete", verifyToken, destroy);
 router.post("/logout", postLogout);
 router.post("/refresh", postRefresh);
-router.get("/all", getAllUser);
-router.get("/:slug", getUser);
-router.post("/search", searchUser);
+router.get("/all", verifyToken, getAllUser);
+router.get("/:slug", verifyToken, getUser);
 
 export default router;

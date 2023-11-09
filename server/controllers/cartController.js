@@ -140,13 +140,12 @@ export const getAllCart = async (req, res, next) => {
 
 export const getAllCartForUser = async (req, res, next) => {
   try {
-    console.log(req.query);
     let query = {};
     let sort = {};
     let page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     let skip = (page - 1) * limit;
-    if (req.user.isAdmin) query.user = req.user._id;
+    if (!req.user.isAdmin) query.user = req.user._id;
     if (req.query.status) query.status = req.query.status;
     if (req.query.gtePrice && req.query.ltePrice) {
       query.unitPrice = {

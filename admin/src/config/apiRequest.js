@@ -86,3 +86,14 @@ export const notificationsRequest = {
   getAll: `${urlServer}/notifications/all`,
   delete: `${urlServer}/notifications/delete`,
 };
+
+export const conversationRequest = {
+  create: `${urlServer}/conversations/create`,
+  getAll: `${urlServer}/conversations/all`,
+  delete: `${urlServer}/conversations/delete`,
+};
+
+export const messageRequest = {
+  create: `${urlServer}/messages/create`,
+  getByConversation: `${urlServer}/messages`,
+};

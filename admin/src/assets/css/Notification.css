@@ -69,6 +69,14 @@
     gap: 0.1rem;
 
     &:hover {
+        background-color: #10317260;
+    }
+}
+
+.notification__item.readed {
+    background-color: #1b4d8562;
+
+    &:hover {
         background-color: #aeafb160;
     }
 }

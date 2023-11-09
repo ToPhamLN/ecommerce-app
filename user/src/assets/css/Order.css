@@ -162,6 +162,15 @@ section.order__wrapper {
     margin-bottom: 1.5rem;
 }
 
+.order__item__day {
+    font-size: 1.3rem;
+    font-style: italic;
+    position: absolute;
+    top: 1rem;
+    right: 6rem;
+    color: #bb1e26;
+}
+
 
 .order__item__info__wrapper {
     display: flex;

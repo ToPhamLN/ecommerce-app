@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
@@ -14,7 +14,8 @@ import {
   MdOutlineMoreVert,
   MdOutlineMoreHoriz,
 } from "react-icons/md";
-
+import { notificationsRequest } from "../config/apiRequest";
+import axios from "../config/axios";
 import "../assets/css/Navbar.css";
 import ExpandNav from "./ExpandNav";
 import SearchNavbar from "../components/SearchNavbar";
@@ -28,6 +29,18 @@ const Navbar = (props) => {
   const [showNotification, setShowNotification] =
     useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const handleGetNotification = async () => {
+    try {
+      const res = await axios.get(notificationsRequest.getAll);
+      setNotifications(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    handleGetNotification();
+  }, []);
 
   return (
     <React.Fragment>
@@ -87,6 +100,17 @@ const Navbar = (props) => {
                   <span>
                     <BsBell />
                   </span>
+                  {notifications.filter(
+                    (obj) => obj.readBy === false
+                  ).length > 0 && (
+                    <span className="number">
+                      {
+                        notifications.filter(
+                          (obj) => obj.readBy === false
+                        ).length
+                      }
+                    </span>
+                  )}
                 </button>
                 <Link
                   className="menu__nav__item cart"
@@ -147,7 +171,11 @@ const Navbar = (props) => {
           </React.Fragment>
         )}
         {showNotification && (
-          <Notification setShow={setShowNotification} />
+          <Notification
+            setShow={setShowNotification}
+            notifications={notifications}
+            reset={handleGetNotification}
+          />
         )}
         {showChat && <Chat setShow={setShowChat} />}
       </header>

@@ -38,3 +38,26 @@ export const formatDate = (dateString) => {
 
   return formattedDate;
 };
+
+export const formatTimeAgo = (timestamp) => {
+  const now = new Date();
+  const previousTime = new Date(timestamp);
+
+  const timeDifference = now - previousTime;
+  const hoursAgo = Math.floor(timeDifference / (1000 * 60 * 60));
+
+  if (hoursAgo >= 24) {
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      month: "numeric",
+      day: "numeric",
+      year: "numeric",
+    };
+    return previousTime.toLocaleDateString("en-US", options);
+  } else if (hoursAgo >= 1) {
+    return hoursAgo + "h ago";
+  } else {
+    return "";
+  }
+};

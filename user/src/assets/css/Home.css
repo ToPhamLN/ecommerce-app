@@ -48,7 +48,6 @@
     padding: 3rem 2rem 5rem 2rem;
     background: var(--gradient-wrapper);
     display: flex;
-    align-items: center;
     flex-flow: row wrap;
     justify-content: space-evenly;
 }

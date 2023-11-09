@@ -338,14 +338,14 @@ export const postRefresh = async (req, res, next) => {
 // @access  public
 export const getAllUser = async (req, res, next) => {
   try {
+    const { search } = req.query;
+    const query = {};
+    if (search)
+      query.search = {
+        $regex: ".*" + search + ".*",
+        $options: "i",
+      };
     const users = await User.find().sort([["createdAt", -1]]);
-    res.status(200).json(users);
-    if ((users.length = 0)) {
-      return res.status(404).json({
-        status: false,
-        message: "no users",
-      });
-    }
     res.status(200).json(users);
   } catch (error) {
     next(error);
@@ -367,27 +367,18 @@ export const getUser = async (req, res) => {
 };
 
 // @desc    search user
-// route    POST api/users/search
+// route    GET api/users/search
 // @access  public
 export const searchUser = async (req, res, next) => {
   try {
-    const q = req.query.q;
-    let keyUser = undefined;
-    if (q !== "") {
-      keyUser = new RegExp(convertSlug(q));
-    } else {
-      return res.status(404).json({
-        message: "Please enter keywords",
-      });
+    const { search } = req.query;
+    const query = {};
+    if (search) {
+      query._id = { $ne: req.user._id };
+      query.username = new RegExp(search, "i");
     }
-    const users = await User.find({
-      slug: { $regex: keyUser, $options: "i" },
-    });
-    if (!users) {
-      return res.status(404).json({
-        message: "Not found",
-      });
-    }
+
+    const users = await (search ? User.find(query) : []);
     res.status(200).json(users);
   } catch (error) {
     next(error);

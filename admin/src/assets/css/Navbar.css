@@ -86,7 +86,7 @@ header.navbar {
     align-items: center;
     justify-content: center;
     border-radius: 20%;
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: white;
     background: var(--fifth-color);
     cursor: pointer;
@@ -120,7 +120,6 @@ header.navbar {
     position: absolute;
     top: 0.3rem;
     right: 0.2rem;
-
     width: 2rem;
     height: 2rem;
     border-radius: 50%;

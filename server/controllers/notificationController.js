@@ -51,7 +51,7 @@ export const deleteNotification = async (req, res, next) => {
   }
 };
 
-export const getAllNiotification = async (req, res, next) => {
+export const getAllNotification = async (req, res, next) => {
   try {
     const user = req.user;
     const query = {};

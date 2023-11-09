@@ -1,28 +1,59 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { RiDeleteBin3Line } from "react-icons/ri";
-const NotificationItem = () => {
+import { formatDate } from "../utils/format";
+import axios from "../config/axios";
+import { notificationsRequest } from "../config/apiRequest";
+const NotificationItem = (props) => {
+  const { notification, reset, setShow } = props;
   const navigate = useNavigate();
-  const handleView = () => {};
+  const handlView = async () => {
+    try {
+      await axios.put(
+        `${notificationsRequest.readed}/${notification._id}`
+      );
+      reset();
+      setShow();
+      navigate(notification.path);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <React.Fragment>
-      <div className="notification__item">
-        <div className="sideleft">
+      <div
+        className={
+          notification.readBy
+            ? "notification__item "
+            : "notification__item readed"
+        }
+      >
+        <div className="sideleft" onClick={() => handlView()}>
           <span className="description">
-            Lorem ipsum dolor sit amet consectetur, adipisicing
-            elit. Amet, corrupti laudantium vitae quia odit
+            {notification.description}
           </span>
-          <span className="day">weewewwe</span>
+          <span className="day">
+            {formatDate(notification.createdAt)}
+          </span>
         </div>
         <div className="sideright">
           <span className="delete">
             <RiDeleteBin3Line />
           </span>
-          <span className="read"></span>
+          <span
+            className={notification.readBy ? "" : "read"}
+          ></span>
         </div>
       </div>
     </React.Fragment>
   );
+};
+
+NotificationItem.propTypes = {
+  notification: PropTypes.object,
+  reset: PropTypes.func,
+  setShow: PropTypes.func,
 };
 
 export default NotificationItem;

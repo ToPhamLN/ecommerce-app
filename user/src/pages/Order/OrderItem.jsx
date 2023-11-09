@@ -13,6 +13,7 @@ import { orderRequest } from "../../config/apiRequest";
 import { toast } from "react-toastify";
 import Deletion from "../../components/Deletion";
 import { Spin } from "antd";
+import { formatDate } from "../../utils/format";
 
 const OrderItem = (props) => {
   const { order, reset } = props;
@@ -89,10 +90,14 @@ const OrderItem = (props) => {
               </span>
             </button>
           </div>
+          <span className="order__item__day">
+            {formatDate(order.createdAt)}
+          </span>
         </div>
         {showAll && (
           <div className="order__item__info">
             <h3>Order information</h3>
+
             <div className="order__item__info__wrapper">
               <div className="order__item__info__cart">
                 <h1>Product Information</h1>

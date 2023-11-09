@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
 import axios from "axios";
-import { GrNext, GrPrevious } from "react-icons/gr";
+import {
+  MdNavigateBefore,
+  MdNavigateNext,
+} from "react-icons/md";
 import { categoryRequest } from "../config/apiRequest";
 import Loading from "./Loading";
 import "../assets/css/NavCategory.css";
@@ -73,12 +76,12 @@ const NavCategory = (props) => {
         </div>
         <button className="control prev" onClick={handlePrev}>
           <span>
-            <GrPrevious />
+            <MdNavigateBefore />
           </span>
         </button>
         <button className="control next" onClick={handleNext}>
           <span>
-            <GrNext />
+            <MdNavigateNext />
           </span>
         </button>
       </aside>

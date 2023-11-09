@@ -70,7 +70,7 @@ export const feedbackRequest = {
 
 export const notificationsRequest = {
   create: `${urlServer}/notifications/create`,
-  readed: `${urlServer}/notifications/readed`,
-  getAll: `${urlServer}/notifications/getAll`,
+  readed: `${urlServer}/notifications/update`,
+  getAll: `${urlServer}/notifications/all`,
   delete: `${urlServer}/notifications/delete`,
 };

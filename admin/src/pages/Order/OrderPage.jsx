@@ -1,4 +1,4 @@
-import { Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BiSolidTrashAlt } from "react-icons/bi";
@@ -6,7 +6,10 @@ import { TbEyeSearch } from "react-icons/tb";
 import { useNavigate, Link } from "react-router-dom";
 import Deletion from "../../components/Deletion";
 import Loading from "../../components/Loading";
-import { orderRequest } from "../../config/apiRequest";
+import {
+  orderRequest,
+  notificationsRequest,
+} from "../../config/apiRequest";
 import { formatDate } from "../../utils/format";
 import { toast } from "react-toastify";
 
@@ -148,12 +151,17 @@ const OrderPage = () => {
             status.color = "#A9B916";
             break;
         }
+        console.log(orders[1]);
         return (
           <Space className="table__box">
             <button
               className="action__table change"
               onClick={() =>
-                handleUpdate(order._id, status.change)
+                handleUpdate(
+                  order._id,
+                  status.change,
+                  order.user
+                )
               }
               style={{
                 backgroundColor: status.color,
@@ -221,7 +229,7 @@ const OrderPage = () => {
     setShowDelete(!showDelete);
   };
 
-  const handleUpdate = async (orderId, status) => {
+  const handleUpdate = async (orderId, status, userId) => {
     try {
       setLoading(true);
       const res = await axios.put(
@@ -240,6 +248,15 @@ const OrderPage = () => {
       });
     } finally {
       setLoading(false);
+    }
+    try {
+      await axios.post(notificationsRequest.create, {
+        description: `Your order: ${orderId} ${status} `,
+        path: `order`,
+        user: userId,
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 

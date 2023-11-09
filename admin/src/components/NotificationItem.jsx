@@ -22,7 +22,13 @@ const NotificationItem = (props) => {
   };
   return (
     <React.Fragment>
-      <div className="notification__item">
+      <div
+        className={
+          notification.readBy
+            ? "notification__item "
+            : "notification__item readed"
+        }
+      >
         <div className="sideleft" onClick={() => handlView()}>
           <span className="description">
             {notification.description}

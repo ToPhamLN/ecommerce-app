@@ -102,7 +102,6 @@ const FeedbackPage = () => {
   const handleGetUsers = async () => {
     try {
       const res = await axios.get(feedbackRequest.getAll);
-      console.log(res.data);
       setFeedbacks(res.data);
     } catch (error) {
       console.log(error);

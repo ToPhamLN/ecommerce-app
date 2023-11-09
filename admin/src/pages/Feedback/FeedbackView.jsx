@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-import { feedbackRequest } from "../../config/apiRequest";
+import {
+  feedbackRequest,
+  notificationsRequest,
+} from "../../config/apiRequest";
 import axios from "../../config/axios";
 import { formatDate } from "../../utils/format";
 import { MdOutlineUnfoldMore } from "react-icons/md";
@@ -42,7 +45,7 @@ const FeedbackView = () => {
       };
     });
   };
-
+  console.log(feedback);
   const handleEdit = async () => {
     try {
       setLoader(true);
@@ -58,6 +61,15 @@ const FeedbackView = () => {
       });
     } finally {
       setLoader(false);
+    }
+    try {
+      await axios.post(notificationsRequest.create, {
+        description: `Your feedback: ${feedback.title} has been replied.`,
+        path: `feedback/${feedbackId}`,
+        user: feedback.sender._id,
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 

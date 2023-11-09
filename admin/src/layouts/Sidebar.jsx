@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   BiSolidUserRectangle,
   BiSolidHome,
@@ -19,85 +19,85 @@ const Sidebar = () => {
       <aside className="sidebar">
         <ul>
           <li>
-            <Link
+            <NavLink
               to={routes.dashboard}
               link-name="Dashboard"
               className="item__sidebar"
             >
               <BiSolidHome />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.process}
               link-name="Process"
               className="item__sidebar"
             >
               <SiProcesswire />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.order}
               link-name="Order"
               className="item__sidebar"
             >
               <TbBrandBinance />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.payment}
               link-name="Payment"
               className="item__sidebar"
             >
               <RiMoneyDollarBoxFill />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.product}
               link-name="Product"
               className="item__sidebar"
             >
               <BiLogoProductHunt />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.category}
               link-name="Category"
               className="item__sidebar"
             >
               <BiSolidDashboard />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.brand}
               link-name="Brand"
               className="item__sidebar"
             >
               <TbBrandAbstract />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.discount}
               link-name="Discount"
               className="item__sidebar"
             >
               <BiSolidDiscount />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link
+            <NavLink
               to={routes.user}
               link-name="User"
               className="item__sidebar"
             >
               <BiSolidUserRectangle />
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </aside>

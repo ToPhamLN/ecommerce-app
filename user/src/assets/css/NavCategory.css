@@ -100,10 +100,15 @@ aside.navcategory {
     border: none;
     outline: none;
     border-radius: 0.5rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
     height: 4rem;
-    background: var(--fifth-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: transparent;
     transition: transform 0.2s ease, background-color 0.9s ease-in;
+    cursor: pointer;
 
     &:hover {
         background: linear-gradient(120deg, #07415c 2%, #253486 14%, #1d5066 53%, #1b5f70 87%);
