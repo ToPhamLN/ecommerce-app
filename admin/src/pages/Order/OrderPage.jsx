@@ -151,7 +151,6 @@ const OrderPage = () => {
             status.color = "#A9B916";
             break;
         }
-        console.log(orders[1]);
         return (
           <Space className="table__box">
             <button
@@ -221,7 +220,6 @@ const OrderPage = () => {
 
   useEffect(() => {
     handleGetOrders();
-    console.log(gteDate, lteDate);
   }, [gtePrice, ltePrice, gteDate, lteDate, sort, status]);
 
   const handleDelete = async (orderId) => {

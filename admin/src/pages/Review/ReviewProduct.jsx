@@ -10,16 +10,15 @@ import { Spin } from "antd";
 const ReviewProduct = (props) => {
   const [reviews, setReviews] = useState([]);
   const { productId } = props;
-  const [myRate, setMyRate] = useState(1);
+  const [myRate, setMyRate] = useState(5);
   const [myComment, setMyComment] = useState("");
   const [loading, setLoading] = useState(true);
 
-  let totalRate = reviews.reduce(
-    (sum, review) => sum + review.review,
+  const totalRate = reviews.reduce(
+    (sum, review) => sum + review.rate,
     0
   );
-
-  let avgRate = totalRate / reviews.length;
+  const averageRate = Math.round(totalRate / reviews.length);
 
   let counts = {
     1: 0,
@@ -50,8 +49,6 @@ const ReviewProduct = (props) => {
   }, []);
 
   const handleCreateReview = async () => {
-    setMyRate(0);
-    setMyComment("");
     try {
       const formData = {
         product: productId,
@@ -69,6 +66,8 @@ const ReviewProduct = (props) => {
       );
       toast.success(res.data.message, { autoClose: 1000 });
       handdleGetReviews();
+      setMyRate(5);
+      setMyComment("");
     } catch (error) {
       console.log(error);
     }
@@ -83,13 +82,13 @@ const ReviewProduct = (props) => {
           ) : (
             <React.Fragment>
               <div className="rate__item main">
-                <Rate defaultValue={avgRate} disabled="true" />
+                <Rate value={averageRate} disabled="true" />
               </div>
               <div className="rate__item">
                 <h2>5 Star: {counts[5]}</h2>
                 <Rate
                   allowHalf
-                  defaultValue={5}
+                  defaultValue={myRate}
                   disabled="true"
                 />
               </div>
@@ -133,7 +132,7 @@ const ReviewProduct = (props) => {
             <h1>My Review : </h1>
             <div className="rate__item main">
               <Rate
-                defaultValue={myRate}
+                value={myRate}
                 onChange={(v) => setMyRate(v)}
               />
             </div>
@@ -158,7 +157,11 @@ const ReviewProduct = (props) => {
           <Spin />
         ) : (
           reviews.map((review, index) => (
-            <ReviewItem key={index} review={review} />
+            <ReviewItem
+              key={index}
+              review={review}
+              reset={handdleGetReviews}
+            />
           ))
         )}
       </section>

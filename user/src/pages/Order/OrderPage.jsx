@@ -172,26 +172,37 @@ const OrderPage = () => {
           </div>
         </section>
         <section className="order__wrapper">
-          {orders.map((order, index) => (
-            <OrderItem
-              order={order}
-              key={index}
-              reset={handleGetOrders}
-            />
-          ))}
-          <div className="pagination">
-            <Space direction="vertical">
-              <Pagination
-                current={page}
-                pageSize={limit}
-                onChange={onChangePagination}
-                total={orders.length}
-              />
-            </Space>
-          </div>
+          {loading ? (
+            <Loading />
+          ) : (
+            <React.Fragment>
+              {orders.length > 0 ? (
+                orders.map((order, index) => (
+                  <OrderItem
+                    order={order}
+                    key={index}
+                    reset={handleGetOrders}
+                  />
+                ))
+              ) : (
+                <div className="no__data__found">
+                  No Order Found!
+                </div>
+              )}
+              <div className="pagination">
+                <Space direction="vertical">
+                  <Pagination
+                    current={page}
+                    pageSize={limit}
+                    onChange={onChangePagination}
+                    total={orders.length + limit}
+                  />
+                </Space>
+              </div>
+            </React.Fragment>
+          )}
         </section>
       </div>
-      {loading && <Loading />}
     </React.Fragment>
   );
 };

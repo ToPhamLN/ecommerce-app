@@ -123,7 +123,6 @@ export const updateAuth = async (req, res, next) => {
       ],
       _id: { $ne: user._id },
     });
-    console.log(existedUser, req.body);
     if (existedUser) {
       return res.status(400).json({
         message: "User already existed",

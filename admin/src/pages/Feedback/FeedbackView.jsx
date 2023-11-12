@@ -45,7 +45,6 @@ const FeedbackView = () => {
       };
     });
   };
-  console.log(feedback);
   const handleEdit = async () => {
     try {
       setLoader(true);

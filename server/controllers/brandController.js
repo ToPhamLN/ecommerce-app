@@ -42,7 +42,6 @@ export const createBrand = async (req, res, next) => {
 // @access  private Auth
 export const updateBrand = async (req, res, next) => {
   try {
-    console.log(req.body);
     const brand = await Brand.findById(req.params.brandId);
     if (!brand) {
       return res.status(404).json({

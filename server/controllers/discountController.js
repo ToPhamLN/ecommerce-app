@@ -104,7 +104,6 @@ export const getDiscount = async (req, res, next) => {
     }
     if (req.query.condition)
       query.condition = { $lte: req.query.condition };
-    console.log(query);
     const discount = await Discount.findOne(query);
     if (!discount) {
       return res.status(404).json({

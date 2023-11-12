@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const Deletion = (props) => {
   const { data, setData, api, reset, path } = props;
-  console.log(data);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
@@ -23,6 +22,7 @@ const Deletion = (props) => {
         navigate(path);
       }
       reset();
+      setData(!data);
     } catch (error) {
       console.log(error);
       if (error.response) {

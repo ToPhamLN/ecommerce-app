@@ -176,3 +176,18 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.no__data__found {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    padding: 5rem;
+    font-weight: bold;
+    background-color: #fff;
+    user-select: none;
+    color: #555;
+    border-radius: 3rem;
+    border: 0.1rem solid #eee;
+}

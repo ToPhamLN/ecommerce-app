@@ -35,7 +35,6 @@ export const createCategory = async (req, res, next) => {
 // @access  private Auth
 export const updateCategory = async (req, res, next) => {
   try {
-    console.log(req.body);
     const category = await Category.findById(
       req.params.categoryId
     );

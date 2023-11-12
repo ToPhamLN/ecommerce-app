@@ -61,11 +61,12 @@ const ProfilePage = () => {
           },
         }
       );
-      toast.success(res.data.message, { autoClose: 1000 });
       handleGetProfile();
-      setLoadingSpin(false);
+      toast.success(res.data.message, { autoClose: 1000 });
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoadingSpin(false);
     }
   };
 
@@ -95,6 +96,7 @@ const ProfilePage = () => {
           "Content-Type": "application/json",
         },
       });
+      handleGetProfile();
       toast.success(res.data.message, { autoClose: 1000 });
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -120,7 +122,6 @@ const ProfilePage = () => {
                     src={user.avatar ? user.avatar.path : ""}
                     alt=""
                   />
-                  {loadingSpin && <Spin />}
                 </div>
                 <div className="btn__profile__avatar">
                   <input
@@ -130,7 +131,7 @@ const ProfilePage = () => {
                     onChange={(e) => handleChangeAvatar(e)}
                   />
                   <label htmlFor="avatar">
-                    <UploadOutlined />
+                    {loadingSpin ? <Spin /> : <UploadOutlined />}
                   </label>
                 </div>
               </div>

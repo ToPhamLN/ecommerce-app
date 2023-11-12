@@ -131,7 +131,6 @@ const PaymentPage = () => {
           status: "Confirmed",
         },
       });
-      console.log(res.data);
       setOrders(res.data);
     } catch (error) {
       console.error(error);

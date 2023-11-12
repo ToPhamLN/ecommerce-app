@@ -20,7 +20,10 @@ import Message from "./Message";
 
 const Chat = (props) => {
   const [conversations, setConversations] = useState([]);
-  const [getChat, setGetChat] = useState(null);
+  const [getChat, setGetChat] = useState({
+    key: null,
+    name: null,
+  });
   const { setShow } = props;
   const [messages, setMessages] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -30,9 +33,11 @@ const Chat = (props) => {
   const messagesRef = useRef();
 
   useEffect(() => {
-    messagesRef.current.scrollTop =
-      messagesRef.current.scrollHeight;
-  }, [getChat]);
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop =
+        messagesRef.current.scrollHeight;
+    }
+  }, [messages, getChat]);
 
   const handleGetUser = async () => {
     try {
@@ -67,7 +72,7 @@ const Chat = (props) => {
   const handleGetMessages = async () => {
     try {
       const res = await axios.get(
-        `${messageRequest.getByConversation}/${getChat}`
+        `${messageRequest.getByConversation}/${getChat.key}`
       );
       setMessages(res.data);
     } catch (error) {
@@ -83,10 +88,11 @@ const Chat = (props) => {
     setNewMessage("");
     try {
       const form = {
-        conversationId: getChat,
+        conversationId: getChat.key,
         text: newMessage,
       };
       await axios.post(messageRequest.create, form);
+      handleGetMessages();
     } catch (error) {
       console.error(error);
     }
@@ -128,11 +134,11 @@ const Chat = (props) => {
           </div>
         </div>
         <div className="chatbox">
-          {getChat ? (
+          {getChat.key ? (
             <React.Fragment>
               <div className="header__chatbox">
                 <span className="name__chatbox">
-                  Lorem ipsum dolor
+                  {getChat.name}
                 </span>
                 <span className="moreoptions item__header">
                   <LuMoreHorizontal />
@@ -164,9 +170,22 @@ const Chat = (props) => {
               </div>
             </React.Fragment>
           ) : (
-            <div className="no__conversation" ref={messagesRef}>
-              Please select a conversation...
-            </div>
+            <React.Fragment>
+              <div className="header__chatbox">
+                <span className="moreoptions item__header">
+                  <LuMoreHorizontal />
+                </span>
+                <div
+                  className="exit item__header"
+                  onClick={() => setShow((p) => !p)}
+                >
+                  <TiDeleteOutline />
+                </div>
+              </div>
+              <div className="no__conversation">
+                Please select a conversation...
+              </div>
+            </React.Fragment>
           )}
         </div>
       </div>

@@ -18,6 +18,16 @@ const reviewModel = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Product",
     },
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    reply: {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
   },
   { timestamps: true }
 );

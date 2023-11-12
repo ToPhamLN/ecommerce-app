@@ -32,7 +32,6 @@ const GoodsInfo = () => {
         `${cartRequest.getById}/${cartId}`
       );
       setCart(res.data);
-      console.log(res.data);
       setLoading(false);
     } catch (error) {
       if (error.response.status === 401) {

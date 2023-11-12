@@ -3,7 +3,6 @@ import Message from "../models/messageModel.js";
 export const createMessage = async (req, res, next) => {
   try {
     const user = req.user;
-    console.log(req.body);
     const { conversationId, text } = req.body;
     const newMessage = new Message({
       conversation: conversationId,

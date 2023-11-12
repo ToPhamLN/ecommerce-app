@@ -85,15 +85,21 @@ const CartPage = () => {
               <span>money</span>
             </div>
             <div className="list__cart__wrapper">
-              {carts.map((cart, index) => (
-                <CartItem
-                  key={index}
-                  cart={cart}
-                  reset={handleGetCarts}
-                  orders={orders}
-                  handleSelectCart={handleSelectCart}
-                />
-              ))}
+              {carts.length > 0 ? (
+                carts.map((cart, index) => (
+                  <CartItem
+                    key={index}
+                    cart={cart}
+                    reset={handleGetCarts}
+                    orders={orders}
+                    handleSelectCart={handleSelectCart}
+                  />
+                ))
+              ) : (
+                <div className="no__data__found">
+                  {"Let's add product to cart!"}
+                </div>
+              )}
             </div>
           </section>
           <div className="purchase__cart">

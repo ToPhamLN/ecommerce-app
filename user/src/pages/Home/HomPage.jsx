@@ -105,58 +105,72 @@ const HomPage = () => {
           </div>
         </section>
         <section className="product__wrapper">
-          {products && products.length > 0 ? (
-            products.map((product, index) => (
-              <article key={index} className="product__item">
-                <div className="picture">
-                  <img src={product.pictures[0].path} alt="" />
-                </div>
-                <div className="text">
-                  <span className="product__item__name">
-                    {sliceString(product.name, 6)}
-                  </span>
-                  <span className="product__item__updated">
-                    {formatDate(product.updatedAt)}
-                  </span>
-                  <div className="product__item__content">
-                    <Tag color="#208A49">Reply 0%</Tag>
-                    <Tag color="#6610F2">Online is so cheap</Tag>
-                  </div>
-                  <div className="product__item__price__wrapper">
-                    <span className="product__item__oldprice">
-                      {product.oldprice.toLocaleString() +
-                        " vnđ"}
-                    </span>
-                    <span className="product__item__price">
-                      {product.price.toLocaleString() + " vnđ"}
-                    </span>
-                  </div>
-
-                  <Link
-                    className="product__item__btn"
-                    to={`/products/${product._id}`}
-                  >
-                    Read more
-                  </Link>
-                </div>
-              </article>
-            ))
+          {loading ? (
+            <Loading />
           ) : (
-            <div>No products available</div>
+            <React.Fragment>
+              {products && products.length > 0 ? (
+                products.map((product, index) => (
+                  <article key={index} className="product__item">
+                    <div className="picture">
+                      <img
+                        src={product.pictures[0].path}
+                        alt=""
+                      />
+                    </div>
+                    <div className="text">
+                      <span className="product__item__name">
+                        {sliceString(product.name, 6)}
+                      </span>
+                      <span className="product__item__updated">
+                        {formatDate(product.updatedAt)}
+                      </span>
+                      <div className="product__item__content">
+                        <Tag color="#208A49">Reply 0%</Tag>
+                        <Tag color="#6610F2">
+                          Online is so cheap
+                        </Tag>
+                      </div>
+                      <div className="product__item__price__wrapper">
+                        <span className="product__item__oldprice">
+                          {product.oldprice.toLocaleString() +
+                            " vnđ"}
+                        </span>
+                        <span className="product__item__price">
+                          {product.price.toLocaleString() +
+                            " vnđ"}
+                        </span>
+                      </div>
+
+                      <Link
+                        className="product__item__btn"
+                        to={`/products/${product._id}`}
+                      >
+                        Read more
+                      </Link>
+                    </div>
+                  </article>
+                ))
+              ) : (
+                <div className="no__data__found">
+                  No Product Found!
+                </div>
+              )}
+              <div className="pagination">
+                <Space direction="vertical">
+                  <Pagination
+                    current={page}
+                    pageSize={limit}
+                    onChange={onChangePagination}
+                    total={products.length + 12}
+                  />
+                </Space>
+              </div>
+            </React.Fragment>
           )}
-          <div className="pagination">
-            <Space direction="vertical">
-              <Pagination
-                current={page}
-                pageSize={limit}
-                onChange={onChangePagination}
-                total={products.length}
-              />
-            </Space>
-          </div>
         </section>
       </div>
-      {loading && <Loading />}
+
       <FloatButton.BackTop />
     </React.Fragment>
   );

@@ -49,7 +49,7 @@ const ProductPage = () => {
 
   useEffect(() => {
     handleGetProduct();
-  }, []);
+  }, [productId]);
 
   return (
     <React.Fragment>

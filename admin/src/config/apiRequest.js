@@ -67,9 +67,10 @@ export const discountRequest = {
 export const reviewRequest = {
   create: `${urlServer}/reviews/create`,
   getAll: `${urlServer}/reviews/all`,
-  getById: `${urlServer}/reviews/`,
+  getById: `${urlServer}/reviews`,
   update: `${urlServer}/reviews/update`,
   delete: `${urlServer}/reviews/delete`,
+  like: `${urlServer}/reviews/like`,
 };
 
 export const feedbackRequest = {

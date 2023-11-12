@@ -150,7 +150,7 @@ const GoodsPage = () => {
               />
             ))
           ) : (
-            <div> no data.</div>
+            <div className="no__data__found">No Good Found!</div>
           )}
 
           <div className="pagination">
@@ -159,6 +159,7 @@ const GoodsPage = () => {
                 current={page}
                 pageSize={limit}
                 onChange={onChangePagination}
+                total={carts.length + limit}
               />
             </Space>
           </div>

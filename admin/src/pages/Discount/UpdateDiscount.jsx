@@ -36,7 +36,6 @@ const UpdateDiscount = () => {
   }, [discountId]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       setLoading(true);
       const formData = new FormData();

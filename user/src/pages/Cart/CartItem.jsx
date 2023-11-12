@@ -19,12 +19,11 @@ const CartItem = (props) => {
       setLoading(true);
       const formData = {};
       formData.quantity = value;
-      const res = await axios.put(
+      await axios.put(
         `${cartRequest.updateCart}/${cart._id}`,
         formData
       );
       reset();
-      console.log(res.data.message);
     } catch (error) {
       console.log(error);
     } finally {

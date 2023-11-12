@@ -3,10 +3,12 @@ import { FaSearch } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "../config/axios";
 import { productRequest } from "../config/apiRequest";
+import { useNavigate } from "react-router-dom";
 
 const SearchNavbar = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     setSearch(e.target.value);
@@ -57,6 +59,10 @@ const SearchNavbar = () => {
                   <div
                     className="product__search__item"
                     key={index}
+                    onClick={() => {
+                      navigate(`/products/${product._id}`);
+                      setSearch("");
+                    }}
                   >
                     <div className="product__search__picture">
                       <img

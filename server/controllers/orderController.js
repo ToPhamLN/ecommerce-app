@@ -15,7 +15,6 @@ export const createOrder = async (req, res, next) => {
     email,
     paymentMethod,
   } = req.body;
-  console.log("user", req.user);
   try {
     const newCart = new Order({
       order,
@@ -30,7 +29,6 @@ export const createOrder = async (req, res, next) => {
       user: req.user._id,
     });
     const newOrder = await newCart.save();
-    console.log(newOrder);
     res.status(200).json({
       message: "Order created successfully",
       order: newOrder,
@@ -157,7 +155,6 @@ export const getOrder = async (req, res, next) => {
 // @access private Auth
 export const getAllOrder = async (req, res, next) => {
   try {
-    console.log(req.user);
     let query = {};
     let sort = {};
     let page = parseInt(req.query.page);
