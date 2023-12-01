@@ -6,6 +6,7 @@ import {
   BiSolidDashboard,
   BiLogoProductHunt,
   BiSolidDiscount,
+  BiLogoBlogger,
 } from "react-icons/bi";
 import { TbBrandBinance, TbBrandAbstract } from "react-icons/tb";
 import { SiProcesswire } from "react-icons/si";
@@ -88,6 +89,15 @@ const Sidebar = () => {
               className="item__sidebar"
             >
               <BiSolidDiscount />
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={routes.poster}
+              link-name="Poster"
+              className="item__sidebar"
+            >
+              <BiLogoBlogger />
             </NavLink>
           </li>
           <li>

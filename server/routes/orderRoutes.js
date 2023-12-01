@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post("/create", verifyToken, createOrder);
 router.get("/all", verifyToken, getAllOrder);
-router.get(":/orderId", verifyToken, getOrder);
+router.get("/:orderId", verifyToken, getOrder);
 router.put("/update/:orderId", verifyToken, updateOrder);
 router.delete("/delete/:orderId", verifyToken, deleteOrder);
 

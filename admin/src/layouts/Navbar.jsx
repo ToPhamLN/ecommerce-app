@@ -149,12 +149,12 @@ const Navbar = (props) => {
                   <span>Login</span>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/register" className="item__nav link">
                   <BsPersonBoundingBox />
                   <span>Register</span>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </React.Fragment>
         )}

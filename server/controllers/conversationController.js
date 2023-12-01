@@ -4,7 +4,14 @@ export const createConversation = async (req, res, next) => {
   try {
     const { senderId, receiverId } = req.body;
     const existedConversation = await Conversation.findOne({
-      members: [senderId, receiverId],
+      $or: [
+        {
+          members: [senderId, receiverId],
+        },
+        {
+          members: [receiverId, senderId],
+        },
+      ],
     });
     if (!existedConversation) {
       const newConversation = new Conversation({

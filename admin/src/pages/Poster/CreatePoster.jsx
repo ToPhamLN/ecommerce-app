@@ -6,13 +6,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "../../config/axios";
 
-import Loading from "../../components/Loading.jsx";
-import { brandRequest } from "../../config/apiRequest";
-import "./../../assets/css/CreateBrand.css";
+import Loading from "../../components/Loading";
+import { posterRequest } from "../../config/apiRequest";
 
-const CreateBrand = (props) => {
-  const [loading, setLoading] = useState(false);
+const CreatePoster = (props) => {
   const { data, setData } = props;
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,14 +21,14 @@ const CreateBrand = (props) => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-
       const formData = new FormData();
-      formData.append("name", data.name);
+      formData.append("title", data.title);
       formData.append("description", data.description);
       formData.append("picture", data.picture[0]);
+      formData.append("path", data.path);
 
       const res = await axios.post(
-        brandRequest.create,
+        posterRequest.create,
         formData,
         {
           headers: {
@@ -37,16 +36,12 @@ const CreateBrand = (props) => {
           },
         }
       );
-
       console.log(res.data);
+      setData(!data);
       toast.success("Create successfully!", {
         autoClose: 1000,
       });
-      setTimeout(() => {
-        setData(!data);
-      }, 2000);
     } catch (error) {
-      console.error(error);
       toast.error(error.response.data?.message, {
         autoClose: 1000,
       });
@@ -54,18 +49,17 @@ const CreateBrand = (props) => {
       setLoading(false);
     }
   };
-
   return (
     <React.Fragment>
       <section className="container__create__brand">
         <form
           action=""
           className="form__create__brand"
-          onSubmit={handleSubmit(onSubmit)}
           encType="multipart/form-data"
+          onSubmit={handleSubmit(onSubmit)}
         >
           <span className="title__create__brand">
-            Create new brand
+            Create new poster
           </span>
           <span
             className="exit__create__brand"
@@ -74,15 +68,15 @@ const CreateBrand = (props) => {
             <MdOutlineCancelPresentation />
           </span>
           <div className="input__box">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="title">Title:</label>
             <input
               type="text"
-              id="name"
-              name="name"
-              {...register("name", { required: true })}
+              id="title"
+              name="title"
+              {...register("title", { required: true })}
             />
-            {errors.name && (
-              <p className="error-message">Name is required</p>
+            {errors.title && (
+              <p className="error-message">Title is required</p>
             )}
           </div>
           <div className="input__box">
@@ -101,7 +95,6 @@ const CreateBrand = (props) => {
               </p>
             )}
           </div>
-
           <div className="input__box">
             <label htmlFor="description">Description:</label>
             <textarea
@@ -115,12 +108,11 @@ const CreateBrand = (props) => {
               </p>
             )}
           </div>
-          <button
-            className="submit__create__product"
-            type="submit"
-          >
-            Submit
-          </button>
+          <div className="input__box">
+            <label htmlFor="path">Path:</label>
+            <input id="path" name="path" {...register("path")} />
+          </div>
+          <button type="submit">Submit</button>
         </form>
       </section>
       {loading && <Loading />}
@@ -128,9 +120,9 @@ const CreateBrand = (props) => {
   );
 };
 
-CreateBrand.propTypes = {
+CreatePoster.propTypes = {
   data: PropTypes.bool.isRequired,
   setData: PropTypes.func.isRequired,
 };
 
-export default CreateBrand;
+export default CreatePoster;

@@ -227,7 +227,7 @@ const ProcessPage = () => {
   }, [showDelete, status, gtePrice, ltePrice, sort]);
 
   const handleView = (cartId) => {
-    navigate(`/goods/${cartId}`);
+    navigate(`/good/${cartId}`);
   };
   const handleDelete = async (cartId) => {
     setSelectedCart(cartId);

@@ -10,6 +10,7 @@ export const createMessage = async (req, res, next) => {
       sender: user._id,
     });
     const message = await newMessage.save();
+    return res.status(200).json(message);
   } catch (error) {
     next(error);
   }

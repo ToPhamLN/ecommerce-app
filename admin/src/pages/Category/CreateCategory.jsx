@@ -117,7 +117,12 @@ const CreateCategory = (props) => {
               </p>
             )}
           </div>
-          <button type="submit">Submit</button>
+          <button
+            className="submit__create__product"
+            type="submit"
+          >
+            Submit
+          </button>
         </form>
       </section>
       {loading && <Loading />}

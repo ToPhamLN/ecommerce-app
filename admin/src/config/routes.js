@@ -20,6 +20,8 @@ import UserPage from "../pages/User/UserPage";
 import FeedbackPage from "../pages/Feedback/FeedbackPage";
 import FeedbackView from "../pages/Feedback/FeedbackView";
 import OrderView from "../pages/Order/OrderView";
+import PosterPage from "../pages/Poster/PosterPage";
+import UpdatePoster from "../pages/Poster/UpdatePoster";
 
 export const routes = {
   login: "/login",
@@ -34,7 +36,7 @@ export const routes = {
   product: "/product",
   createProduct: "/product/create",
   productId: "/product/:productId",
-  productItem: "/products/:productId",
+  productItem: "/product/:productId",
   productUpdate: "/product/:productId/update",
   category: "/category",
   categoryId: "/category/:categoryId",
@@ -45,6 +47,8 @@ export const routes = {
   user: "/user",
   feedback: "/feedback",
   feedbackId: "/feedback/:feedbackId",
+  poster: "/poster",
+  posterId: "/poster/:posterId",
 };
 
 export const publicRoutes = [
@@ -73,4 +77,6 @@ export const privateRoutes = [
   { path: routes.user, component: UserPage },
   { path: routes.feedback, component: FeedbackPage },
   { path: routes.feedbackId, component: FeedbackView },
+  { path: routes.poster, component: PosterPage },
+  { path: routes.posterId, component: UpdatePoster },
 ];

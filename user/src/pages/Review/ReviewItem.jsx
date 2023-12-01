@@ -167,30 +167,34 @@ const ReviewItem = (props) => {
                     <BsFillReplyFill className="icon" />
                     <span className="text">Reply</span>
                   </div>
-                  <div
-                    className="bottom__comment__item"
-                    onClick={() => setEdit(true)}
-                  >
-                    <AiTwotoneEdit
-                      color="#E7EA39"
-                      className="icon"
-                    />
-                    <span className="text" color="#E7EA39">
-                      Edit
-                    </span>
-                  </div>
-                  <div
-                    className="bottom__comment__item"
-                    onClick={() => setShowDelete(true)}
-                  >
-                    <AiFillDelete
-                      color="#EA4A39"
-                      className="icon"
-                    />
-                    <span className="text" color="#EA4A39">
-                      Delete
-                    </span>
-                  </div>
+                  {review.user._id === userInfo._id && (
+                    <React.Fragment>
+                      <div
+                        className="bottom__comment__item"
+                        onClick={() => setEdit(true)}
+                      >
+                        <AiTwotoneEdit
+                          color="#E7EA39"
+                          className="icon"
+                        />
+                        <span className="text" color="#E7EA39">
+                          Edit
+                        </span>
+                      </div>
+                      <div
+                        className="bottom__comment__item"
+                        onClick={() => setShowDelete(true)}
+                      >
+                        <AiFillDelete
+                          color="#EA4A39"
+                          className="icon"
+                        />
+                        <span className="text" color="#EA4A39">
+                          Delete
+                        </span>
+                      </div>
+                    </React.Fragment>
+                  )}
                 </div>
               </div>
             </div>

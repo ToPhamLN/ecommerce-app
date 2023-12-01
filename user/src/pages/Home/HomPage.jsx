@@ -9,6 +9,7 @@ import Loading from "../../components/Loading";
 import axios from "axios";
 import { productRequest } from "../../config/apiRequest";
 import { sliceString, formatDate } from "../../utils/format";
+// import Slide from "./Slide";
 
 const HomPage = () => {
   const [products, setProducts] = useState([]);
@@ -56,6 +57,7 @@ const HomPage = () => {
     <React.Fragment>
       <NavCategory data={category} setData={setCategory} />
       <div className="container__home">
+        {/* <Slide /> */}
         <section className="filters">
           <div className="filters__title">Filters:</div>
           <div className="filters__sort">

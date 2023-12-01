@@ -16,7 +16,7 @@ aside.sidebar ul {
 aside.sidebar ul .item__sidebar {
     position: relative;
     padding: 1rem;
-    font-size: 4rem;
+    font-size: 3.9rem;
     color: var(--text-bar-color);
     transition: color 0.5s, transform 0.5s;
     cursor: pointer;

@@ -115,6 +115,21 @@ const OrderItem = (props) => {
                     <div className="order__info__cart__propeties">
                       <Tag>{item.product.category.name}</Tag>
                       <Tag>{item.product.brand.name}</Tag>
+                      {Object.keys(item.properties).map(
+                        (property, index) => (
+                          <Tag
+                            key={index}
+                            style={{
+                              textTransform: "capitalize",
+                            }}
+                            color="#5A8DDC"
+                          >
+                            {property +
+                              ": " +
+                              item.properties[property]}
+                          </Tag>
+                        )
+                      )}
                     </div>
                     <div className="order__info__catulate__cart">
                       <div className="order__info__cart__quantity">

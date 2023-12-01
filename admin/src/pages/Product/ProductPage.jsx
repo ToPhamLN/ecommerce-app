@@ -146,7 +146,7 @@ const ProductPage = () => {
     navigate(routes.createProduct);
   };
   const handleView = (productId) => {
-    navigate(`/products/${productId}`);
+    navigate(`/product/${productId}`);
   };
   const handleUpdate = (productId) => {
     navigate(`${routes.product}/${productId}/update`);

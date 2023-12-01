@@ -33,7 +33,7 @@ export const productRequest = {
 export const orderRequest = {
   create: `${urlServer}/orders/create`,
   getAllSell: `${urlServer}/orders/all`,
-  getById: `${urlServer}/orders/`,
+  getById: `${urlServer}/orders`,
   update: `${urlServer}/orders/update`,
   delete: `${urlServer}/orders/delete`,
   currency: `${urlServer}/orders/currency`,
@@ -97,4 +97,12 @@ export const conversationRequest = {
 export const messageRequest = {
   create: `${urlServer}/messages/create`,
   getByConversation: `${urlServer}/messages`,
+};
+
+export const posterRequest = {
+  create: `${urlServer}/posters/create`,
+  update: `${urlServer}/posters/update`,
+  getAll: `${urlServer}/posters/all`,
+  getById: `${urlServer}/posters`,
+  delete: `${urlServer}/posters/delete`,
 };

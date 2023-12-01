@@ -18,13 +18,13 @@ const Deletion = (props) => {
       toast.warning(res.data.message, {
         autoClose: 1000,
       });
+      setData(!data);
       if (path) {
         navigate(path);
       }
       reset();
-      setData(!data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error.response) {
         toast.error(error.response.data?.message, {
           autoClose: 1000,
@@ -48,7 +48,14 @@ const Deletion = (props) => {
           <span className="content__deletion">
             Are you sure delete it ?
           </span>
-          <button onClick={() => handleDelete()}>Oke</button>
+          <button
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => handleDelete()}
+          >
+            Oke
+          </button>
         </div>
       </div>
       {loading && <Loading />}

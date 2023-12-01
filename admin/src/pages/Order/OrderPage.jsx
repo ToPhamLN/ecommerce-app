@@ -183,7 +183,10 @@ const OrderPage = () => {
                 <span>Canceled</span>
               </button>
             )}
-            <span className="action__table view">
+            <span
+              className="action__table view"
+              onClick={() => handleView(order._id)}
+            >
               <TbEyeSearch />
             </span>
             <span
@@ -225,6 +228,10 @@ const OrderPage = () => {
   const handleDelete = async (orderId) => {
     setSelectedOrder(orderId);
     setShowDelete(!showDelete);
+  };
+
+  const handleView = (orderId) => {
+    navigate(`/order/${orderId}`);
   };
 
   const handleUpdate = async (orderId, status, userId) => {

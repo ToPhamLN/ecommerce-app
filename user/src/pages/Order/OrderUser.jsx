@@ -18,6 +18,7 @@ const OrderUser = (props) => {
   const { userInfo } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [showCard, setShowCard] = useState(false);
   const [form, setForm] = useState({
     username: userInfo.username,
     email: userInfo.email,
@@ -97,7 +98,7 @@ const OrderUser = (props) => {
     }, 2000);
     setLoading(false);
   };
-
+  console.log(showCard);
   return (
     <React.Fragment>
       <section className="orderinfo__action">
@@ -153,7 +154,7 @@ const OrderUser = (props) => {
                 />
                 By cash
               </label>
-              <label>
+              <label onClick={() => setShowCard(true)}>
                 <input
                   type="radio"
                   name="paymentMethod"

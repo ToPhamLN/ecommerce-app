@@ -10,10 +10,10 @@ axios.interceptors.request.use(
       config.headers.token = `Bearer ${token}`;
     }
     return config;
-  },
-  (error) => {
-    return Promise.reject(error);
   }
+  // (error) => {
+  //   return Promise.reject(error);
+  // }
 );
 
 export default axios;

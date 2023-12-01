@@ -145,6 +145,7 @@ export const getOrder = async (req, res, next) => {
       .populate({
         path: "discount",
       });
+    res.status(200).json(order);
   } catch (error) {
     next(error);
   }

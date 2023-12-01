@@ -38,7 +38,7 @@ const LoginPage = () => {
       toast.success("Login successfully!", {
         autoClose: 1000,
       });
-      setTimeout(() => navigate(routes.home), 2000);
+      // setTimeout(() => navigate(routes.home), 2000);
     } catch (error) {
       toast.error(error.response.data.message, {
         autoClose: 1000,

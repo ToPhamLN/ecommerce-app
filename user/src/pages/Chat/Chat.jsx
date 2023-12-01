@@ -92,10 +92,10 @@ const Chat = (props) => {
         text: newMessage,
       };
       await axios.post(messageRequest.create, form);
-      handleGetMessages();
     } catch (error) {
       console.error(error);
     }
+    handleGetMessages();
   };
 
   return (

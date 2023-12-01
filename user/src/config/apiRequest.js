@@ -58,6 +58,7 @@ export const reviewRequest = {
   getById: `${urlServer}/reviews`,
   update: `${urlServer}/reviews/update`,
   delete: `${urlServer}/reviews/delete`,
+  like: `${urlServer}/reviews/like`,
 };
 
 export const feedbackRequest = {
@@ -84,4 +85,11 @@ export const conversationRequest = {
 export const messageRequest = {
   create: `${urlServer}/messages/create`,
   getByConversation: `${urlServer}/messages`,
+};
+export const posterRequest = {
+  create: `${urlServer}/posters/create`,
+  update: `${urlServer}/posters/update`,
+  getAll: `${urlServer}/posters/all`,
+  getById: `${urlServer}/posters`,
+  delete: `${urlServer}/posters/delete`,
 };

@@ -85,15 +85,15 @@ aside.navcategory {
     color: var(--text-bar-color);
 }
 
-.control.prev {
+.navcategory .control.prev {
     left: 5rem;
 }
 
-.control.next {
+.navcategory .control.next {
     right: 5rem;
 }
 
-.control {
+.navcategory .control {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
