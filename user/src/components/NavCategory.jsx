@@ -13,7 +13,7 @@ const NavCategory = (props) => {
   const { setData, data } = props;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [slideImg, setSlideImg] = useState([0, 7]);
+  const [slideImg, setSlideImg] = useState([0, 6]);
   const handleGetAllCategories = async () => {
     try {
       setLoading(true);

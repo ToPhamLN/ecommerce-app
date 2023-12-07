@@ -107,17 +107,24 @@ export const deleteCart = async (req, res, next) => {
   try {
     const user = req.user;
     const cart = req.cart;
+
     if (
       !user.isAdmin &&
-      !(cart.status == "Processing" || cart.status == "Canceled")
+      !(
+        cart.status === "Not_Processed" ||
+        cart.status === "Processing" ||
+        cart.status === "Canceled"
+      )
     ) {
       return res.status(400).json({
         message: "You are not authorized to delete this cart",
       });
     }
+
     const result = await Cart.findByIdAndDelete({
       _id: req.params.cartId,
     });
+
     res.status(200).json({
       message: "Deleted successfully",
     });

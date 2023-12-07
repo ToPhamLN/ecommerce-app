@@ -120,6 +120,7 @@
     color: white;
     background-color: #275efe;
     opacity: 0.9;
+    cursor: pointer;
 
     &:hover {
         opacity: 1;
@@ -135,6 +136,7 @@
     color: #275efe;
     background-color: #ffffff;
     border: 0.3rem solid #275efe;
+    cursor: pointer;
 }
 
 .share {
