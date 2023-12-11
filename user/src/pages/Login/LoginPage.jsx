@@ -6,7 +6,11 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setCredentials } from "../../slices/userSlice.js";
@@ -15,7 +19,7 @@ import "../../assets/css/Register.css";
 import posterImg from "../../assets/imgs/poster.jpg";
 import Loading from "../../components/Loading.jsx";
 import { userRequest } from "../../config/apiRequest";
-import { routes } from "../../config/routes.js";
+import { routes } from "../../config/routes";
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -27,6 +31,7 @@ const LoginPage = () => {
   } = useForm();
 
   const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -38,7 +43,9 @@ const LoginPage = () => {
       toast.success("Login successfully!", {
         autoClose: 1000,
       });
-      // setTimeout(() => navigate(routes.home), 2000);
+      if (location.pathname == "/login") {
+        setTimeout(() => navigate(routes.home), 2000);
+      }
     } catch (error) {
       toast.error(error.response.data.message, {
         autoClose: 1000,

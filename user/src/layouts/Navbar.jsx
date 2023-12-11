@@ -40,14 +40,14 @@ const Navbar = (props) => {
   };
   useEffect(() => {
     handleGetNotification();
-  }, []);
+  }, [user]);
 
   return (
     <React.Fragment>
       <header className="navbar">
         <div className="logo__nav">
           <Link className="logo__nav__item" to="/">
-            E-commerce
+            Morri
           </Link>
           <SearchNavbar />
         </div>

@@ -14,7 +14,7 @@ const Footer = () => {
       <footer className="footerpage">
         <ul className="right">
           <li>
-            <span className="item__right">@2023 Ecommmerce</span>
+            <span className="item__right">@2023 Morri</span>
           </li>
           <li>
             <Link className="item__right"> Terms</Link>
