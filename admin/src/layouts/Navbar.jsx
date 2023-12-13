@@ -40,13 +40,13 @@ const Navbar = (props) => {
 
   useEffect(() => {
     handleGetNotification();
-  }, []);
+  }, [user]);
 
   return (
     <React.Fragment>
       <header className="navbar">
         <Link className="logo__nav" to="/">
-          E-commerce
+          Morri
         </Link>
         <div className="pathname">
           {location.pathname.split("/")[1]}

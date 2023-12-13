@@ -128,7 +128,12 @@ const UpdateDiscount = () => {
                 {...register("condition", { required: true })}
               />
             </div>
-            <button type="submit">Submit</button>
+            <button
+              type="submit"
+              className="submit__create__product"
+            >
+              Submit
+            </button>
           </form>
         </section>
       )}

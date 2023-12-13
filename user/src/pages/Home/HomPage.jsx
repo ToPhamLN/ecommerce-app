@@ -8,8 +8,8 @@ import SelectBrand from "../../components/SelectBrand";
 import Loading from "../../components/Loading";
 import axios from "axios";
 import { productRequest } from "../../config/apiRequest";
-import { sliceString, formatDate } from "../../utils/format";
-// import Slide from "./Slide";
+import { formatDate } from "../../utils/format";
+import Slide from "./Slide";
 
 const HomPage = () => {
   const [products, setProducts] = useState([]);
@@ -57,7 +57,7 @@ const HomPage = () => {
     <React.Fragment>
       <NavCategory data={category} setData={setCategory} />
       <div className="container__home">
-        {/* <Slide /> */}
+        <Slide />
         <section className="filters">
           <div className="filters__title">Filters:</div>
           <div className="filters__sort">
@@ -75,10 +75,10 @@ const HomPage = () => {
               >
                 <option value={null}></option>
                 <option value="0">0</option>
-                <option value="2000000">2.000.000</option>
-                <option value="5000000">5.000.000</option>
-                <option value="10000000">10.000.000</option>
-                <option value="20000000">20.000.000</option>
+                <option value="100000">100.000</option>
+                <option value="200000">200.000</option>
+                <option value="300000">300.000</option>
+                <option value="400000">400.000</option>
               </select>
               <span>to</span>
               <select
@@ -86,11 +86,11 @@ const HomPage = () => {
                 onChange={(e) => setLtePrice(e.target.value)}
               >
                 <option value={null}></option>
-                <option value="5000000">5.000.000</option>
-                <option value="10000000">10.000.000</option>
-                <option value="20000000">20.000.000</option>
-                <option value="30000000">30.000.000</option>
-                <option value="50000000">50.000.000</option>
+                <option value="200000">200.000</option>
+                <option value="400000">400.000</option>
+                <option value="800000">800.000</option>
+                <option value="1000000">1.000.000</option>
+                <option value="20000000">2.000.000</option>
               </select>
             </div>
             <div
@@ -122,7 +122,7 @@ const HomPage = () => {
                     </div>
                     <div className="text">
                       <span className="product__item__name">
-                        {sliceString(product.name, 6)}
+                        {product.name}
                       </span>
                       <span className="product__item__updated">
                         {formatDate(product.updatedAt)}

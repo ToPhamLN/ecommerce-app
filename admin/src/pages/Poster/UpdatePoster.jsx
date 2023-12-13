@@ -117,7 +117,12 @@ const UpdatePoster = () => {
               defaultValue=""
             />
           </div>
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="submit__create__product"
+          >
+            Submit
+          </button>
         </form>
       </section>
       {loading && <Loading />}
